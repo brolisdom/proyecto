@@ -1,0 +1,25 @@
+
+/*
+
+  INSTRUCTIONS ---------------------------------------------------------------------------------
+  
+  1. Add this stylesheet to the <head> of your pages
+     <link href="YOUR PATH/gdr.css" rel="stylesheet" type="text/css" />
+     
+  2. Use the file name as data-dd-theme attribute on your datedropper elements
+     <input data-dd-theme="gdr" />
+     
+*/
+
+
+div.datedropper.gdr {
+  --dd-color1: var(--c_bold);
+  --dd-color2: var(--c_dark);
+  --dd-color3: var(--c_light);
+  --dd-color4: var(--c_light);
+
+  --dd-radius: 0;
+  --dd-width: 20vw;
+  --dd-shadow: 0 0 0px 0px rgba(0, 0, 0, 0);
+}
+

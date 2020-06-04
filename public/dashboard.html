@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="theme-color" content="#2E155E" />
+    <!-- TITTLE - FAVICON -->
+    <title>Dashboard</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/dasboard.css">
+    <link rel="stylesheet" href="icon-font/style.css">
+    <link rel="stylesheet" href="css/date.css">
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <script src="js/tabs_dash.js"></script>
+    <script src="js/datedropper.pro.min.js"></script>
+    <script src="js/form.js"></script>
+    <script>
+        acceso()
+        async function acceso(){
+            const res = await fetch('http://localhost:3000/api/users/')  
+            const JSON = await res.json()
+            if(JSON.status === 401) window.location.replace('/index.html')
+        }
+    </script>
+</head>
+
+<body>
+    <!-- MENU -->
+    <header>
+        <nav>
+            <ul class="tabs" id="tabs">
+                <li class="tabs_item"><a href="#tabUser"><span>usuario_</span><i class="icon icon-profile-"></i></a></li>
+                <li class="tabs_item"><a href="#tabTeam"><span>registro_</span><i class="icon icon-reddit-"></i></a></li>
+                <li class="tabs_item"><a href="#tabNews"><span>noticias_</span><i class="icon icon-question-"></i></a></li>
+                <li class="tabs_item"><a href="#ex-out" rel="modal:open" id="logout"><span>salir_</span><i class="icon icon-arrow_right_in-"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="seccions">
+            <!-- TAB USER -->
+            <article class="panel_item" id="tabUser">
+                <div class="container">
+                    <h1 class="title">Perfil</h1>
+                    <hr>
+                    <div class="user">
+                        <p class="name">John Doe</p>
+                        <p class="position">c a p i t &aacute; n &nbsp; d e &nbsp; e q u i p o</p>
+                    </div>
+                    <!-- FORM DATA -->
+                    <form>
+                        <!-- input TEXT -->
+                        <p>
+                            <input type="text" id="nombre" autocomplete="off" required>
+                            <label for="nombre" class="label">
+                                <span class="content">nombre_</span>
+                            </label>
+                        </p>
+
+                        <p>
+                            <input type="tel" id="telefono" autocomplete="off" required>
+                            <label for="telefono" class="label">
+                                <span class="content">tel&eacute;fono_</span>
+                            </label>
+                        </p>
+
+                        <!-- DATA PICKER -->
+                        <p>
+                            <input id="date-user" type="text">
+                            <label for="date-user">
+                                <span class="content">fecha de nacimiento_</span>
+                            </label>
+                        </p>
+
+                        <!-- SELECT -->
+                        <p>
+                            <select id="pais">
+                                <option value="" disabled selected>Selecciona una opci&oacute;n</option>
+                                <option value="value1">México</option>
+                                <option value="value2">Perú</option>
+                                <option value="value3">Colombia</option>
+                                <option value="value4">Argentina</option>
+                                <option value="value5">Chile</option>
+                                <option value="value6">Japón</option>
+                            </select>
+                            <label for="pais" class="label_select">pa&iacute;s_</label>
+                        </p>
+
+                        <p>
+                            <select id="escolaridad">
+                                <option value="" disabled selected>Selecciona una opci&oacute;n</option>
+                                <option value="value1">Primaria (Elementary)</option>
+                                <option value="value2">Secundaria (Middle School)</option>
+                                <option value="value3">Preparatoria (High School)</option>
+                                <option value="value4">Universidad (University)</option>
+                            </select>
+                            <label for="escolaridad" class="label_select">escolaridad_</label>
+                        </p>
+
+                        <p>
+                            <select id="institucion">
+                                <option value="" disabled selected>Selecciona una opci&oacute;n</option>
+                                <option value="value1">Instituto Politécnico Nacional</option>
+                                <option value="value2">Universidad Nacional Autónoma de México</option>
+                                <option value="value3">Universidad Autónoma Metropolitana</option>
+                            </select>
+                            <label for="institution" class="label_select">instituci&oacute;n_</label>
+                        </p>
+
+                        <!-- RADIO BUTTONS -->
+                        <p class="block">
+                            <input type="radio" name="sex" id="man">
+                            <label for="man" class="label_radio">H o m b r e</label>
+
+                            <input type="radio" name="sex" id="woman">
+                            <label for="woman" class="label_radio">M u j e r</label>
+                        </p>
+
+                        <p class="block">
+                            <input type="submit" id="save" value="G u a r d a r _">
+                        </p>
+
+                    </form>
+
+                </div>
+            </article>
+            <!-- TAB TEAMS -->
+            <article class="panel_item" id="tabTeam">
+                <div class="container">
+                    <div>
+                        <form action="">
+                            <!-- INPUT TEXT -->
+                            <p>
+                                <input type="text" name="nombre" autocomplete="off" required value="">
+                                <label for="nombre" class="label">
+                                    <span class="content">nombre del equipo_</span>
+                                </label>
+                            </p>
+                        </form>
+                    </div>
+
+                    <div class="contain-flex">
+                        <div class="block">
+                            <h1 class="title">Robots</h1>
+                            <hr>
+                            <br><br>
+                            <ul class="collapsible" id="robots-container">
+                                <li>
+                                    <div class="collapsible-header"><i class="icon icon-plus-"></i>Registrar robot</div>
+                                    <div class="collapsible-body">
+                                        <form>
+                                            <p>
+                                                <input type="text" id="nombre-robot" autocomplete="off" required value="">
+                                                <label for="nombre" class="label">
+                                                    <span class="content">nombre del robot_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <select id="categoria">
+                                                    <optgroup label="Guerra de Robots">
+                                                        <option value="1">Option 1</option>
+                                                        <option value="2">Option 2</option>
+                                                    </optgroup>
+                                                    <optgroup label="Minirob&oacute;tica">
+                                                        <option value="3">Option 3</option>
+                                                        <option value="4">Option 4</option>
+                                                    </optgroup>
+                                                </select>
+                                                <label class="label_select">categor&iacute;a_</label>
+                                            </p>
+                                            <p><input type="submit" id="save-robot" value="C r e a r _"></p>
+                                        </form>
+                                    </div>
+                                </li>
+                                <!-- renderRobots() -->
+                            </ul>
+                        </div>
+
+                        <div class="block">
+                            <h1 class="title">Integrantes</h1>
+                            <hr>
+                            <br><br>
+                            <ul class="collapsible" id="members-container">
+                                <li>
+                                    <div class="collapsible-header"><i class="icon icon-plus-"></i>Agregar integrante</div>
+                                    <div class="collapsible-body">
+                                        <form action="">
+                                            <p>
+                                                <input type="text" id="nombre-member" autocomplete="off" required value="">
+                                                <label for="nombre" class="label">
+                                                    <span class="content">nombre_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type="tel" id="telefono-member" autocomplete="off" required>
+                                                <label for="telefono" class="label">
+                                                    <span class="content">tel&eacute;fono_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input id="date-input" type="text">
+                                                <label for="date-input">
+                                                    <span class="content">fecha de nacimiento_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <select id="pais-member">
+                                                    <option value="" disabled selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="value1">México</option>
+                                                    <option value="value2">Perú</option>
+                                                    <option value="value3">Colombia</option>
+                                                    <option value="value4">Argentina</option>
+                                                    <option value="value5">Chile</option>
+                                                    <option value="value6">Japón</option>
+                                                </select>
+                                                <label for="pais" class="label_select">pa&iacute;s_</label>
+                                            </p>
+                                            <p>
+                                                <select id="escolaridad-member">
+                                                    <option value="" disabled selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="value1">Primaria (Elementary)</option>
+                                                    <option value="value2">Secundaria (Middle School)</option>
+                                                    <option value="value3">Preparatoria (High School)</option>
+                                                    <option value="value4">Universidad (University)</option>
+                                                </select>
+                                                <label for="escolaridad" class="label_select">escolaridad_</label>
+                                            </p>
+                                            <p>
+                                                <select id="institucion-member">
+                                                    <option value="" disabled selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="value1">Instituto Politécnico Nacional</option>
+                                                    <option value="value2">Universidad Nacional Autónoma de México</option>
+                                                    <option value="value3">Universidad Autónoma Metropolitana</option>
+                                                </select>
+                                                <label for="institution" class="label_select">instituci&oacute;n_</label>
+                                            </p>
+                                            <p>
+                                                <input type="radio" name="sex" id="man_register">
+                                                <label for="man_register" class="label_radio">H o m b r e</label>
+
+                                                <input type="radio" name="sex" id="woman_register">
+                                                <label for="woman_register" class="label_radio">M u j e r</label>
+                                            </p>
+                                            <p>
+                                                <input type="submit" value="G u a r d a r _" id="save-member">
+                                            </p>
+                                        </form>
+                                    </div>
+                                </li>
+                                <!-- renderMembers() -->
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </article>
+            <!-- TAB ROBOTS//// -->
+            <article class="panel_item" id="tabNews">
+
+            </article>
+            <!-- Modal WINNERS -->
+            <div id="ex-out" class="modal">
+                <p class="title">Ganador</p>
+                <p class="text" style="text-align: center;">
+                    Universidad Aut&oacute;noma de Yucat&aacute;n
+                </p>
+            </div>
+        </div>
+    </main>
+    <!-- JS -->
+    <script src="dashboard.js"></script>
+    <script src="js/select.js"></script>
+    <script type="text/javascript">
+        $('#date-input').dateDropper({
+            defaultDate: '1/1/1990',
+            format: 'd - F - Y',
+            lang: 'es',
+            theme: 'gdr',
+            modal: true,
+            maxYear: 2020,
+            minYear: 1990
+        });
+        $('#date-user').dateDropper({
+            defaultDate: '1/1/1990',
+            format: 'd - F - Y',
+            lang: 'es',
+            theme: 'gdr',
+            modal: true,
+            maxYear: 2020,
+            minYear: 1990
+        });
+
+    </script>
+</body>
+
+</html>
