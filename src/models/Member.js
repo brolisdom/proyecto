@@ -8,9 +8,6 @@ const MemberSchema = new Schema({
     _name: {
         type: String,
     },
-    _status: {
-        type: String,
-    },
     _tel: {
         type: String,
     },
@@ -24,6 +21,9 @@ const MemberSchema = new Schema({
         type: String,
     },
     _degree: {
+        type: String,
+    },
+    _status: {
         type: String,
     }
 })

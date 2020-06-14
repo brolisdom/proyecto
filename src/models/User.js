@@ -29,6 +29,9 @@ const UserSchema = new Schema({
     },
     _team: {
         type: String,
+    },
+    _status: {
+        type: String,
     }
 })
 

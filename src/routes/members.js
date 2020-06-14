@@ -1,15 +1,9 @@
 const { Router } = require('express')
+const { isAuth } = require('../auth')
+
 const router = Router()
 
 const Member = require('../models/Member')
-
-function isAuth(req,res,next){
-    if(req.isAuthenticated()){
-        next();
-    } else{
-        res.json({ status: 401 });
-    }
-}
 
 router.get('/data', isAuth, async(req, res) =>{
     const members = await Member.find({ _leader: req.user._id})
@@ -42,5 +36,14 @@ router.post('/create', isAuth, async(req, res) =>{
     await newMember.save()
     res.json({ status: 200 })
 })
+
+router.delete('/delete/:id', isAuth, async(req, res) => {
+    await Member.findOneAndUpdate({ _id: req.params._id })
+    res.json({ status: 200 })
+})
+
+// update/:id
+// register/:id
+// searchBy.../:params
 
 module.exports = router

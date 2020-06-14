@@ -16,11 +16,14 @@ const RobotSchema = new Schema({
     _price: {
         type: Number,
     },
+    _members: {
+        type: Array,
+    },
     _status: {
         type: String,
     },
-    _members: {
-        type: Array,
+    _team: {
+        type: String
     }
 })
 

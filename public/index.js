@@ -4,16 +4,13 @@ document.getElementById('register').onclick = async(e) =>{
     e.preventDefault()
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
-    
     const data = new FormData()
     data.append('email', email)
     data.append('password', password)
-
     const res = await fetch(url+'/users/signup', {
         method: 'POST',
         body: data
     })
-
     const JSON = await res.json()
     if(JSON.status === 200){
         alert('Registro exitoso, confirme su correo porfavor')
@@ -22,23 +19,19 @@ document.getElementById('register').onclick = async(e) =>{
     } else{
         alert('Hubo un problema en el servidor')
     } 
-    
 }
 
 document.getElementById('login').onclick = async(e) =>{
     e.preventDefault()
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
-    
     const data = new FormData()
     data.append('email', email)
     data.append('password', password)
-
     const res = await fetch(url+'/users/signin', {
         method: 'POST',
         body: data
     })
-
     const JSON = await res.json()
     if(JSON.status === 200){
         window.location.replace('/dashboard.html')
@@ -49,5 +42,6 @@ document.getElementById('login').onclick = async(e) =>{
     else{
         console.log('Hubo un problema en el servidor')
     } 
-    
 }
+
+// login con facebook y google
