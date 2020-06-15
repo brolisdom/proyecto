@@ -71,8 +71,8 @@
 
                         <!-- DATA PICKER -->
                         <p>
-                            <input id="date-user" type="text" required>
-                            <label for="date-user">
+                            <input id="fecha" type="text" required>
+                            <label for="fecha">
                                 <span class="content">fecha de nacimiento_</span>
                             </label>
                         </p>
@@ -80,46 +80,56 @@
                         <!-- SELECT -->
                         <p>
                             <select id="pais">
-                                <option value="" disabled selected>Selecciona una opci&oacute;n</option>
-                                <option value="value1">México</option>
-                                <option value="value2">Perú</option>
-                                <option value="value3">Colombia</option>
-                                <option value="value4">Argentina</option>
-                                <option value="value5">Chile</option>
-                                <option value="value6">Japón</option>
+                                <option>Selecciona una opci&oacute;n</option>
+                                <option value="México">México</option>
+                                <option value="Perú">Perú</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Japón">Japón</option>
                             </select>
-                            <label for="pais" class="label_select">pa&iacute;s_</label>
+                            <label for="pais" class="label_select">pa&iacute;s de procedencia_</label>
                         </p>
 
                         <p>
                             <select id="escolaridad">
-                                <option value="" disabled selected>Selecciona una opci&oacute;n</option>
-                                <option value="value1">Primaria (Elementary)</option>
-                                <option value="value2">Secundaria (Middle School)</option>
-                                <option value="value3">Preparatoria (High School)</option>
-                                <option value="value4">Universidad (University)</option>
+                                <option>Selecciona una opci&oacute;n</option>
+                                <option value="Primaria">Primaria (Elementary)</option>
+                                <option value="Secundaria">Secundaria (Middle School)</option>
+                                <option value="Preparatoria">Preparatoria (High School)</option>
+                                <option value="Universidad">Universidad (University)</option>
                             </select>
                             <label for="escolaridad" class="label_select">escolaridad_</label>
                         </p>
 
                         <p>
                             <select id="institucion">
-                                <option value="" disabled selected>Selecciona una opci&oacute;n</option>
-                                <option value="value1">Instituto Politécnico Nacional</option>
-                                <option value="value2">Universidad Nacional Autónoma de México</option>
-                                <option value="value3">Universidad Autónoma Metropolitana</option>
+                                <option>Selecciona una opci&oacute;n</option>
+                                <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
+                                <option value="Universidad Nacional Autónoma de México">Universidad Nacional Autónoma de México</option>
+                                <option value="Universidad Autónoma Metropolitana">Universidad Autónoma Metropolitana</option>
                             </select>
-                            <label for="institution" class="label_select">instituci&oacute;n_</label>
+                            <label for="institucion" class="label_select">instituci&oacute;n_</label>
                         </p>
+
+                        <!-- <p  style="float: right;">
+                            <select id="escuela">
+                                <option>Selecciona una opci&oacute;n</option>
+                                <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
+                                <option value="Universidad Nacional Autónoma de México">Universidad Nacional Autónoma de México</option>
+                                <option value="Universidad Autónoma Metropolitana">Universidad Autónoma Metropolitana</option>
+                            </select>
+                            <label for="escuela" class="label_select">escuela_</label>
+                        </p> -->
 
                         <!-- RADIO BUTTONS -->
                         <p class="block">
-                            <input type="radio" name="gender" id="man" value="Hombre">
+                            <input type="radio" name="genero" id="man" value="Hombre">
                             <label for="man" class="label_radio">H o m b r e</label>
-                            <input type="radio" name="gender" id="woman" value="Mujer">
+                            <input type="radio" name="genero" id="woman" value="Mujer">
                             <label for="woman" class="label_radio">M u j e r</label>
-                            <input type="radio" name="gender" id="other" value="Otro">
-                            <label for="other" class="label_radio">H o m b r e</label>
+                            <input type="radio" name="genero" id="other" value="Otro">
+                            <label for="other" class="label_radio">Otro</label>
                         </p>
 
                         <p class="block">
@@ -202,48 +212,48 @@
                                                 </label>
                                             </p> -->
                                             <p>
-                                                <input id="date-input" type="text" required>
-                                                <label for="date-input">
+                                                <input id="fecha-member" type="text" required>
+                                                <label for="fecha-member">
                                                     <span class="content">fecha de nacimiento_</span>
                                                 </label>
                                             </p>
                                             <p>
                                                 <select id="pais-member">
-                                                    <option value="" disabled selected>Selecciona una opci&oacute;n</option>
-                                                    <option value="value1">México</option>
-                                                    <option value="value2">Perú</option>
-                                                    <option value="value3">Colombia</option>
-                                                    <option value="value4">Argentina</option>
-                                                    <option value="value5">Chile</option>
-                                                    <option value="value6">Japón</option>
+                                                    <option value="Sin definir">Selecciona una opci&oacute;n</option>
+                                                    <option value="México">México</option>
+                                                    <option value="Perú">Perú</option>
+                                                    <option value="Colombia">Colombia</option>
+                                                    <option value="Argentina">Argentina</option>
+                                                    <option value="Chile">Chile</option>
+                                                    <option value="Japón">Japón</option>
                                                 </select>
                                                 <label for="pais" class="label_select">pa&iacute;s_</label>
                                             </p>
                                             <p>
                                                 <select id="escolaridad-member">
-                                                    <option value="" disabled selected>Selecciona una opci&oacute;n</option>
-                                                    <option value="value1">Primaria (Elementary)</option>
-                                                    <option value="value2">Secundaria (Middle School)</option>
-                                                    <option value="value3">Preparatoria (High School)</option>
-                                                    <option value="value4">Universidad (University)</option>
+                                                    <option value="Sin definir" disabled selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="Primaria (Elementary)">Primaria (Elementary)</option>
+                                                    <option value="Secundaria (Middle School)">Secundaria (Middle School)</option>
+                                                    <option value="Preparatoria (High School)">Preparatoria (High School)</option>
+                                                    <option value="Universidad (University)">Universidad (University)</option>
                                                 </select>
                                                 <label for="escolaridad" class="label_select">escolaridad_</label>
                                             </p>
                                             <p>
                                                 <select id="institucion-member">
-                                                    <option value="" disabled selected>Selecciona una opci&oacute;n</option>
-                                                    <option value="value1">Instituto Politécnico Nacional</option>
-                                                    <option value="value2">Universidad Nacional Autónoma de México</option>
-                                                    <option value="value3">Universidad Autónoma Metropolitana</option>
+                                                    <option value="Sin definir">Selecciona una opci&oacute;n</option>
+                                                    <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
+                                                    <option value="Universidad Nacional Autónoma de México">Universidad Nacional Autónoma de México</option>
+                                                    <option value="Universidad Autónoma Metropolitana">Universidad Autónoma Metropolitana</option>
                                                 </select>
                                                 <label for="institution" class="label_select">instituci&oacute;n_</label>
                                             </p>
                                             <p>
-                                                <input type="radio" name="gender-member" id="man-member" value="Hombre">
+                                                <input type="radio" name="genero-member" id="man-member" value="Hombre">
                                                 <label for="man-member" class="label_radio">H</label>
-                                                <input type="radio" name="gender-member" id="woman-member" value="Mujer">
+                                                <input type="radio" name="genero-member" id="woman-member" value="Mujer">
                                                 <label for="woman-member" class="label_radio">M</label>
-                                                <input type="radio" name="gender-member" id="other-member" Value="Otro">
+                                                <input type="radio" name="genero-member" id="other-member" Value="Otro">
                                                 <label for="other-member" class="label_radio">O</label>
                                             </p>
                                             <p>
@@ -278,7 +288,7 @@
     <script src="dashboard.js"></script>
     <script src="js/select.js"></script>
     <script type="text/javascript">
-        $('#date-input').dateDropper({
+        $('#fecha-member').dateDropper({
             defaultDate: '1/1/1990',
             format: 'd - F - Y',
             lang: 'es',
@@ -287,7 +297,7 @@
             maxYear: 2020,
             minYear: 1990
         });
-        $('#date-user').dateDropper({
+        $('#fecha').dateDropper({
             defaultDate: '1/1/1990',
             format: 'd - F - Y',
             lang: 'es',

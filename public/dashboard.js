@@ -11,16 +11,14 @@ document.getElementById('save').onclick = async(e) =>{
 	const res = document.getElementById('form-user').checkValidity()
 	if(res){
 		e.preventDefault()
-		const genders = document.getElementsByName('gender')
 		var gender
-		genders.forEach(i => {
-			if(i.checked) gender = i.value
-		})
+		const genders = document.getElementsByName('genero')
+		genders.forEach(i => { if(i.checked) gender = i.value })
 		const data = new FormData()
 		data.append('gender', gender)
 		data.append('name', document.getElementById('nombre').value)
 		data.append('tel', document.getElementById('telefono').value)
-		data.append('date', document.getElementById('date-user').value)
+		data.append('date', document.getElementById('fecha').value)
 		data.append('country', document.getElementById('pais').value)
 		data.append('scholar', document.getElementById('escolaridad').value)
 		data.append('institution', document.getElementById('institucion').value)
@@ -46,8 +44,7 @@ async function User(){
     const res = await fetch(url+'/users/data')    
     const JSON = await res.json()
     if(JSON.status === 404){
-        const ERR = false
-        return ERR 
+        return false 
     } else{
         return JSON
     } 
@@ -58,10 +55,11 @@ async function renderUser(){
 	if(usuario){
 		document.getElementById('nombre').value = usuario._name
 		document.getElementById('telefono').value = usuario._tel
-		document.getElementById('date-user').value = usuario._date
+		document.getElementById('fecha').value = usuario._date
 		document.getElementById('pais').value = usuario._country
 		document.getElementById('escolaridad').value = usuario._scholar
 		document.getElementById('institucion').value = usuario._institution
+		// document.getElementById(usuario._gender).checked = true
 	}
 }
 
@@ -70,15 +68,13 @@ document.getElementById('save-member').onclick = async(e) =>{
 	const res = document.getElementById('form-member').checkValidity()
 	if(res){
 		e.preventDefault()
-		const genders = document.getElementsByName('gender-member')
 		var gender
-		genders.forEach(i => {
-			if(i.checked) gender = i.value
-		})
+		const genders = document.getElementsByName('genero-member')
+		genders.forEach(i => { if(i.checked) gender = i.value })
 		const data = new FormData()
 		data.append('gender', gender)
 		data.append('name', document.getElementById('nombre-member').value)
-		data.append('date', document.getElementById('date-input').value)
+		data.append('date', document.getElementById('fecha-member').value)
 		data.append('country', document.getElementById('pais-member').value)
 		data.append('scholar', document.getElementById('escolaridad-member').value)
 		data.append('institution', document.getElementById('institucion-member').value)
@@ -100,8 +96,7 @@ async function Members(){
     const res = await fetch(url+'/members/data')    
     const JSON = await res.json()
     if(JSON.status === 404){
-        const ERR = false
-        return ERR 
+        return false 
     } else{
         return JSON
     }
@@ -147,6 +142,12 @@ async function renderMembers(){
 						<input type="text" autocomplete="off" value="${miembro._institution}" disabled>
 						<label class="label">
 							<span class="content">instituci&oacute;n_</span>
+						</label>
+					</p>
+					<p>
+						<input type="text" autocomplete="off" value="${miembro._gender}" disabled>
+						<label class="label">
+							<span class="content">genero_</span>
 						</label>
 					</p>
 					</form>
@@ -198,8 +199,7 @@ async function Robots(){
     const res = await fetch(url+'/robots/data')    
     const JSON = await res.json()
     if(JSON.status === 404){
-		const ERR = false
-        return ERR 
+        return false 
     } else{
         return JSON 
     }

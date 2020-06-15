@@ -30,12 +30,24 @@ router.get('/data', isAuth, async(req, res) => {
 // })
 
 router.post('/signup', async(req, res) => {
+    const undefined = 'Sin definir'
     const { email, password } = req.body
     const userEmail = await User.findOne({ _email: email })
     if(userEmail){
         res.json({ status: 400 })
     } else{
-        const newUSer = new User({ _email: email, _password: password, _status: 'Sin registrar'})
+        const newUSer = new User({ 
+            _email: email, 
+            _password: password, 
+            _status: 'Sin registrar',
+            _name: undefined,
+            _tel: undefined,
+            _date: undefined,
+            _gender: undefined,
+            _country: undefined,
+            _scholar: undefined,
+            _institution: undefined
+        })
         const salt = await bcrypt.genSalt(11)
         newUSer._password = await bcrypt.hash(password, salt)
         await newUSer.save()
