@@ -7,7 +7,13 @@ const router = Router()
 
 const User = require('../models/User')
 
-router.get('/', isAuth) 
+router.get('/', async(req, res) => {
+    if(req.isAuthenticated()){
+        res.json({ status: 200 })
+    } else{
+        res.json({ status: 401 })
+    }
+}) 
 
 router.get('/data', isAuth, async(req, res) => {
     const user = await User.findOne({ _id: req.user._id})
@@ -51,14 +57,15 @@ router.get('/success', (req, res) => {
 })
 
 router.put('/update', isAuth, async(req, res) => {
-    const { name, tel, date, country, scholar, degree } = req.body
+    const { name, tel, date, gender, country, scholar, institution } = req.body
     const user = await User.findOneAndUpdate({ _id: req.user._id }, {
         _name: name,
         _tel: tel,
         _date: date,
+        _gender: gender,
         _country: country,
         _scholar: scholar,
-        _degree: degree
+        _institution: institution
     })
     if(user){
         res.json({ status: 200 })
@@ -68,8 +75,9 @@ router.put('/update', isAuth, async(req, res) => {
 })
 
 // funciona pero no en el navegador
-router.get('/logout', isAuth, (req, res) => {
+router.get('/logout', (req, res) => {
     req.logout()
+    res.json({ status: 200 })
 })
 
 // delete/:id

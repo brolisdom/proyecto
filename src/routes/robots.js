@@ -20,26 +20,32 @@ router.get('/data', isAuth, async(req, res) => {
 // })
 
 router.post('/create', isAuth, async(req, res) => {
-    const leader = req.user._id
-    const status = 'Sin registrar'
-    const members = []
     const { name, category } = req.body
-    const price = 100
+    const price = 100 // hacer validacion
     const newRobot = new Robot({ 
-        _leader: leader,
+        _leader: req.user._id,
         _name: name,
         _category: category,
         _price: price,
-        _status: status,
-        _members: members
+        _status: 'Sin registrar',
+        _members: []
     })
     await newRobot.save()
     res.json({ status: 200 })
 })
 
 router.delete('/delete/:id', isAuth, async(req, res) => {
-    await Robot.findOneAndUpdate({ _id: req.params._id })
-    res.json({ status: 200 })
+    const robot = await Robot.findOne({ _id: req.params.id})
+    if(robot){ 
+        if(robot._leader == req.user._id){
+            await Robot.findByIdAndDelete(req.params.id)
+            res.json({ status: 200 })
+        } else{
+            res.json({ status: 401 })
+        }
+    } else{
+        res.json({ status: 404 })
+    }
 })
 
 // update/:id

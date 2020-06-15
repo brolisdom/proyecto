@@ -1,6 +1,12 @@
+<script>
+    async function acceso(){
+        const res = await fetch('http://localhost:3000/api/users/')  
+        const JSON = await res.json()
+        if(JSON.status === 401) window.location.replace('/index.html')
+    } acceso()
+</script>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <!-- META TAGS -->
     <meta charset="UTF-8">
@@ -20,14 +26,6 @@
     <script src="js/tabs_dash.js"></script>
     <script src="js/datedropper.pro.min.js"></script>
     <script src="js/form.js"></script>
-    <script>
-        acceso()
-        async function acceso(){
-            const res = await fetch('http://localhost:3000/api/users/')  
-            const JSON = await res.json()
-            if(JSON.status === 401) window.location.replace('/index.html')
-        }
-    </script>
 </head>
 
 <body>
@@ -38,7 +36,7 @@
                 <li class="tabs_item"><a href="#tabUser"><span>usuario_</span><i class="icon icon-profile-"></i></a></li>
                 <li class="tabs_item"><a href="#tabTeam"><span>registro_</span><i class="icon icon-reddit-"></i></a></li>
                 <li class="tabs_item"><a href="#tabNews"><span>noticias_</span><i class="icon icon-question-"></i></a></li>
-                <li class="tabs_item"><a href="#ex-out" rel="modal:open" id="logout"><span>salir_</span><i class="icon icon-arrow_right_in-"></i></a></li>
+                <li class="tabs_item"><a href="#" rel="modal:open" id="logout"><span>salir_</span><i class="icon icon-arrow_right_in-"></i></a></li>
             </ul>
         </nav>
     </header>
@@ -55,7 +53,7 @@
                         <p class="position">c a p i t &aacute; n &nbsp; d e &nbsp; e q u i p o</p>
                     </div>
                     <!-- FORM DATA -->
-                    <form>
+                    <form id="form-user">
                         <!-- input TEXT -->
                         <p>
                             <input type="text" id="nombre" autocomplete="off" required>
@@ -73,7 +71,7 @@
 
                         <!-- DATA PICKER -->
                         <p>
-                            <input id="date-user" type="text">
+                            <input id="date-user" type="text" required>
                             <label for="date-user">
                                 <span class="content">fecha de nacimiento_</span>
                             </label>
@@ -116,11 +114,12 @@
 
                         <!-- RADIO BUTTONS -->
                         <p class="block">
-                            <input type="radio" name="sex" id="man">
+                            <input type="radio" name="gender" id="man" value="Hombre">
                             <label for="man" class="label_radio">H o m b r e</label>
-
-                            <input type="radio" name="sex" id="woman">
+                            <input type="radio" name="gender" id="woman" value="Mujer">
                             <label for="woman" class="label_radio">M u j e r</label>
+                            <input type="radio" name="gender" id="other" value="Otro">
+                            <label for="other" class="label_radio">H o m b r e</label>
                         </p>
 
                         <p class="block">
@@ -155,22 +154,20 @@
                                 <li>
                                     <div class="collapsible-header"><i class="icon icon-plus-"></i>Registrar robot</div>
                                     <div class="collapsible-body">
-                                        <form>
+                                        <form id="form-robot">
                                             <p>
-                                                <input type="text" id="nombre-robot" autocomplete="off" required value="">
+                                                <input type="text" id="nombre-robot" autocomplete="off" required>
                                                 <label for="nombre" class="label">
                                                     <span class="content">nombre del robot_</span>
                                                 </label>
                                             </p>
                                             <p>
-                                                <select id="categoria">
-                                                    <optgroup label="Guerra de Robots">
-                                                        <option value="1">Option 1</option>
-                                                        <option value="2">Option 2</option>
+                                                <select id="categoria" required>
+                                                    <optgroup label="Minirobots">
+                                                        <option value="Equipo de 3 personas">Equipo de 3 personas</option>
                                                     </optgroup>
-                                                    <optgroup label="Minirob&oacute;tica">
-                                                        <option value="3">Option 3</option>
-                                                        <option value="4">Option 4</option>
+                                                    <optgroup label="Ultrarobots">
+                                                        <option value="Equipo de 6 personas">Equipo de 6 personas</option>
                                                     </optgroup>
                                                 </select>
                                                 <label class="label_select">categor&iacute;a_</label>
@@ -191,21 +188,21 @@
                                 <li>
                                     <div class="collapsible-header"><i class="icon icon-plus-"></i>Agregar integrante</div>
                                     <div class="collapsible-body">
-                                        <form action="">
+                                        <form id="form-member">
                                             <p>
                                                 <input type="text" id="nombre-member" autocomplete="off" required value="">
                                                 <label for="nombre" class="label">
                                                     <span class="content">nombre_</span>
                                                 </label>
                                             </p>
-                                            <p>
+                                            <!-- <p>
                                                 <input type="tel" id="telefono-member" autocomplete="off" required>
                                                 <label for="telefono" class="label">
                                                     <span class="content">tel&eacute;fono_</span>
                                                 </label>
-                                            </p>
+                                            </p> -->
                                             <p>
-                                                <input id="date-input" type="text">
+                                                <input id="date-input" type="text" required>
                                                 <label for="date-input">
                                                     <span class="content">fecha de nacimiento_</span>
                                                 </label>
@@ -242,11 +239,12 @@
                                                 <label for="institution" class="label_select">instituci&oacute;n_</label>
                                             </p>
                                             <p>
-                                                <input type="radio" name="sex" id="man_register">
-                                                <label for="man_register" class="label_radio">H o m b r e</label>
-
-                                                <input type="radio" name="sex" id="woman_register">
-                                                <label for="woman_register" class="label_radio">M u j e r</label>
+                                                <input type="radio" name="gender-member" id="man-member" value="Hombre">
+                                                <label for="man-member" class="label_radio">H</label>
+                                                <input type="radio" name="gender-member" id="woman-member" value="Mujer">
+                                                <label for="woman-member" class="label_radio">M</label>
+                                                <input type="radio" name="gender-member" id="other-member" Value="Otro">
+                                                <label for="other-member" class="label_radio">O</label>
                                             </p>
                                             <p>
                                                 <input type="submit" value="G u a r d a r _" id="save-member">
@@ -298,7 +296,6 @@
             maxYear: 2020,
             minYear: 1990
         });
-
     </script>
 </body>
 

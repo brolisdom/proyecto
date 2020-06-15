@@ -2,9 +2,9 @@ const auth = {}
 
 auth.isAuth = (req,res,next) => {
     if(req.isAuthenticated()){
-        next();
+        next()
     } else{
-        res.json({ status: 401 });
+        res.json({ status: 401 })
     }
 }
 

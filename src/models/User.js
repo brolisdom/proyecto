@@ -18,13 +18,16 @@ const UserSchema = new Schema({
     _date: {
         type: String,
     },
+    _gender: {
+        type: String,
+    },
     _country: {
         type: String,
     },
     _scholar: {
         type: String,
     },
-    _degree: {
+    _institution: {
         type: String,
     },
     _team: {

@@ -1,3 +1,10 @@
+<script>
+    async function acceso(){
+        const res = await fetch('http://localhost:3000/api/users/')  
+        const JSON = await res.json()
+        if(JSON.status === 200) window.location.replace('/dashboard.html')
+    } acceso()
+</script>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1151,11 +1158,11 @@
                         <form id="form">
                             <div class="input-box email">
                                 <label for="email" class="label">correo electr&oacute;nico</label>
-                                <input type="email" class="input" id="email" autocomplete="off" placeholder="micorreo@guerraderobots.com">
+                                <input type="email" class="input" id="email" autocomplete="off" placeholder="micorreo@guerraderobots.com" required>
                             </div>
                             <div class="input-box password">
                                 <label for="password" class="label">contrase&ntilde;a</label>
-                                <input type="password" class="input" id="password" autocomplete="off" placeholder="&times;&times;&times;&times;&times;&times;&times;&times;&times;&times;">
+                                <input type="password" class="input" id="password" autocomplete="off" placeholder="&times;&times;&times;&times;&times;&times;&times;&times;&times;&times;" required>
                             </div>
                             <div class="button-box">
                                 <button type="submit" class="login" id="login">entrar</button>

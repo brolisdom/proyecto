@@ -50,14 +50,14 @@ app.use('/api/users', require('./routes/users'))
 app.use('/api/robots', require('./routes/robots'))
 app.use('/api/members', require('./routes/members'))
 // app.use('/api/members', require('./routes/news'))
-// app.use('/api/members', require('./routes/admin'))
+// app.use('/api/members', require('./routes/schools'))
 
 // static files
 app.use(express.static(path.join(__dirname, '../public')))
 
 // start server
 app.listen(app.get('port'), () =>{
-    console.log('Servidor activo en port: ', app.get('port'));
+    console.log('Servidor activo en port: ', app.get('port'))
 })
 
 

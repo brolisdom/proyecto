@@ -8,10 +8,10 @@ const MemberSchema = new Schema({
     _name: {
         type: String,
     },
-    _tel: {
+    _date: {
         type: String,
     },
-    _date: {
+    _gender: {
         type: String,
     },
     _country: {
@@ -20,12 +20,15 @@ const MemberSchema = new Schema({
     _scholar: {
         type: String,
     },
-    _degree: {
+    _institution: {
         type: String,
     },
     _status: {
         type: String,
-    }
+    },
+    _robots: {
+      type: Array  
+    },
 })
 
 module.exports = model('Member', MemberSchema)

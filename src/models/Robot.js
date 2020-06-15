@@ -16,15 +16,12 @@ const RobotSchema = new Schema({
     _price: {
         type: Number,
     },
-    _members: {
-        type: Array,
-    },
     _status: {
         type: String,
     },
-    _team: {
-        type: String
-    }
+    _members: {
+        type: Array,
+    },
 })
 
 module.exports = model('Robot', RobotSchema)
