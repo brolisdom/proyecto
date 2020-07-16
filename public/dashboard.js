@@ -151,7 +151,12 @@ async function renderMembers(){
 						</label>
 					</p>
 					</form>
-				<input type="submit" onclick="deleteMember('${miembro._id}')" value="Eliminar">
+					<!-- Esta es la estructura para poner 2 o más botones juntos - el CSS ya esta listo -->
+					<!-- Solo agrega la función correspondiente, asi podras agregar los botones donde lo necesites -->
+					<p class="btn-block">
+						<input type="submit" onclick="deleteMember('${miembro._id}')" value="E L I M I N A R _">
+						<input type="submit" onclick="deleteMember('${miembro._id}')" value="E D I T A R _">
+					</p>
 			</div>
 			`
 			membersContainer.appendChild(li)

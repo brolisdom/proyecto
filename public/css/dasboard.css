@@ -432,7 +432,13 @@ body {
     main #tabTeam input[type=radio]:checked + .label_radio:before {
         display: none;
     }
-    
+    main #tabTeam p.btn-block {
+        display: flex;
+        justify-content: space-around;
+    }
+    main #tabTeam p.btn-block input[type=submit] {
+        margin: 0;
+    }
     /* NEWS */
     main #tab3 {
         width: 100%;
