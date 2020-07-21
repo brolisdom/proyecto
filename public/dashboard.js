@@ -1,9 +1,9 @@
 const url = 'http://localhost:3000/api'
 
 document.addEventListener('DOMContentLoaded', () =>{
-    renderUser()
-    renderRobots()
     renderMembers()
+	renderRobots()
+    renderUser()
 })
 
 // **Funciones de usuario** //
@@ -67,8 +67,6 @@ async function renderUser(){
 		document.getElementById('telefono').value = usuario._tel
 		document.getElementById('fecha').value = usuario._date
 		document.getElementById('pais').value = usuario._country
-		// document.getElementById('pais').selectedIndex = '-1';
-		// document.getElementById('pais-mexico').selected = "true";
 		document.getElementById('escolaridad').value = usuario._scholar
 		document.getElementById('institucion').value = usuario._institution
 		document.getElementById('escuela').value = usuario._school
@@ -77,13 +75,13 @@ async function renderUser(){
 
 // **Funciones de miembros** //
 document.getElementById('save-member').onclick = async(e) =>{
-	const res = document.getElementById('form-member').checkValidity()
-	if(res){
+	const aux = document.getElementById('form-member').checkValidity()
+		
+	if(aux){
 		e.preventDefault()
 		var gender, country, scholar, institution, school
 		const genders = document.getElementsByName('genero-member')
 		genders.forEach(i => { if(i.checked) gender = i.value })
-		const data = new FormData()
 		if(!gender) gender = 'Sin definir'
 		if(!document.getElementById('pais-member').value) country = 'Sin definir'
 		else country = document.getElementById('pais-member').value
@@ -93,6 +91,7 @@ document.getElementById('save-member').onclick = async(e) =>{
 		else institution = document.getElementById('institucion-member').value
 		if(!document.getElementById('escuela-member').value) school = 'Sin definir'
 		else school = document.getElementById('escuela-member').value
+		const data = new FormData()
 		data.append('name', document.getElementById('nombre-member').value)
 		data.append('tel', document.getElementById('tel-member').value)
 		data.append('date', document.getElementById('fecha-member').value)
@@ -101,24 +100,44 @@ document.getElementById('save-member').onclick = async(e) =>{
 		data.append('institution', institution)
 		data.append('school', school)
 		data.append('gender', gender)
-		const res = await fetch(url+'/members/create', {
-			method: 'POST',
-			body: data
-		})
-		const JSON = await res.json()
-		if(JSON.status === 200){
-			alert('Nuevo integrante agregado con exito')
-			document.getElementById('add-member').click()
-			renderMembers()
-			cancelMember()
+		if(document.getElementById('save-member').value === "G u a r d a r _"){
+			const res = await fetch(url+'/members/create', {
+				method: 'POST',
+				body: data
+			})
+			const JSON = await res.json()
+			if(JSON.status === 200){
+				alert('Nuevo integrante agregado con exito')
+				document.getElementById('add-member').click()
+				renderMembers()
+				cancelMember()
+			} else{
+				alert('No se pudo agregar tu integrante')
+			}
 		} else{
-			alert('No se pudo agregar tu integrante')
+			const id = document.getElementById('id-member').value
+			const res = await fetch(url+'/members/update/'+id, {
+				method: 'PUT',
+				body: data
+			})
+			const JSON = await res.json()
+			if(JSON.status === 200){
+				alert('Datos actualizados agregado con exito')
+				document.getElementById('add-member').click()
+				renderMembers()
+				cancelMember()
+			} else{
+				console.log(JSON.status);
+				
+				alert('No se pudo actualizar la informacion')
+			}
 		}
 	}
 }
 
 document.getElementById('cancel-member').onclick = async(e) =>{
 	document.getElementById('add-member').click()
+	e.preventDefault()
 	cancelMember()
 }
 
@@ -139,6 +158,9 @@ async function cancelMember(){
 	document.getElementById('pais-member').value = ""
 	document.getElementById('escolaridad-member').value = ""
 	document.getElementById('institucion-member').value = ""
+	document.getElementById('escuela-member').value = ""
+	document.getElementById('id-member').value = ""
+	document.getElementById('save-member').value = 'G u a r d a r _'
 }
 
 async function renderMembers(){
@@ -227,11 +249,11 @@ async function updateMember(id){
 		document.getElementById('tel-member').value = JSON._tel
 		document.getElementById('fecha-member').value = JSON._date
 		document.getElementById('pais-member').value = JSON._country
-		document.getElementById('pais-member-default').value = JSON._country
 		document.getElementById('escolaridad-member').value = JSON._scholar
-		document.getElementById('escolaridad-member-default').value = JSON._scholar
 		document.getElementById('institucion-member').value = JSON._institution
-		document.getElementById('institucion-member-default').value = JSON._institution
+		document.getElementById('escuela-member').value = JSON._school
+		document.getElementById('id-member').value = JSON._id
+		document.getElementById('save-member').value = 'A c t u a l i z a r _'
 	}
 }
 

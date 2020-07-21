@@ -51,6 +51,30 @@ router.post('/create', isAuth, async(req, res) =>{
     res.json({ status: 200 })
 })
 
+router.put('/update/:id', isAuth, async(req, res) => {
+    const { name, tel, date, gender, country, scholar, institution, school } = req.body
+    const member = await Member.findOne({ _id: req.params.id })
+    if(member){
+        if(member._leader == req.user._id){
+            await Member.findOneAndUpdate({ _id: req.params.id }, {
+                _name: name,
+                _tel: tel,
+                _date: date,
+                _gender: gender,
+                _country: country,
+                _scholar: scholar,
+                _institution: institution,
+                _school: school
+            })
+            res.json({ status: 200 })
+        } else{
+            res.json({ status: 401 })
+        }
+    } else{
+        res.json({ status: 404 })
+    }
+})
+
 router.delete('/delete/:id', isAuth, async(req, res) => {
     const member = await Member.findOne({ _id: req.params.id})
     if(member){ 
@@ -65,7 +89,6 @@ router.delete('/delete/:id', isAuth, async(req, res) => {
     }
 })
 
-// update/:id
 // register/:id
 // searchBy.../:params
 
