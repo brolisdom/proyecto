@@ -44,7 +44,7 @@ router.post('/create', isAuth, async(req, res) =>{
         _scholar: scholar,
         _institution: institution,
         _school: school,
-        _status: 'Sin registrar',
+        _status: 'Espectador',
         _robots: []
     })
     await newMember.save()

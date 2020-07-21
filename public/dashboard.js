@@ -3,7 +3,7 @@ const url = 'http://localhost:3000/api'
 document.addEventListener('DOMContentLoaded', () =>{
     renderMembers()
 	renderRobots()
-    renderUser()
+	renderUser()
 })
 
 // **Funciones de usuario** //
@@ -225,10 +225,10 @@ async function renderMembers(){
 					</p>
 					</form>
 
-					<p class="btn-block">
-						<input type="submit" onclick="deleteMember('${miembro._id}')" value="E L I M I N A R _">
-						<input type="submit" onclick="updateMember('${miembro._id}')" value="E D I T A R _">
-					</p>
+				<p class="btn-block">
+					<input type="submit" onclick="deleteMember('${miembro._id}')" value="E L I M I N A R _">
+					<input type="submit" onclick="updateMember('${miembro._id}')" value="E D I T A R _">
+				</p>
 			</div>
 			`
 			membersContainer.appendChild(li)
@@ -278,7 +278,7 @@ document.getElementById('save-robot').onclick = async(e) =>{
 	if(res){
 		e.preventDefault()
 		const data = new FormData()
-		data.append('name', document.getElementById('nombre-robot').value)
+		data.append('name', document.getElementById('nombre-robot').value.toLowerCase())
 		data.append('category', document.getElementById('categoria').value)
 		const res = await fetch(url+'/robots/create', {
 			method: 'POST',
@@ -287,7 +287,11 @@ document.getElementById('save-robot').onclick = async(e) =>{
 		const JSON = await res.json()
 		if(JSON.status === 200){
 			alert('Nuevo robot creado con exito')
+			document.getElementById('add-robot').click()
 			renderRobots()
+			// cancelRobot()
+		} else if(JSON.status === 400){
+			alert('El nombre del robot ya esta en uso')
 		} else{
 			alert('No se pudo crear un nuevo robot')
 		} 
@@ -304,13 +308,43 @@ async function Robots(){
     }
 }
 
+// document.getElementById('select1').click = async(e) =>{ 
+// 	const selector = document.getElementById('select1')
+// 	const miembros = await Members()
+// 	miembros.forEach(miembro => {
+// 		const opcion = document.createElement("option")
+// 		opcion.text = miembro._name
+// 		opcion.value = miembro._id
+// 		selector.add(opcion);
+// 	})
+// }
+
+async function cancelRobot(){
+	document.getElementById('nombre-robot').value = ""
+	document.getElementById('categoria').value = ""
+	document.getElementById('member1').value = ""
+	document.getElementById('member2').value = ""
+	document.getElementById('member3').value = ""
+	document.getElementById('member4').value = ""
+	document.getElementById('member5').value = ""
+	document.getElementById('member6').value = ""
+}
+
 async function renderRobots(){
     document.querySelectorAll('.robot-li').forEach(function(a){ a.remove() })
     const robots = await Robots()
 	const robotsContainer = document.getElementById('robots-container')
 	if(robots){
+		var boton1, boton2
 		robots.forEach(robot => {
 			const li = document.createElement('li')
+			if(robot._status == 'Sin registrar'){
+				boton1 = `<input type="submit" onclick="deleteRobot('${robot._id}')" value="E l i m i n a r _">`
+				boton2 = `<input type="submit" onclick="registRobot('${robot._id}')" value="R e g i s t r a r _">`
+			} else{
+				boton1 = `<input type="submit" value="Aplicar un decuento _">`
+				boton2 = `<input type="submit" value="Hacer pago en linea _">`
+			}
 			li.className = 'robot-li'
 			li.innerHTML = `
 			<div class="collapsible-header"><i class="icon icon-pac-man-"></i>${robot._name}</div>
@@ -329,18 +363,45 @@ async function renderRobots(){
 						</label>
 					</p> 
 					<p>
-						<input type="text" name="precio" autocomplete="off" value="${robot._price}" disabled>
+						<input type="text" name="precio" autocomplete="off" value="${robot._price} MXN" disabled>
 						<label for="precio" class="label">
 							<span class="content">costo de inscripci&oacute;n_</span>
 						</label>
 					</p>
+					<p>
+					<input type="text" name="members" autocomplete="off" value="" disabled>
+						<label class="label" for="members">
+							<span class="content">integrantes_</span>
+						</label>
+					</p>
 					</form>
-				<input type="submit" onclick="deleteRobot('${robot._id}')" value="Eliminar">
+
+				<p class="btn-block">
+					${boton1}
+					${boton2}
+				</p>
 			</div>
 			`
 			robotsContainer.appendChild(li)
 		})
 	}
+}
+
+async function registRobot(id){
+	var opc = confirm('Una vez registrado ya no podras modificar tus datos ni los de tu equipo participante. ¿Desea continuar?')
+	if(opc == true){
+		const res = await fetch(url+'/robots/regist/'+id, {
+			headers: { 'Content-Type': 'application/json' },
+			method: 'PUT'
+		})	
+		const JSON = await res.json()
+		if(JSON.status == 200){
+			alert('Tu robot ha sido pre-registrado, ahora puedes aplicar descuentos y pagar en linea, o si lo prefieres presencialmente el dia del torneo')
+			renderRobots()
+		} else{
+			alert('El robot no pudo ser pre-registrado')
+		}
+	} 
 }
 
 async function deleteRobot(id){

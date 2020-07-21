@@ -38,7 +38,7 @@ router.post('/signup', async(req, res) => {
         const newUSer = new User({ 
             _email: email, 
             _password: password, 
-            _status: 'Sin registrar',
+            _status: 'Espectador',
             _name: '',
             _tel: '',
             _date: '',

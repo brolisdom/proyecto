@@ -173,7 +173,7 @@
                             <br><br>
                             <ul class="collapsible" id="robots-container">
                                 <li>
-                                    <div class="collapsible-header"><i class="icon icon-plus-"></i>Registrar robot</div>
+                                    <div class="collapsible-header" id="add-robot"><i class="icon icon-plus-"></i>Registrar robot</div>
                                     <div class="collapsible-body">
                                         <form id="form-robot">
                                             <p>
@@ -182,6 +182,7 @@
                                                     <span class="content">nombre del robot_</span>
                                                 </label>
                                             </p>
+
                                             <p>
                                                 <select id="categoria" required>
                                                     <optgroup label="Guerra de robots">
@@ -195,9 +196,9 @@
                                                     </optgroup>
                                                     <optgroup label="Minirobotica">
                                                         <option value="Sumo R.C.">Sumo R.C.</option>
-                                                        <option value="Sumo autonomo">Sumo autonomo</option>
                                                         <option value="Minisumo">Minisumo</option>
                                                         <option value="Microsumo">Microsumo</option>
+                                                        <option value="Sumo autonomo">Sumo autonomo</option>
                                                         <option value="Seguidor de linea">Seguidor de linea</option>
                                                     </optgroup>
                                                     <optgroup label="Lego junior">
@@ -210,8 +211,50 @@
                                                 </select>
                                                 <label class="label_select">categor&iacute;a_</label>
                                             </p>
+
+                                            <p id="select1">
+                                                <select id="member1">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member1" class="label_select">Integrante 1_ </label>
+                                            </p>
+
+                                            <p id="select2">
+                                                <select id="member2" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member2" class="label_select">Integrante 2_ </label>
+                                            </p>
+
+                                            <p id="select3">
+                                                <select id="member3" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member3" class="label_select">Integrante 3_ </label>
+                                            </p>
+
+                                            <p id="select4">
+                                                <select id="member4" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member4" class="label_select">Integrante 4_ </label>
+                                            </p>
+
+                                            <p id="select5">
+                                                <select id="member5" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member5" class="label_select">Integrante 5_ </label>
+                                            </p>
+
+                                            <p id="select6">
+                                                <select id="member6" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member6" class="label_select">Integrante 6_ </label>
+                                            </p>
+
                                             <p><input type="submit" id="save-robot" value="C r e a r _"></p>
-                                            <p><input type="submit" id="invite-robot" value="I n v i t a r _"></p>
                                         </form>
                                     </div>
                                 </li>
@@ -298,13 +341,12 @@
                                                 <label for="genero-member" class="label_select">genero_ (opcional)</label>
                                                 <input type="hidden" id="id-member" value="">
                                             </p>
-                                            <p>
-                                                <input type="submit" value="G u a r d a r _" id="save-member">
-                                            </p>
-                                            <p>
-                                                <input type="submit" value="C a n c e l a r _" id="cancel-member">
-                                            </p>
+                                            <!-- aqui deberian estar los botones -->
                                         </form>
+                                        <p class="btn-block">
+                                            <input type="submit" value="G u a r d a r _" id="save-member">
+                                            <input type="submit" value="C a n c e l a r _" id="cancel-member">
+                                        </p>
                                     </div>
                                 </li>
                                 <!-- renderMembers() -->
