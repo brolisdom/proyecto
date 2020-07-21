@@ -49,8 +49,8 @@
                     <h1 class="title">Perfil</h1>
                     <hr>
                     <div class="user">
-                        <p class="name">John Doe</p>
-                        <p class="position">c a p i t &aacute; n &nbsp; d e &nbsp; e q u i p o</p>
+                        <p class="name">MI EQUIPO</p>
+                        <p class="position">n o m b r e &nbsp; d e l &nbsp; e q u i p o</p>
                     </div>
                     <!-- FORM DATA -->
                     <form id="form-user">
@@ -63,10 +63,34 @@
                         </p>
 
                         <p>
+                            <select id="pais">
+                                <option value="">Selecciona una opci&oacute;n</option>
+                                <option value="México" id="pais-mexico">México</option>
+                                <option value="Perú">Perú</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Japón">Japón</option>
+                            </select>
+                            <label for="pais" class="label_select">pa&iacute;s de procedencia_ (opcional)</label>
+                        </p>
+
+                        <p>
                             <input type="tel" id="telefono" autocomplete="off" required>
                             <label for="telefono" class="label">
                                 <span class="content">tel&eacute;fono_</span>
                             </label>
+                        </p>
+
+                        <p>
+                            <select id="escolaridad">
+                                <option value="">Selecciona una opci&oacute;n</option>
+                                <option value="Primaria">Primaria (Elementary)</option>
+                                <option value="Secundaria">Secundaria (Middle School)</option>
+                                <option value="Preparatoria">Preparatoria (High School)</option>
+                                <option value="Universidad">Universidad (University)</option>
+                            </select>
+                            <label for="escolaridad" class="label_select">escolaridad_ (opcional)</label>
                         </p>
 
                         <!-- DATA PICKER -->
@@ -77,42 +101,17 @@
                             </label>
                         </p>
 
-                        <!-- SELECT -->
-                        <p>
-                            <select id="pais">
-                                <option>Selecciona una opci&oacute;n</option>
-                                <option value="México">México</option>
-                                <option value="Perú">Perú</option>
-                                <option value="Colombia">Colombia</option>
-                                <option value="Argentina">Argentina</option>
-                                <option value="Chile">Chile</option>
-                                <option value="Japón">Japón</option>
-                            </select>
-                            <label for="pais" class="label_select">pa&iacute;s de procedencia_</label>
-                        </p>
-
-                        <p>
-                            <select id="escolaridad">
-                                <option>Selecciona una opci&oacute;n</option>
-                                <option value="Primaria">Primaria (Elementary)</option>
-                                <option value="Secundaria">Secundaria (Middle School)</option>
-                                <option value="Preparatoria">Preparatoria (High School)</option>
-                                <option value="Universidad">Universidad (University)</option>
-                            </select>
-                            <label for="escolaridad" class="label_select">escolaridad_</label>
-                        </p>
-
                         <p>
                             <select id="institucion">
-                                <option>Selecciona una opci&oacute;n</option>
+                                <option value="">Selecciona una opci&oacute;n</option>
                                 <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
                                 <option value="Universidad Nacional Autónoma de México">Universidad Nacional Autónoma de México</option>
                                 <option value="Universidad Autónoma Metropolitana">Universidad Autónoma Metropolitana</option>
                             </select>
-                            <label for="institucion" class="label_select">instituci&oacute;n_</label>
+                            <label for="institucion" class="label_select">instituci&oacute;n_ (opcional)</label>
                         </p>
 
-                        <!-- <p  style="float: right;">
+                        <!-- <p>
                             <select id="escuela">
                                 <option>Selecciona una opci&oacute;n</option>
                                 <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
@@ -123,13 +122,26 @@
                         </p> -->
 
                         <!-- RADIO BUTTONS -->
-                        <p class="block">
+                        <p>
                             <input type="radio" name="genero" id="man" value="Hombre">
                             <label for="man" class="label_radio">H o m b r e</label>
                             <input type="radio" name="genero" id="woman" value="Mujer">
                             <label for="woman" class="label_radio">M u j e r</label>
-                            <input type="radio" name="genero" id="other" value="Otro">
-                            <label for="other" class="label_radio">Otro</label>
+                            <!-- <input type="radio" name="genero" id="other" value="Otro">
+                            <label for="other" class="label_radio">Otro</label> -->
+                            <label for="genero" class="label_select">genero_ (opcional)</label>
+                        </p>
+
+                        <p>
+                            <select id="escuela">
+                                <option value="">Selecciona una opci&oacute;n</option>
+                                <option value="ESCOM">ESCOM</option>
+                                <option value="UPIITA">UPIITA</option>
+                                <option value="ESCA">ESCA</option>
+                                <option value="ESCA">ESFM</option>
+                                <option value="ESCA">ESIME</option>
+                            </select>
+                            <label for="escuela" class="label_select">escuela_ (opcional)</label>
                         </p>
 
                         <p class="block">
@@ -143,9 +155,8 @@
             <!-- TAB TEAMS -->
             <article class="panel_item" id="tabTeam">
                 <div class="container">
-                    <div>
+                    <!-- <div>
                         <form action="">
-                            <!-- INPUT TEXT -->
                             <p>
                                 <input type="text" name="nombre" autocomplete="off" required value="">
                                 <label for="nombre" class="label">
@@ -153,7 +164,7 @@
                                 </label>
                             </p>
                         </form>
-                    </div>
+                    </div> -->
 
                     <div class="contain-flex">
                         <div class="block">
@@ -196,21 +207,21 @@
                             <br><br>
                             <ul class="collapsible" id="members-container">
                                 <li>
-                                    <div class="collapsible-header"><i class="icon icon-plus-"></i>Agregar integrante</div>
+                                    <div class="collapsible-header" id="add-member"><i class="icon icon-plus-"></i>Agregar integrante</div>
                                     <div class="collapsible-body">
                                         <form id="form-member">
                                             <p>
-                                                <input type="text" id="nombre-member" autocomplete="off" required value="">
-                                                <label for="nombre" class="label">
+                                                <input type="text" id="nombre-member" autocomplete="off" required>
+                                                <label for="nombre-member" class="label">
                                                     <span class="content">nombre_</span>
                                                 </label>
                                             </p>
-                                            <!-- <p>
-                                                <input type="tel" id="telefono-member" autocomplete="off" required>
-                                                <label for="telefono" class="label">
+                                            <p>
+                                                <input type="tel" id="tel-member" autocomplete="off" required>
+                                                <label for="tel-member" class="label">
                                                     <span class="content">tel&eacute;fono_</span>
                                                 </label>
-                                            </p> -->
+                                            </p>
                                             <p>
                                                 <input id="fecha-member" type="text" required>
                                                 <label for="fecha-member">
@@ -219,7 +230,7 @@
                                             </p>
                                             <p>
                                                 <select id="pais-member">
-                                                    <option value="Sin definir">Selecciona una opci&oacute;n</option>
+                                                    <option value="" id="pais-member-default" selected>Selecciona una opci&oacute;n</option>
                                                     <option value="México">México</option>
                                                     <option value="Perú">Perú</option>
                                                     <option value="Colombia">Colombia</option>
@@ -227,37 +238,52 @@
                                                     <option value="Chile">Chile</option>
                                                     <option value="Japón">Japón</option>
                                                 </select>
-                                                <label for="pais" class="label_select">pa&iacute;s_</label>
+                                                <label for="pais-member" class="label_select">pa&iacute;s_ (opcional)</label>
                                             </p>
                                             <p>
                                                 <select id="escolaridad-member">
-                                                    <option value="Sin definir" disabled selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="" id="escolaridad-member-default" selected>Selecciona una opci&oacute;n</option>
                                                     <option value="Primaria (Elementary)">Primaria (Elementary)</option>
                                                     <option value="Secundaria (Middle School)">Secundaria (Middle School)</option>
                                                     <option value="Preparatoria (High School)">Preparatoria (High School)</option>
                                                     <option value="Universidad (University)">Universidad (University)</option>
                                                 </select>
-                                                <label for="escolaridad" class="label_select">escolaridad_</label>
+                                                <label for="escolaridad-member" class="label_select">escolaridad_ (opcional)</label>
                                             </p>
                                             <p>
                                                 <select id="institucion-member">
-                                                    <option value="Sin definir">Selecciona una opci&oacute;n</option>
+                                                    <option value="" id="institucion-member-default" selected>Selecciona una opci&oacute;n</option>
                                                     <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
                                                     <option value="Universidad Nacional Autónoma de México">Universidad Nacional Autónoma de México</option>
                                                     <option value="Universidad Autónoma Metropolitana">Universidad Autónoma Metropolitana</option>
                                                 </select>
-                                                <label for="institution" class="label_select">instituci&oacute;n_</label>
+                                                <label for="institucion-member" class="label_select">instituci&oacute;n_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <select id="escuela-member">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                    <option value="ESCOM">ESCOM</option>
+                                                    <option value="UPIITA">UPIITA</option>
+                                                    <option value="ESCA">ESCA</option>
+                                                    <option value="ESCA">ESFM</option>
+                                                    <option value="ESCA">ESIME</option>
+                                                </select>
+                                                <label for="escuela-member" class="label_select">escuela_ (opcional)</label>
                                             </p>
                                             <p>
                                                 <input type="radio" name="genero-member" id="man-member" value="Hombre">
-                                                <label for="man-member" class="label_radio">H</label>
+                                                <label for="man-member" class="label_radio">Hombre</label>
                                                 <input type="radio" name="genero-member" id="woman-member" value="Mujer">
-                                                <label for="woman-member" class="label_radio">M</label>
-                                                <input type="radio" name="genero-member" id="other-member" Value="Otro">
-                                                <label for="other-member" class="label_radio">O</label>
+                                                <label for="woman-member" class="label_radio">Mujer</label>
+                                                <!-- <input type="radio" name="genero-member" id="other-member" Value="Otro">
+                                                <label for="other-member" class="label_radio">Otro</label> -->
+                                                <label for="genero-member" class="label_select">genero_ (opcional)</label>
                                             </p>
                                             <p>
                                                 <input type="submit" value="G u a r d a r _" id="save-member">
+                                            </p>
+                                            <p>
+                                                <input type="submit" value="C a n c e l a r _" id="cancel-member">
                                             </p>
                                         </form>
                                     </div>

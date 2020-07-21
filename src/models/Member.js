@@ -8,6 +8,9 @@ const MemberSchema = new Schema({
     _name: {
         type: String,
     },
+    _tel: {
+        type: String,
+    },
     _date: {
         type: String,
     },
@@ -21,6 +24,9 @@ const MemberSchema = new Schema({
         type: String,
     },
     _institution: {
+        type: String,
+    },
+    _school: {
         type: String,
     },
     _status: {

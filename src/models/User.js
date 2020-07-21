@@ -30,6 +30,9 @@ const UserSchema = new Schema({
     _institution: {
         type: String,
     },
+    _school: {
+        type: String,
+    },
     _team: {
         type: String,
     },

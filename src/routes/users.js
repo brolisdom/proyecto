@@ -30,7 +30,6 @@ router.get('/data', isAuth, async(req, res) => {
 // })
 
 router.post('/signup', async(req, res) => {
-    const undefined = 'Sin definir'
     const { email, password } = req.body
     const userEmail = await User.findOne({ _email: email })
     if(userEmail){
@@ -40,13 +39,15 @@ router.post('/signup', async(req, res) => {
             _email: email, 
             _password: password, 
             _status: 'Sin registrar',
-            _name: undefined,
-            _tel: undefined,
-            _date: undefined,
-            _gender: undefined,
-            _country: undefined,
-            _scholar: undefined,
-            _institution: undefined
+            _name: '',
+            _tel: '',
+            _date: '',
+            _gender: '',
+            _country: '',
+            _scholar: '',
+            _institution: '',
+            _school: '',
+            _team: ''
         })
         const salt = await bcrypt.genSalt(11)
         newUSer._password = await bcrypt.hash(password, salt)
@@ -69,7 +70,7 @@ router.get('/success', (req, res) => {
 })
 
 router.put('/update', isAuth, async(req, res) => {
-    const { name, tel, date, gender, country, scholar, institution } = req.body
+    const { name, tel, date, gender, country, scholar, institution, school } = req.body
     const user = await User.findOneAndUpdate({ _id: req.user._id }, {
         _name: name,
         _tel: tel,
@@ -77,7 +78,9 @@ router.put('/update', isAuth, async(req, res) => {
         _gender: gender,
         _country: country,
         _scholar: scholar,
-        _institution: institution
+        _institution: institution,
+        _school: school
+        // _team: team
     })
     if(user){
         res.json({ status: 200 })
