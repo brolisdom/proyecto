@@ -1,6 +1,5 @@
 const url = 'http://localhost:3000/api'
 
-
 document.getElementById('register').onclick = async(e) =>{
     const res = document.getElementById('form').checkValidity()
     if(res){
@@ -41,11 +40,9 @@ document.getElementById('login').onclick = async(e) =>{
         const JSON = await res.json()
         if(JSON.status === 200){
             window.location.replace('/dashboard.html')
-        }
-        else if(JSON.status === 400){
+        } else if(JSON.status === 400){
             alert('Los datos ingresados son incorrectos')
-        } 
-        else{
+        } else{
             console.log('Hubo un problema en el servidor')
         } 
     }

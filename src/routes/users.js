@@ -47,7 +47,8 @@ router.post('/signup', async(req, res) => {
             _scholar: '',
             _institution: '',
             _school: '',
-            _team: ''
+            _team: '',
+            _facebookID: ''
         })
         const salt = await bcrypt.genSalt(11)
         newUSer._password = await bcrypt.hash(password, salt)
@@ -61,12 +62,29 @@ router.post('/signin', passport.authenticate('local', {
     failureRedirect: '/api/users/failure'
 }))
 
+router.get("/auth/facebook", passport.authenticate("facebook", { scope : ['email'] }))
+
+router.get("/auth/facebook/callback", passport.authenticate("facebook", {
+    successRedirect: "/dashboard.html",
+    failureRedirect: "/"
+}))
+
+router.get("/auth/google", passport.authenticate("google", { scope : [
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/userinfo.email'
+] }))
+
+router.get("/auth/google/callback", passport.authenticate("google", {
+    successRedirect: "/dashboard.html",
+    failureRedirect: "/"
+}))
+
 router.get('/failure', (req, res) => {
     res.json({ status: 400 })
 })
 
 router.get('/success', (req, res) => {
-    res.json({ status: 200 , user: req.user._id})
+    res.json({ status: 200 })
 })
 
 router.put('/update', isAuth, async(req, res) => {

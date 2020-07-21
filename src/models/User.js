@@ -38,6 +38,12 @@ const UserSchema = new Schema({
     },
     _status: {
         type: String,
+    },
+    _facebookID: {
+        type: String
+    },
+    _googleID: {
+        type: String
     }
 })
 
