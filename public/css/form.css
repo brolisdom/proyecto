@@ -457,7 +457,7 @@ select {
   bottom: 0;
   margin: auto 0;
   z-index: 0;
-  fill: rgba(0, 0, 0, 0.87);
+  fill: var(--c_bold);
 }
 .select-wrapper + label {
   position: absolute;
@@ -465,7 +465,7 @@ select {
   font-size: 0.8rem;
 }
 select:disabled {
-  color: rgba(0, 0, 0, 0.42);
+  color: var(--c_dark);
 }
 .select-wrapper.disabled + label {
   color: rgba(0, 0, 0, 0.42);

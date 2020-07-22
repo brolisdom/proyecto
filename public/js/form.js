@@ -10492,9 +10492,9 @@ $jscomp.polyfill = function (e, r, p, m) {
     }, {
       key: "_toggleEntryFromArray",
       value: function _toggleEntryFromArray(key) {
-        var notAdded = !this._keysSelected.hasOwnProperty(key);
+        //var notAdded = !this._keysSelected.hasOwnProperty(key);
         var $optionLi = $(this._valueDict[key].optionEl);
-
+        
         if (notAdded) {
           this._keysSelected[key] = true;
         } else {
@@ -10521,8 +10521,9 @@ $jscomp.polyfill = function (e, r, p, m) {
       value: function _setValueToInput() {
         var values = [];
         var options = this.$el.find('option');
-
+        
         options.each(function (el) {
+            
           if ($(el).prop('selected')) {
             var text = $(el).text();
             values.push(text);
@@ -10534,8 +10535,10 @@ $jscomp.polyfill = function (e, r, p, m) {
           if (firstDisabled.length && firstDisabled[0].value === '') {
             values.push(firstDisabled.text());
           }
+          else {
+            this.input.value = values.join(', ');
+          }
         }
-
         this.input.value = values.join(', ');
       }
 
@@ -10608,11 +10611,6 @@ $jscomp.polyfill = function (e, r, p, m) {
       value: function getInstance(el) {
         var domElem = !!el.jquery ? el[0] : el;
         return domElem.M_FormSelect;
-      }
-    }, {
-      key: "defaults",
-      get: function () {
-        return _defaults;
       }
     }]);
 

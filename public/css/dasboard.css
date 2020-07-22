@@ -372,7 +372,8 @@ body {
         font-family: Prime-Regular;
         letter-spacing: 0.3vw;
     }
-    main #tabTeam input[type=submit] {
+    main #tabTeam input[type=submit],
+    main #tabTeam input[type=button] {
         font-family: Prime-Regular;
         text-transform: uppercase;
         font-size: 0.8vw;
@@ -388,7 +389,8 @@ body {
         cursor: pointer;
         margin-bottom: -6vh;
     }
-    main #tabTeam input[type=submit]:hover {
+    main #tabTeam input[type=submit]:hover,
+    main #tabTeam input[type=button]:hover {
         border: 0.1vh solid var(--c_bold);
         background: var(--c_ultra);
     }
@@ -432,11 +434,15 @@ body {
     main #tabTeam input[type=radio]:checked + .label_radio:before {
         display: none;
     }
+    main #tabTeam form p.btn-block,
     main #tabTeam p.btn-block {
         display: flex;
         justify-content: space-around;
     }
-    main #tabTeam p.btn-block input[type=submit] {
+    main #tabTeam form p.btn-block input[type=submit],
+    main #tabTeam form p.btn-block input[type=button],
+    main #tabTeam p.btn-block input[type=submit],
+    main #tabTeam p.btn-block input[type=button] {
         margin: 0;
     }
     /* NEWS */

@@ -67,9 +67,11 @@ async function renderUser(){
 		document.getElementById('telefono').value = usuario._tel
 		document.getElementById('fecha').value = usuario._date
 		document.getElementById('pais').value = usuario._country
+		
 		document.getElementById('escolaridad').value = usuario._scholar
 		document.getElementById('institucion').value = usuario._institution
 		document.getElementById('escuela').value = usuario._school
+		
 	}
 }
 
@@ -223,12 +225,13 @@ async function renderMembers(){
 							<span class="content">status_</span>
 						</label>
 					</p>
+					<p class="btn-block">
+						<input type="submit" onclick="deleteMember('${miembro._id}')" value="E L I M I N A R _">
+						<input type="submit" onclick="updateMember('${miembro._id}')" value="E D I T A R _">
+					</p>
 					</form>
 
-				<p class="btn-block">
-					<input type="submit" onclick="deleteMember('${miembro._id}')" value="E L I M I N A R _">
-					<input type="submit" onclick="updateMember('${miembro._id}')" value="E D I T A R _">
-				</p>
+				
 			</div>
 			`
 			membersContainer.appendChild(li)
@@ -342,8 +345,8 @@ async function renderRobots(){
 				boton1 = `<input type="submit" onclick="deleteRobot('${robot._id}')" value="E l i m i n a r _">`
 				boton2 = `<input type="submit" onclick="registRobot('${robot._id}')" value="R e g i s t r a r _">`
 			} else{
-				boton1 = `<input type="submit" value="Aplicar un decuento _">`
-				boton2 = `<input type="submit" value="Hacer pago en linea _">`
+				boton1 = `<input type="submit" value="A P L I C A R  D E S C U E N T O _">`
+				boton2 = `<input type="button" value="P A G A R  E N  L &Iacute; N E A _" onclick="location.href='https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.mercadopago.com.mx%2Fcheckout%2Fv1%2Fredirect%3Fpref_id%3D249524119-7ff4d878-f607-41ef-8201-be6634c9d25f%26fbclid%3DIwAR109_K4yWn-aHhlXTv73HXp-oXH2_JMs6HYUehD-TQgufG6zuS1Tfwg9qk&h=AT2nPT58dlAqgGjM47fmr81LmsM7siGExsg4fDIiZZSnetX9IShqinH90DMc-65LHnC6-R_DbW-HDDFD-rMEZCSFBYJLA5CJhmeh4ilxEQbrkU6ew_Q12D2MRU33AnVUqRptdnK8G8rNe50GTa2y3w'">`
 			}
 			li.className = 'robot-li'
 			li.innerHTML = `
@@ -374,12 +377,13 @@ async function renderRobots(){
 							<span class="content">integrantes_</span>
 						</label>
 					</p>
+					<p class="btn-block">
+						${boton1}
+						${boton2}
+					</p>
 					</form>
 
-				<p class="btn-block">
-					${boton1}
-					${boton2}
-				</p>
+				
 			</div>
 			`
 			robotsContainer.appendChild(li)
