@@ -10372,6 +10372,7 @@ $jscomp.polyfill = function (e, r, p, m) {
         this.input.setAttribute('type', 'text');
         this.input.setAttribute('readonly', 'true');
         this.input.setAttribute('data-target', this.dropdownOptions.id);
+        this.input.setAttribute('id', 'input-select');
         if (this.el.disabled) {
           $(this.input).prop('disabled', 'true');
         }

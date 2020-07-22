@@ -67,10 +67,26 @@ async function renderUser(){
 		document.getElementById('telefono').value = usuario._tel
 		document.getElementById('fecha').value = usuario._date
 		document.getElementById('pais').value = usuario._country
-		
 		document.getElementById('escolaridad').value = usuario._scholar
 		document.getElementById('institucion').value = usuario._institution
 		document.getElementById('escuela').value = usuario._school
+		
+		this.input = document.getElementById('input-select')
+		this.input.setAttribute('id', 'input-select-1');
+		document.getElementById('input-select-1').value = usuario._country
+
+		this.input = document.getElementById('input-select')
+		this.input.setAttribute('id', 'input-select-2');
+		document.getElementById('input-select-2').value = usuario._scholar
+
+		this.input = document.getElementById('input-select')
+		this.input.setAttribute('id', 'input-select-3');
+		document.getElementById('input-select-3').value = usuario._institution
+
+		this.input = document.getElementById('input-select')
+		this.input.setAttribute('id', 'input-select-4');
+		document.getElementById('input-select-4').value = usuario._school
+		
 		
 	}
 }
