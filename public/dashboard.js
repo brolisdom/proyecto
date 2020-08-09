@@ -15,6 +15,8 @@ document.getElementById('save').onclick = async(e) =>{
 		const genders = document.getElementsByName('genero')
 		genders.forEach(i => { if(i.checked) gender = i.value })
 		if(!gender) gender = 'Sin definir'
+		if(!document.getElementById('ocupacion').value) country = 'Sin definir'
+		else country = document.getElementById('ocupacion').value
 		if(!document.getElementById('pais').value) country = 'Sin definir'
 		else country = document.getElementById('pais').value
 		if(!document.getElementById('escolaridad').value) scholar = 'Sin definir'
@@ -25,8 +27,11 @@ document.getElementById('save').onclick = async(e) =>{
 		else school = document.getElementById('escuela').value
 		const data = new FormData()
 		data.append('name', document.getElementById('nombre').value)
+		data.append('surname', document.getElementById('apellido').value)
 		data.append('tel', document.getElementById('telefono').value)
 		data.append('date', document.getElementById('fecha').value)
+		data.append('date', document.getElementById('fecha').value)
+		data.append('ocuppation', ocupacion)
 		data.append('country', country)
 		data.append('scholar', scholar)
 		data.append('institution', institution)

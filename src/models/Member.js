@@ -8,6 +8,12 @@ const MemberSchema = new Schema({
     _name: {
         type: String,
     },
+    _surname: {
+        type: String,
+    },
+    _occupation: {
+        type: String,
+    },
     _tel: {
         type: String,
     },

@@ -7,9 +7,14 @@ const UserSchema = new Schema({
     },
     _password: {
         type: String,
-        require: true
     },
     _name: {
+        type: String,
+    },
+    _surname: {
+        type: String,
+    },
+    _occupation: {
         type: String,
     },
     _tel: {
@@ -35,6 +40,7 @@ const UserSchema = new Schema({
     },
     _team: {
         type: String,
+        // unique
     },
     _status: {
         type: String,

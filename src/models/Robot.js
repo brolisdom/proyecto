@@ -7,17 +7,23 @@ const RobotSchema = new Schema({
     },
     _name: {
         type: String,
-        require: true
     },
     _category: {
         type: String,
-        require: true
     },
     _price: {
         type: Number,
     },
     _status: {
         type: String,
+    },
+    _discount: {
+        type: String,
+        // pdf
+    },
+    _prototype: {
+        type: String,
+        // image
     },
     _members: {
         type: Array,

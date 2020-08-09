@@ -33,10 +33,12 @@ router.get('/data/:id', isAuth, async(req, res) =>{
 })
 
 router.post('/create', isAuth, async(req, res) =>{
-    const { name, tel, gender, date, country, scholar, institution, school } = req.body
+    const { name, surname, occupation, tel, gender, date, country, scholar, institution, school } = req.body
     const newMember = new Member({
         _leader: req.user._id,
         _name: name,
+        _surname: surname,
+        _occupation: occupation,
         _tel: tel,
         _date: date,
         _gender: gender,
@@ -52,12 +54,14 @@ router.post('/create', isAuth, async(req, res) =>{
 })
 
 router.put('/update/:id', isAuth, async(req, res) => {
-    const { name, tel, date, gender, country, scholar, institution, school } = req.body
+    const { name, surname, occupation, tel, date, gender, country, scholar, institution, school } = req.body
     const member = await Member.findOne({ _id: req.params.id })
     if(member){
         if(member._leader == req.user._id){
             await Member.findOneAndUpdate({ _id: req.params.id }, {
                 _name: name,
+                _surname: surname,
+                _occupation: occupation,
                 _tel: tel,
                 _date: date,
                 _gender: gender,
@@ -88,8 +92,5 @@ router.delete('/delete/:id', isAuth, async(req, res) => {
         res.json({ status: 404 })
     }
 })
-
-// register/:id
-// searchBy.../:params
 
 module.exports = router

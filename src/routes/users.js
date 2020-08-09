@@ -7,6 +7,11 @@ const router = Router()
 
 const User = require('../models/User')
 
+// router.get('/all', async(req, res) => {
+//     const users = await User.find()
+//     res.json(users)
+// })
+
 router.get('/', async(req, res) => {
     if(req.isAuthenticated()){
         res.json({ status: 200 })
@@ -24,11 +29,6 @@ router.get('/data', isAuth, async(req, res) => {
     }
 })
 
-// router.get('/all', async(req, res) => {
-//     const users = await User.find()
-//     res.json(users)
-// })
-
 router.post('/signup', async(req, res) => {
     const { email, password } = req.body
     const userEmail = await User.findOne({ _email: email })
@@ -38,8 +38,10 @@ router.post('/signup', async(req, res) => {
         const newUSer = new User({ 
             _email: email, 
             _password: password, 
-            _status: 'Espectador',
+            _status: 'Normal',
             _name: '',
+            _surname: '',
+            _occupation: '',
             _tel: '',
             _date: '',
             _gender: '',
@@ -47,14 +49,13 @@ router.post('/signup', async(req, res) => {
             _scholar: '',
             _institution: '',
             _school: '',
-            _team: '',
-            _facebookID: ''
+            _team: ''
         })
         const salt = await bcrypt.genSalt(11)
         newUSer._password = await bcrypt.hash(password, salt)
-        await newUSer.save()
+        await newUSer.save() 
         res.json({ status: 200 })
-    }
+    } 
 })
 
 router.post('/signin', passport.authenticate('local', {
@@ -91,6 +92,8 @@ router.put('/update', isAuth, async(req, res) => {
     const { name, tel, date, gender, country, scholar, institution, school } = req.body
     const user = await User.findOneAndUpdate({ _id: req.user._id }, {
         _name: name,
+        _surname: '',
+        _occupation: '',
         _tel: tel,
         _date: date,
         _gender: gender,
@@ -112,9 +115,5 @@ router.get('/logout', (req, res) => {
     req.logout()
     res.json({ status: 200 })
 })
-
-// delete/:id
-// update/:id
-// searchBy.../:params
 
 module.exports = router

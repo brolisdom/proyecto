@@ -5,6 +5,11 @@ const router = Router()
 
 const Robot = require('../models/Robot')
 
+// router.get('/all', async(req, res) => {
+//     const robots = await Robot.find()
+//     res.json(robots)
+// })
+
 router.get('/data', isAuth, async(req, res) => {
     const robots = await Robot.find({ _leader: req.user._id})
     if(robots){
@@ -13,11 +18,6 @@ router.get('/data', isAuth, async(req, res) => {
         res.json({ status: 404})
     }
 })
-
-// router.get('/all', async(req, res) => {
-//     const robots = await Robot.find()
-//     res.json(robots)
-// })
 
 router.post('/create', isAuth, async(req, res) => {
     const { name, category } = req.body
@@ -32,6 +32,8 @@ router.post('/create', isAuth, async(req, res) => {
             _category: category,
             _price: price,
             _status: 'Sin registrar',
+            _discount: '',
+            _prototype: '',
             _members: []
         })
         await newRobot.save()
@@ -68,9 +70,5 @@ router.delete('/delete/:id', isAuth, async(req, res) => {
         res.json({ status: 404 })
     }
 })
-
-// register/:id
-// discount/:id
-// searchBy.../:params
 
 module.exports = router
