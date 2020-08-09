@@ -343,9 +343,10 @@ body.keyboard-focused .dropdown-content li:focus {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   line-height: 1.5;
-  padding: 1rem;
+  padding: 1vw;
   margin-bottom: 1rem;
   color: var(--c_light);
+  font-size: 0.8vw;
   text-transform: uppercase;
   letter-spacing: 0.3vw;
   border-bottom: 1px solid var(--c_bold);

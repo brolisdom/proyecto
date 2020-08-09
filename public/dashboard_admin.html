@@ -1,0 +1,606 @@
+<!--
+<script>
+    async function acceso(){
+        const res = await fetch('http://localhost:3000/api/users/')  
+        const JSON = await res.json()
+        if(JSON.status === 401) window.location.replace('/index.html')
+    } acceso()
+</script>
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="theme-color" content="#2E155E" />
+    <!-- TITTLE - FAVICON -->
+    <title>Dashboard</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/dasboard.css">
+    <link rel="stylesheet" href="css/dashboard-_admin.css">
+    <link rel="stylesheet" href="icon-font/style.css">
+    <link rel="stylesheet" href="css/date.css">
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <script src="js/tabs_dash.js"></script>
+    <script src="js/datedropper.pro.min.js"></script>
+    <script src="js/form.js"></script>
+</head>
+
+<body>
+    <!-- MENU -->
+    <header>
+        <nav>
+            <ul class="tabs" id="tabs">
+                <li class="tabs_item"><a href="#tabUser"><span>usuarios_</span><i class="icon icon-profile-"></i></a></li>
+                <li class="tabs_item"><a href="#tabTeam"><span>registro_</span><i class="icon icon-reddit-"></i></a></li>
+                <li class="tabs_item"><a href="#tabNews"><span>noticias_</span><i class="icon icon-question-"></i></a></li>
+                <li class="tabs_item"><a href="#" rel="modal:open" id="logout"><span>salir_</span><i class="icon icon-arrow_right_in-"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="seccions">
+            <!-- TAB USER -->
+            <article class="panel_item" id="tabUser">
+                <div class="container">
+                    <div class="contain-flex">
+                        <div class="block">
+                            <br><br><br>
+                            <form action="#">
+                                <div class="fluid-btn">
+                                    <p>
+                                        <input type="text" id="nombre-member" autocomplete="off" placeholder="usuario/equipo/robot">
+                                        <label for="nombre-member" class="label">
+                                            <span class="content">busqueda_</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <input type="button" value="B U S C A R _">
+                                    </p>
+                                </div>
+                                <p>
+                                    <select id="member1">
+                                        <option value="">Selecciona una opci&oacute;n</option>
+                                    </select>
+                                    <label for="member1" class="label_select">Filtro_</label>
+                                </p>
+                            </form>
+                            <div class="viewer">
+                                <div class="nametag">
+                                    <h4>Name of team</h4>
+                                    <p class="tag-icons">
+                                        <i class="icon icon-center_object_round-"></i>
+                                        <i class="icon icon-center_object_round-1"></i>
+                                        <i class="icon icon-center_object_round-2"></i>
+                                    </p>
+                                </div>
+                                <div class="data_tags">
+                                    <!-- AQUI VA LA INFORMACIÓN DINAMICA QUE QUIERAS MOSTRAR -->
+                                    <!-- EJEMPLO DE LA DISTRIBUCIÓN DE CADA UNA -->
+
+                                    <!-- LIDER -->
+                                    <h5 class="info_type">L i d e r _</h5>
+
+                                    <p class="info_tag">Alan Ignacio Delgado Alarcón</p>
+                                    <p class="info_title">Nombre_</p>
+
+                                    <p class="info_tag">779 110 7378</p>
+                                    <p class="info_title">Tel&eacute;fono_</p>
+
+                                    <p class="info_tag">19 / 09 / 1999</p>
+                                    <p class="info_title">Fecha de nacimiento_</p>
+                                    
+                                    <p class="info_tag">México</p>
+                                    <p class="info_title">Pa&iacute;s_</p>
+
+                                    <p class="info_tag">Universidad</p>
+                                    <p class="info_title">Escolaridad_</p>
+
+                                    <p class="info_tag">Instituto Politécnico Nacional</p>
+                                    <p class="info_title">Instituci&oacute;_</p>
+
+                                    <p class="info_tag">Ecuela Superior de Cómputo</p>
+                                    <p class="info_title">Escuela_</p>
+
+                                    <p class="info_tag">Hombre</p>
+                                    <p class="info_title">G&eacute;nero_</p>
+                                    
+
+
+                                    <!-- ROBOTS -->
+
+                                    <!-- INTEGRANTES -->
+
+
+                                </div>
+                                <div class="btn-block"></div>
+                            </div>                            
+                        </div>
+
+                        <div class="block">
+                            <br><br><br>
+                            <div class="fluid-btn btn-block-tab">
+                                <p>
+                                    <input type="button" value="L I D E R _" class="btn_tab">
+                                </p>
+                                <p>
+                                    <input type="button" value="R O B O T S _" class="btn_tab">
+                                </p>
+                                <p>
+                                    <input type="button" value="I N T E G R A N T E S _" class="btn_tab">
+                                </p>
+                            </div>
+
+
+                            <ul class="collapsible" id="members-container">
+                                <li>
+                                    <div class="collapsible-header" id="add-member"><i class="icon icon-plus-"></i>Agregar integrante</div>
+                                    <div class="collapsible-body">
+                                        <form id="form-member">
+                                            <p>
+                                                <input type="text" id="nombre-member" autocomplete="off" required>
+                                                <label for="nombre-member" class="label">
+                                                    <span class="content">nombre_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type="tel" id="tel-member" autocomplete="off" required>
+                                                <label for="tel-member" class="label">
+                                                    <span class="content">tel&eacute;fono_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input id="fecha-member" type="text" required>
+                                                <label for="fecha-member">
+                                                    <span class="content">fecha de nacimiento_</span>
+                                                </label>
+                                            </p>
+                                            <p id="pais-input">
+                                                <select id="pais-member">
+                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="México">México</option>
+                                                    <option value="Perú">Perú</option>
+                                                    <option value="Colombia">Colombia</option>
+                                                    <option value="Argentina">Argentina</option>
+                                                    <option value="Chile">Chile</option>
+                                                    <option value="Japón">Japón</option>
+                                                </select>
+                                                <label for="pais-member" class="label_select">pa&iacute;s_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <select id="escolaridad-member">
+                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="Primaria (Elementary)">Primaria (Elementary)</option>
+                                                    <option value="Secundaria (Middle School)">Secundaria (Middle School)</option>
+                                                    <option value="Preparatoria (High School)">Preparatoria (High School)</option>
+                                                    <option value="Universidad (University)">Universidad (University)</option>
+                                                </select>
+                                                <label for="escolaridad-member" class="label_select">escolaridad_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <select id="institucion-member">
+                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
+                                                    <option value="Universidad Nacional Autónoma de México">Universidad Nacional Autónoma de México</option>
+                                                    <option value="Universidad Autónoma Metropolitana">Universidad Autónoma Metropolitana</option>
+                                                </select>
+                                                <label for="institucion-member" class="label_select">instituci&oacute;n_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <select id="escuela-member">
+                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="ESCOM">ESCOM</option>
+                                                    <option value="UPIITA">UPIITA</option>
+                                                    <option value="ESCA">ESCA</option>
+                                                    <option value="ESCA">ESFM</option>
+                                                    <option value="ESCA">ESIME</option>
+                                                </select>
+                                                <label for="escuela-member" class="label_select">escuela_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <input type="radio" name="genero-member" id="man-member" value="Hombre">
+                                                <label for="man-member" class="label_radio">Hombre</label>
+                                                <input type="radio" name="genero-member" id="woman-member" value="Mujer">
+                                                <label for="woman-member" class="label_radio">Mujer</label>
+                                                <!-- <input type="radio" name="genero-member" id="other-member" Value="Otro">
+                                                <label for="other-member" class="label_radio">Otro</label> -->
+                                                <label for="genero-member" class="label_select">genero_ (opcional)</label>
+                                                <input type="hidden" id="id-member" value="">
+                                            </p>
+                                            <!-- aqui deberian estar los botones -->
+                                        </form>
+                                        <p class="btn-block">
+                                            <input type="submit" value="G u a r d a r _" id="save-member">
+                                            <input type="submit" value="C a n c e l a r _" id="cancel-member">
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="collapsible" id="robots-container">
+                                <li>
+                                    <div class="collapsible-header" id="add-robot"><i class="icon icon-plus-"></i>Registrar robot</div>
+                                    <div class="collapsible-body">
+                                        <form id="form-robot">
+                                            <p>
+                                                <input type="text" id="nombre-robot" autocomplete="off" required>
+                                                <label for="nombre" class="label">
+                                                    <span class="content">nombre del robot_</span>
+                                                </label>
+                                            </p>
+
+                                            <p>
+                                                <select id="categoria" required>
+                                                    <optgroup label="Guerra de robots">
+                                                        <option value="220 Libras">220 Libras</option>
+                                                        <option value="120 Libras">120 Libras</option>
+                                                        <option value="60 Libras">600 Libras</option>
+                                                        <option value="30 Libras">30 Libras</option>
+                                                        <option value="12 Libras">12 Libras</option>
+                                                        <option value="3 Libras">3 Libras</option>
+                                                        <option value="1 Libras">1 Libras</option>
+                                                    </optgroup>
+                                                    <optgroup label="Minirobotica">
+                                                        <option value="Sumo R.C.">Sumo R.C.</option>
+                                                        <option value="Minisumo">Minisumo</option>
+                                                        <option value="Microsumo">Microsumo</option>
+                                                        <option value="Sumo autonomo">Sumo autonomo</option>
+                                                        <option value="Seguidor de linea">Seguidor de linea</option>
+                                                    </optgroup>
+                                                    <optgroup label="Lego junior">
+                                                        <option value="Sumo">Sumo</option>
+                                                        <option value="Seguidor de linea">Seguidor de linea</option>
+                                                    </optgroup>
+                                                    <optgroup label="Aereras">
+                                                        <option value="Carrera de drones">Carrera de drones</option>
+                                                    </optgroup>
+                                                </select>
+                                                <label class="label_select">categor&iacute;a_</label>
+                                            </p>
+
+                                            <p id="select1">
+                                                <select id="member1">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member1" class="label_select">Integrante 1_ </label>
+                                            </p>
+
+                                            <p id="select2">
+                                                <select id="member2" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member2" class="label_select">Integrante 2_ </label>
+                                            </p>
+
+                                            <p id="select3">
+                                                <select id="member3" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member3" class="label_select">Integrante 3_ </label>
+                                            </p>
+
+                                            <p id="select4">
+                                                <select id="member4" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member4" class="label_select">Integrante 4_ </label>
+                                            </p>
+
+                                            <p id="select5">
+                                                <select id="member5" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member5" class="label_select">Integrante 5_ </label>
+                                            </p>
+
+                                            <p id="select6">
+                                                <select id="member6" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member6" class="label_select">Integrante 6_ </label>
+                                            </p>
+
+                                            <p><input type="submit" id="save-robot" value="C r e a r _"></p>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <!-- SPACE --> <br><br>
+                            <h4 class="results">Resultados_</h4>
+                            <div class="tag_search">
+                                <div class="nametag">
+                                    <h4>robot created</h4>
+                                    <p class="tag-icons">
+                                        <i class="icon icon-center_object_round-"></i>
+                                    </p>
+                                </div>
+                                <div class="nametag">
+                                    <h4>robot registed</h4>
+                                    <p class="tag-icons">
+                                        <i class="icon icon-center_object_round-1"></i>
+                                    </p>
+                                </div>
+                                <div class="nametag">
+                                    <h4>robot final</h4>
+                                    <p class="tag-icons">
+                                        <i class="icon icon-center_object_round-2"></i>
+                                    </p>
+                                </div>
+                                <div class="nametag">
+                                    <h4>admin basic</h4>
+                                    <p class="tag-icons">
+                                        <i class="icon icon-tag-"></i>
+                                    </p>
+                                </div>
+                                <div class="nametag">
+                                    <h4>admin root</h4>
+                                    <p class="tag-icons">
+                                        <i class="icon icon-tag_fill-"></i>
+                                    </p>
+                                </div>
+                                <div class="nametag">
+                                    <h4>user member</h4>
+                                    <p class="tag-icons">
+                                        <i class="icon icon-report_flag-1"></i>
+                                    </p>
+                                </div>
+                                <div class="nametag">
+                                    <h4>user captain</h4>
+                                    <p class="tag-icons">
+                                        <i class="icon icon-report_flag-"></i>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <!-- TAB TEAMS -->
+            <article class="panel_item" id="tabTeam">
+                <div class="container">
+                    <!-- <div>
+                        <form action="">
+                            <p>
+                                <input type="text" name="nombre" autocomplete="off" required value="">
+                                <label for="nombre" class="label">
+                                    <span class="content">nombre del equipo_</span>
+                                </label>
+                            </p>
+                        </form>
+                    </div> -->
+
+                    <div class="contain-flex">
+                        <div class="block">
+                            <h1 class="title">Robots</h1>
+                            <hr>
+                            <br><br>
+                            <ul class="collapsible" id="robots-container">
+                                <li>
+                                    <div class="collapsible-header" id="add-robot"><i class="icon icon-plus-"></i>Registrar robot</div>
+                                    <div class="collapsible-body">
+                                        <form id="form-robot">
+                                            <p>
+                                                <input type="text" id="nombre-robot" autocomplete="off" required>
+                                                <label for="nombre" class="label">
+                                                    <span class="content">nombre del robot_</span>
+                                                </label>
+                                            </p>
+
+                                            <p>
+                                                <select id="categoria" required>
+                                                    <optgroup label="Guerra de robots">
+                                                        <option value="220 Libras">220 Libras</option>
+                                                        <option value="120 Libras">120 Libras</option>
+                                                        <option value="60 Libras">600 Libras</option>
+                                                        <option value="30 Libras">30 Libras</option>
+                                                        <option value="12 Libras">12 Libras</option>
+                                                        <option value="3 Libras">3 Libras</option>
+                                                        <option value="1 Libras">1 Libras</option>
+                                                    </optgroup>
+                                                    <optgroup label="Minirobotica">
+                                                        <option value="Sumo R.C.">Sumo R.C.</option>
+                                                        <option value="Minisumo">Minisumo</option>
+                                                        <option value="Microsumo">Microsumo</option>
+                                                        <option value="Sumo autonomo">Sumo autonomo</option>
+                                                        <option value="Seguidor de linea">Seguidor de linea</option>
+                                                    </optgroup>
+                                                    <optgroup label="Lego junior">
+                                                        <option value="Sumo">Sumo</option>
+                                                        <option value="Seguidor de linea">Seguidor de linea</option>
+                                                    </optgroup>
+                                                    <optgroup label="Aereras">
+                                                        <option value="Carrera de drones">Carrera de drones</option>
+                                                    </optgroup>
+                                                </select>
+                                                <label class="label_select">categor&iacute;a_</label>
+                                            </p>
+
+                                            <p id="select1">
+                                                <select id="member1">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member1" class="label_select">Integrante 1_ </label>
+                                            </p>
+
+                                            <p id="select2">
+                                                <select id="member2" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member2" class="label_select">Integrante 2_ </label>
+                                            </p>
+
+                                            <p id="select3">
+                                                <select id="member3" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member3" class="label_select">Integrante 3_ </label>
+                                            </p>
+
+                                            <p id="select4">
+                                                <select id="member4" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member4" class="label_select">Integrante 4_ </label>
+                                            </p>
+
+                                            <p id="select5">
+                                                <select id="member5" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member5" class="label_select">Integrante 5_ </label>
+                                            </p>
+
+                                            <p id="select6">
+                                                <select id="member6" name="member-select">
+                                                    <option value="">Selecciona una opci&oacute;n</option>
+                                                </select>
+                                                <label for="member6" class="label_select">Integrante 6_ </label>
+                                            </p>
+
+                                            <p><input type="submit" id="save-robot" value="C r e a r _"></p>
+                                        </form>
+                                    </div>
+                                </li>
+                                <!-- renderRobots() -->
+                            </ul>
+                        </div>
+
+                        <div class="block">
+                            <h1 class="title">Integrantes</h1>
+                            <hr>
+                            <br><br>
+                            <ul class="collapsible" id="members-container">
+                                <li>
+                                    <div class="collapsible-header" id="add-member"><i class="icon icon-plus-"></i>Agregar integrante</div>
+                                    <div class="collapsible-body">
+                                        <form id="form-member">
+                                            <p>
+                                                <input type="text" id="nombre-member" autocomplete="off" required>
+                                                <label for="nombre-member" class="label">
+                                                    <span class="content">nombre_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type="tel" id="tel-member" autocomplete="off" required>
+                                                <label for="tel-member" class="label">
+                                                    <span class="content">tel&eacute;fono_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input id="fecha-member" type="text" required>
+                                                <label for="fecha-member">
+                                                    <span class="content">fecha de nacimiento_</span>
+                                                </label>
+                                            </p>
+                                            <p id="pais-input">
+                                                <select id="pais-member">
+                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="México">México</option>
+                                                    <option value="Perú">Perú</option>
+                                                    <option value="Colombia">Colombia</option>
+                                                    <option value="Argentina">Argentina</option>
+                                                    <option value="Chile">Chile</option>
+                                                    <option value="Japón">Japón</option>
+                                                </select>
+                                                <label for="pais-member" class="label_select">pa&iacute;s_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <select id="escolaridad-member">
+                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="Primaria (Elementary)">Primaria (Elementary)</option>
+                                                    <option value="Secundaria (Middle School)">Secundaria (Middle School)</option>
+                                                    <option value="Preparatoria (High School)">Preparatoria (High School)</option>
+                                                    <option value="Universidad (University)">Universidad (University)</option>
+                                                </select>
+                                                <label for="escolaridad-member" class="label_select">escolaridad_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <select id="institucion-member">
+                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="Instituto Politécnico Nacional">Instituto Politécnico Nacional</option>
+                                                    <option value="Universidad Nacional Autónoma de México">Universidad Nacional Autónoma de México</option>
+                                                    <option value="Universidad Autónoma Metropolitana">Universidad Autónoma Metropolitana</option>
+                                                </select>
+                                                <label for="institucion-member" class="label_select">instituci&oacute;n_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <select id="escuela-member">
+                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
+                                                    <option value="ESCOM">ESCOM</option>
+                                                    <option value="UPIITA">UPIITA</option>
+                                                    <option value="ESCA">ESCA</option>
+                                                    <option value="ESCA">ESFM</option>
+                                                    <option value="ESCA">ESIME</option>
+                                                </select>
+                                                <label for="escuela-member" class="label_select">escuela_ (opcional)</label>
+                                            </p>
+                                            <p>
+                                                <input type="radio" name="genero-member" id="man-member" value="Hombre">
+                                                <label for="man-member" class="label_radio">Hombre</label>
+                                                <input type="radio" name="genero-member" id="woman-member" value="Mujer">
+                                                <label for="woman-member" class="label_radio">Mujer</label>
+                                                <!-- <input type="radio" name="genero-member" id="other-member" Value="Otro">
+                                                <label for="other-member" class="label_radio">Otro</label> -->
+                                                <label for="genero-member" class="label_select">genero_ (opcional)</label>
+                                                <input type="hidden" id="id-member" value="">
+                                            </p>
+                                            <!-- aqui deberian estar los botones -->
+                                        </form>
+                                        <p class="btn-block">
+                                            <input type="submit" value="G u a r d a r _" id="save-member">
+                                            <input type="submit" value="C a n c e l a r _" id="cancel-member">
+                                        </p>
+                                    </div>
+                                </li>
+                                <!-- renderMembers() -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <!-- TAB ROBOTS//// -->
+            <article class="panel_item" id="tabNews">
+
+            </article>
+            <!-- Modal WINNERS -->
+            <div id="ex-out" class="modal">
+                <p class="title">Ganador</p>
+                <p class="text" style="text-align: center;">
+                    Universidad Aut&oacute;noma de Yucat&aacute;n
+                </p>
+            </div>
+        </div>
+    </main>
+    <!-- JS -->
+    <script src="dashboard.js"></script>
+    <script src="js/select.js"></script>
+    <script type="text/javascript">
+        $('#fecha-member').dateDropper({
+            defaultDate: '1/1/1990',
+            format: 'd - F - Y',
+            lang: 'es',
+            theme: 'gdr',
+            modal: true,
+            maxYear: 2020,
+            minYear: 1990
+        });
+        $('#fecha').dateDropper({
+            defaultDate: '1/1/1990',
+            format: 'd - F - Y',
+            lang: 'es',
+            theme: 'gdr',
+            modal: true,
+            maxYear: 2020,
+            minYear: 1990
+        });
+    </script>
+</body>
+
+</html>

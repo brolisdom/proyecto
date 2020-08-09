@@ -1,0 +1,167 @@
+main #tabUser .container {
+    position: relative;
+    display: block;
+    padding: 5vh 0 5vh 0;
+    margin: auto;
+    width: 90%;
+    top: 0%;
+    transform: translate(0%, 0%);
+}
+main #tabUser .container form {
+    position: relative;
+    width: 100%;
+    display: block;
+    margin-top: 0vh;
+}
+main #tabUser .container .fluid-btn {
+    display: inline-flex;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+main #tabUser .container .fluid-btn p {
+    width: 100%;
+    position: relative;
+    display: block;
+    padding: 0vh 1vw;
+    margin-bottom: 2vh;
+}
+main #tabUser .container .fluid-btn input[type=text] {
+    display: block;
+    width: 100%;
+}
+main #tabUser .container .fluid-btn input[type=text]::placeholder {
+    color: var(--c_bold);
+    opacity: 0.5;
+}
+main #tabUser .container .fluid-btn input[type=button] {
+    background: var(--c_dark);
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1.75vh 0;
+    font-family: Prime-Regular;
+    font-size: 0.8vw;
+    color: var(--c_bold);
+    border: none;
+    border-style: inset;
+    border: 0.1vh solid transparent;
+    position: relative;
+    top: -2vh;
+    transition: all 0.2s linear;
+}
+main #tabUser .container .fluid-btn input[type=button]:hover {
+    color: var(--c_medium_grey);
+    background: transparent;
+    border-style: inset;
+    border: 0.1vh solid var(--c_bold);
+}
+
+main #tabUser .container .viewer {
+    display: block;
+    width: 100%;
+}
+main #tabUser .container .viewer .nametag,
+main #tabUser .container .nametag {
+    background: var(--c_dark);
+    padding: 2vh 1vw;
+    display: flex;
+}
+main #tabUser .container .viewer .nametag h4 {
+    font-size: 1vw;
+    display: block;
+    width: 80%;
+    color: var(--c_medium_grey);
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.5vw;
+    font-family: Prime-Regular;
+}
+main #tabUser .container .viewer .nametag .tag-icons,
+main #tabUser .container .nametag .tag-icons {
+    position: relative;
+    display: block;
+    width: 20%;
+    justify-content: space-between;
+    text-align: right;
+}
+main #tabUser .container .viewer .nametag .tag-icons i {
+    color: var(--c_medium);
+    opacity: 0.5;
+    font-size: 1vw;
+    margin-left: 1vw;
+
+}
+main #tabUser .container .viewer .data_tags {
+    background: var(--c_dark);
+    display: block;
+    margin-top: 2vh;
+    width: 100%;
+    padding: 3vh 2vw;
+}
+main #tabUser .container .viewer .data_tags .info_type {
+    font-size: 1vw;
+    font-family: Prime-Light;
+    color: var(--c_light);
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 3vh;
+}
+main #tabUser .container .viewer .data_tags .info_tag {
+    font-size: 1vw;
+    font-family: Prime-Light;
+    text-transform: uppercase;
+    color: var(--c_bold);
+    padding-left: 1vw;
+    letter-spacing: 0.2vw;
+}
+main #tabUser .container .viewer .data_tags .info_title {
+    font-family: Prime-Regular;
+    text-transform: uppercase;
+    color: var(--c_medium);
+    letter-spacing: 0.5vw;
+    font-size: 0.6vw;
+    margin-bottom: 2vh;
+}
+main #tabUser .container .btn-block-tab input[type=button] {
+    width: 100%;
+    margin: 0;
+    padding: 1.75vh 1.5vw;
+    background: var(--c_ultra);
+    border-top: 0.1vh solid var(--c_bold);
+    border-left: 0.1vh solid var(--c_bold);
+    border-right: 0.1vh solid var(--c_bold);
+}
+
+main #tabUser .container .results {
+    color: var(--c_light);
+    font-family: Prime-Regular;
+    letter-spacing: 0.5vw;
+    font-size: 0.7vw;
+    text-transform: uppercase;
+    margin-bottom: 2vh;
+}
+main #tabUser .container .tag_search .nametag {
+    margin-bottom: 1vh;
+    cursor: pointer;
+}
+main #tabUser .container .tag_search .nametag h4 {
+    font-size: 0.8vw;
+    display: block;
+    width: 80%;
+    color: var(--c_medium_grey);
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.5vw;
+    font-family: Prime-Regular;
+}
+main #tabUser .container .tag_search .nametag .tag-icons i {
+    color: var(--c_medium);
+    opacity: 0.5;
+    font-size: 0.8vw;
+    margin-right: 1vw;
+}

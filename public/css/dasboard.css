@@ -10,7 +10,6 @@
     --c_light: #BEAAE4;
     --c_thin: #DFD4F2;
 }
-
 /* FONTS */
 @font-face {
     font-family: Anurati;
@@ -112,6 +111,16 @@ body {
         width: 80%;
         top: 50%;
         transform: translate(0%, -50%);
+    }
+    main #tabUser .container .contain-flex {
+        display: flex;
+        position: relative;
+        width: 100%;
+    }
+    main #tabUser .container .block {
+        width: 50%;
+        padding-left: 1vw;
+        padding-right: 1vw;
     }
     main #tabUser .container h1 {
         color: var(--c_bold);
