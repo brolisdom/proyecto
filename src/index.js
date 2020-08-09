@@ -58,6 +58,6 @@ app.use(express.static(path.join(__dirname, '../public')))
 // start server
 app.listen(app.get('port'), () =>{
     console.log('Servidor activo en port: ', app.get('port'))
-})
+}) 
 
 

@@ -26,7 +26,7 @@ const MemberSchema = new Schema({
     _country: {
         type: String,
     },
-    _scholar: {
+    _scholarship: {
         type: String,
     },
     _institution: {

@@ -29,7 +29,7 @@ const UserSchema = new Schema({
     _country: {
         type: String,
     },
-    _scholar: {
+    _scholarship: {
         type: String,
     },
     _institution: {
@@ -44,6 +44,12 @@ const UserSchema = new Schema({
     },
     _status: {
         type: String,
+    },
+    _verified: {
+        type: Boolean,
+    },
+    _completed: {
+        type: Boolean,
     },
     _facebookID: {
         type: String

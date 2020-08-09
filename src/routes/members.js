@@ -33,7 +33,7 @@ router.get('/data/:id', isAuth, async(req, res) =>{
 })
 
 router.post('/create', isAuth, async(req, res) =>{
-    const { name, surname, occupation, tel, gender, date, country, scholar, institution, school } = req.body
+    const { name, surname, occupation, tel, gender, date, country, scholarship, institution, school } = req.body
     const newMember = new Member({
         _leader: req.user._id,
         _name: name,
@@ -43,7 +43,7 @@ router.post('/create', isAuth, async(req, res) =>{
         _date: date,
         _gender: gender,
         _country: country, 
-        _scholar: scholar,
+        _scholarship: scholarship,
         _institution: institution,
         _school: school,
         _status: 'Espectador',
@@ -54,7 +54,7 @@ router.post('/create', isAuth, async(req, res) =>{
 })
 
 router.put('/update/:id', isAuth, async(req, res) => {
-    const { name, surname, occupation, tel, date, gender, country, scholar, institution, school } = req.body
+    const { name, surname, occupation, tel, date, gender, country, scholarship, institution, school } = req.body
     const member = await Member.findOne({ _id: req.params.id })
     if(member){
         if(member._leader == req.user._id){
@@ -66,7 +66,7 @@ router.put('/update/:id', isAuth, async(req, res) => {
                 _date: date,
                 _gender: gender,
                 _country: country,
-                _scholar: scholar,
+                _scholarship: scholarship,
                 _institution: institution,
                 _school: school
             })

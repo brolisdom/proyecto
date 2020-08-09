@@ -46,9 +46,11 @@ router.post('/signup', async(req, res) => {
             _date: '',
             _gender: '',
             _country: '',
-            _scholar: '',
+            _scholarship: '',
             _institution: '',
             _school: '',
+            _verified: false,
+            _completed: false,
             _team: ''
         })
         const salt = await bcrypt.genSalt(11)
@@ -89,18 +91,19 @@ router.get('/success', (req, res) => {
 })
 
 router.put('/update', isAuth, async(req, res) => {
-    const { name, tel, date, gender, country, scholar, institution, school } = req.body
+    const { name, surname, occupation, tel, date, gender, country, scholarship, institution, school } = req.body
     const user = await User.findOneAndUpdate({ _id: req.user._id }, {
         _name: name,
-        _surname: '',
-        _occupation: '',
+        _surname: surname,
+        _occupation: occupation,
         _tel: tel,
         _date: date,
         _gender: gender,
         _country: country,
-        _scholar: scholar,
+        _scholarship: scholarship,
         _institution: institution,
-        _school: school
+        _school: school,
+        _completed: true,
         // _team: team
     })
     if(user){
@@ -110,7 +113,6 @@ router.put('/update', isAuth, async(req, res) => {
     }
 })
 
-// funciona pero no en el navegador
 router.get('/logout', (req, res) => {
     req.logout()
     res.json({ status: 200 })
