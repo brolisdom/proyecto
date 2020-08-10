@@ -25,9 +25,12 @@ const RobotSchema = new Schema({
         type: String,
         // image
     },
+    _captain: {
+        type: String,
+    },
     _members: {
         type: Array,
-    },
+    }
 })
 
 module.exports = model('Robot', RobotSchema)
