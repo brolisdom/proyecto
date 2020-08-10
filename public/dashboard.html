@@ -305,6 +305,50 @@
                                                     <option value="">Selecciona una opci&oacute;n</option>
                                                 </select>
                                                 <label for="captain" class="label_select">Capitan_ </label>
+                                                <script>
+                                                    // esto funciona ---- lo comente porque aqui como que no quedaba xd
+                                                    //var sel = document.getElementById('captain')
+                                                    //var opt = document.createElement('option')
+                                                    //opt.text = 'esto funciona'
+                                                    // esto no funciona
+                                                    async function options(){
+                                                        //los datos los obtenemos en la función para mejorar acceso
+                                                        var sel = document.getElementById('captain')
+                                                        //aqui obtenemos los ul de TODOS los select
+                                                        var sel_opt = document.getElementsByClassName("select-opt")
+                                                        const res = await fetch(api+'/members/data')    
+                                                        const JSON = await res.json()
+                                                        //esto funciona - lo puedes quitar despues
+                                                        console.log(JSON)
+		                                                JSON.forEach(miembro => {
+                                                            //creamos el option en el select original
+                                                            opt = document.createElement('option')
+                                                            //le agregas el texto y falta asignarle el valor
+                                                            opt.text = 'esto no funciona'
+                                                            //agregar el option al select
+                                                            sel.add(opt)
+                                                            
+                                                            //creamos el li que le vamos a agregar al ul del select visible
+                                                            var li = document.createElement('li')
+                                                            //le agregamos el span con el "nombre del integrante" - aqui le pones el de la base de datos
+                                                            li.innerHTML="<span>" + opt.text + "</span>"
+                                                            /*
+                                                            AQUI VA LO CHIDO --- WACHATE EH
+
+                                                            OBTENEMKOS TODOS LOS ul DE LOS SELECTS EN LA LINEA 318 POR MEDIO DE UNA CLASE
+                                                            COMO LO OBTENEMOS POR CLASE, ESTO DEVUELVE UN ARRAY DE OBJETOS, YA QUE PUEDEN EXISTIR VARIOS, NO ES COMO EL ID
+                                                            ENTONCES PARA LOGRAR AGREGAR EL li AL ul FINAL LO UNICO QUE HACEMOS ES INDICARLE A CUAL DE TODOS LOS ul (SELECTS)
+                                                            SE LO AGREGAMOS, SI CUENTAS LOS SEELCTS DESDE EL 0
+                                                            EL SELECT DEL CAPITAN ES EL NUMERO 11
+                                                            PARA LOS DEMAS ES LO MISMO SOLO TENDRIAS QUE CAMBIAR EL INDICE DEL SELECT O MAS ESPECIFICO DEL UL
+                                                            PERO TIENES QUE AGREGAR LOS OPTION TAMBIEN PARA PODER GUARDAR EL VALOR
+
+                                                            - dudas, preguntas con el alan plox -
+                                                            */
+									                        sel_opt[11].appendChild(li)
+                                                        })
+                                                    } options()
+                                                </script>
                                             </p>
                                             <p>
                                                 <select id="member1">
@@ -365,13 +409,7 @@
             <article class="panel_item" id="tabNews">
 
             </article>
-            <!-- Modal WINNERS -->
-            <div id="ex-out" class="modal">
-                <p class="title">Ganador</p>
-                <p class="text" style="text-align: center;">
-                    Universidad Aut&oacute;noma de Yucat&aacute;n
-                </p>
-            </div>
+            
         </div>
     </main>
     <!-- JS -->

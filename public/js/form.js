@@ -10336,7 +10336,7 @@ $jscomp.polyfill = function (e, r, p, m) {
         this.$selectOptions = this.$el.children('option, optgroup');
         this.dropdownOptions = document.createElement('ul');
         this.dropdownOptions.id = "select-options-" + M.guid();
-        $(this.dropdownOptions).addClass('dropdown-content select-dropdown ' + (this.isMultiple ? 'multiple-select-dropdown' : ''));
+        $(this.dropdownOptions).addClass('dropdown-content select-dropdown select-opt ' + (this.isMultiple ? 'multiple-select-dropdown' : ''));
 
         // Create dropdown structure.
         if (this.$selectOptions.length) {
@@ -10354,7 +10354,7 @@ $jscomp.polyfill = function (e, r, p, m) {
             } else if ($(el).is('optgroup')) {
               // Optgroup.
               var selectOptions = $(el).children('option');
-              $(_this71.dropdownOptions).append($('<li class="optgroup"><span>' + el.getAttribute('label') + '</span></li>')[0]);
+              $(_this71.dropdownOptions).append($('<li class="optgroup" id="option-select"><span>' + el.getAttribute('label') + '</span></li>')[0]);
 
               selectOptions.each(function (el) {
                 var optionEl = _this71._appendOptionWithIcon(_this71.$el, el, 'optgroup-option');
