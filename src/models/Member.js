@@ -39,7 +39,7 @@ const MemberSchema = new Schema({
         type: String,
     },
     _robots: {
-      type: Array  
+      type: Number  
     },
 })
 

@@ -30,6 +30,9 @@ const RobotSchema = new Schema({
     },
     _members: {
         type: Array,
+    },
+    _idMember: {
+        type: Array
     }
 })
 
