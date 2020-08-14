@@ -18,9 +18,7 @@ document.getElementById('register').onclick = async(e) =>{
             alert('Registro exitoso, confirme su correo porfavor')
         } else if(JSON.status === 400){
             alert('El correo ya esta asociado con otra cuenta')
-        } else{
-            alert('Hubo un problema en el servidor')
-        } 
+        } else alert('Hubo un problema en el servidor')
     }
 }
 
@@ -31,20 +29,39 @@ document.getElementById('login').onclick = async(e) =>{
         const email = document.getElementById('email').value
         const password = document.getElementById('password').value
         const data = new FormData()
+
         data.append('email', email)
-        data.append('password', password)
-        const res = await fetch(url+'/users/signin', {
+        
+        const pre = await fetch(url+'/users/login', {
             method: 'POST',
             body: data
         })
-        const JSON = await res.json()
-        if(JSON.status === 200){
-            window.location.replace('/dashboard.html')
-        } else if(JSON.status === 400){
-            alert('Los datos ingresados son incorrectos')
-        } else{
-            console.log('Hubo un problema en el servidor')
-        } 
+        
+        const PRE = await pre.json()
+
+        if(PRE.status == 200){
+            data.append('password', password)
+            const res = await fetch(url+'/users/signin', {
+                method: 'POST',
+                body: data
+            })
+            
+            const JSON = await res.json()
+
+            if(JSON.status === 200){
+                window.location.replace('/dashboard.html')
+            } else if(JSON.status === 400){
+                alert('La contraseña ingresado es incorrecta')
+            } else{
+                alert('No se pudo conectar con el servidor')
+            } 
+
+        } else if(PRE.status == 401){
+            alert('Tu usuario aun no ha sido verificado')
+        } else if(PRE.status == 404){
+            alert('El correo ingresado no esta registrado')
+        } else alert('No se pudo conectar con el servidor')
+
     }
 }
 

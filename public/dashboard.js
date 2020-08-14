@@ -14,10 +14,10 @@ function setAttributes(){
 	document.getElementById('input-select').setAttribute('id', 'input-select-11')
 	document.getElementById('input-select').setAttribute('id', 'input-select-12')
 	document.getElementById('input-select').setAttribute('id', 'input-select-13')
-	document.getElementById('input-select').setAttribute('id', 'input-select-14')
-	document.getElementById('input-select').setAttribute('id', 'input-select-15')
-	document.getElementById('input-select').setAttribute('id', 'input-select-16')
-	document.getElementById('input-select').setAttribute('id', 'input-select-17')
+	// document.getElementById('input-select').setAttribute('id', 'input-select-14')
+	// document.getElementById('input-select').setAttribute('id', 'input-select-15')
+	// document.getElementById('input-select').setAttribute('id', 'input-select-16')
+	// document.getElementById('input-select').setAttribute('id', 'input-select-17')
 }
 
 async function checkCompleted(){ 
@@ -42,7 +42,7 @@ document.getElementById('save').onclick = async(e) =>{
 	const res = document.getElementById('form-user').checkValidity()
 	if(res){
 		e.preventDefault()
-		var gender, occupation, country, scholarship, institution, school, error = false
+		var gender, occupation, country, scholarship, institution, provisional, error = false
 		const genders = document.getElementsByName('genero')
 
 		genders.forEach(i => { if(i.checked) gender = i.value })
@@ -60,8 +60,11 @@ document.getElementById('save').onclick = async(e) =>{
 		if(!document.getElementById('institucion').value) error = true
 		else institution = document.getElementById('institucion').value
 
-		if(!document.getElementById('escuela').value) error = true
-		else school = document.getElementById('escuela').value
+		if(!document.getElementById('provisional').value) provisional = ''
+		else provisional = document.getElementById('provisional').value
+
+		// if(!document.getElementById('escuela').value) error = true
+		// else school = document.getElementById('escuela').value
 
 		if(error) alert('Porfavor verifica que todas las opciones esten seleccionadas')
 		else{
@@ -74,7 +77,8 @@ document.getElementById('save').onclick = async(e) =>{
 			data.append('country', country)
 			data.append('scholarship', scholarship)
 			data.append('institution', institution)
-			data.append('school', school)
+			// data.append('school', school)
+			data.append('provisional', provisional)
 			data.append('gender', gender)
 
 			const res = await fetch(url+'/users/update', {
@@ -115,13 +119,14 @@ async function renderUser(){
 		document.getElementById('pais').value = usuario._country
 		document.getElementById('escolaridad').value = usuario._scholarship
 		document.getElementById('institucion').value = usuario._institution
-		document.getElementById('escuela').value = usuario._school
+		// document.getElementById('escuela').value = usuario._school
+		if(usuario._provisional) document.getElementById('provisional').value = usuario._provisional
 		
-		if(usuario._occupation) document.getElementById('input-select-1').value = usuario._occupation
-		if(usuario._country) document.getElementById('input-select-2').value = usuario._country
+		if(usuario._country) document.getElementById('input-select-1').value = usuario._country
+		if(usuario._occupation) document.getElementById('input-select-2').value = usuario._occupation
 		if(usuario._scholarship) document.getElementById('input-select-3').value = usuario._scholarship
 		if(usuario._institution) document.getElementById('input-select-4').value = usuario._institution
-		if(usuario._school) document.getElementById('input-select-5').value = usuario._school
+		// if(usuario._school) document.getElementById('input-select-5').value = usuario._school
 
 		if(usuario._gender == 'Hombre') document.getElementById('man').checked = true
 		else if(usuario._gender == 'Mujer') document.getElementById('woman').checked = true
@@ -138,7 +143,7 @@ document.getElementById('save-member').onclick = async(e) =>{
 
 		if(!completed) alert('Aun no has completado tus datos personales')
 		else{
-			var gender, country, scholarship, institution, school, occupation, error = false
+			var gender, country, scholarship, institution, occupation, provisional = '', error = false
 			const genders = document.getElementsByName('genero-member')
 			genders.forEach(i => { if(i.checked) gender = i.value })
 			if(!gender) error = true
@@ -155,8 +160,11 @@ document.getElementById('save-member').onclick = async(e) =>{
 			if(!document.getElementById('institucion-member').value) error = true
 			else institution = document.getElementById('institucion-member').value
 	
-			if(!document.getElementById('escuela-member').value) error = true
-			else school = document.getElementById('escuela-member').value
+			// if(!document.getElementById('escuela-member').value) error = true
+			// else school = document.getElementById('escuela-member').value
+
+			if(document.getElementById('provisional-member').value)
+			provisional = document.getElementById('provisional-member').value
 			
 			if(error) alert('Porfavor verifica que todas las opciones esten seleccionadas')
 			else{
@@ -169,7 +177,8 @@ document.getElementById('save-member').onclick = async(e) =>{
 				data.append('occupation', occupation)
 				data.append('scholarship', scholarship)
 				data.append('institution', institution)
-				data.append('school', school)
+				// data.append('school', school)
+				data.append('provisional', provisional)
 				data.append('gender', gender)
 	
 				if(document.getElementById('save-member').value === "G u a r d a r _"){
@@ -230,14 +239,15 @@ async function cancelMember(){
 	document.getElementById('ocupacion-member').value = ""
 	document.getElementById('escolaridad-member').value = ""
 	document.getElementById('institucion-member').value = ""
-	document.getElementById('escuela-member').value = ""
+	// document.getElementById('escuela-member').value = ""
+	document.getElementById('provisional-member').value = ""
 	document.getElementById('id-member').value = ""
 
+	document.getElementById('input-select-5').value = "Selecciona una opción"
 	document.getElementById('input-select-6').value = "Selecciona una opción"
 	document.getElementById('input-select-7').value = "Selecciona una opción"
 	document.getElementById('input-select-8').value = "Selecciona una opción"
-	document.getElementById('input-select-9').value = "Selecciona una opción"
-	document.getElementById('input-select-10').value = "Selecciona una opción"
+	// document.getElementById('input-select-10').value = "Selecciona una opción"
 
 	document.getElementById('man-member').checked = false
 	document.getElementById('woman-member').checked = false
@@ -253,7 +263,7 @@ async function renderMembers(){
 
 	if(miembros){
 		miembros.forEach(miembro => {
-			var buttons
+			var buttons, institution
 			const li = document.createElement('li')
 			if(!miembro._robots){
 				buttons = `<p class="btn-block">
@@ -262,11 +272,20 @@ async function renderMembers(){
 				</p>`
 			} else buttons = ''
 
+			if(miembro._provisional != '') institution = miembro._provisional
+			else institution = miembro._institution
+
 			li.className = 'member-li'
 			li.innerHTML = `
 			<div class="collapsible-header"><i class="icon icon-ghost-"></i>${miembro._name} ${miembro._surname}</div>
 			<div class="collapsible-body">
 				<form>
+					<p>
+						<input type="text" autocomplete="off" value="${miembro._status}" disabled>
+						<label class="label">
+							<span class="content">estatus_</span>
+						</label>
+					</p>
 					<p>
 						<input type="text" autocomplete="off" value="${miembro._tel}" disabled>
 						<label class="label">
@@ -282,7 +301,7 @@ async function renderMembers(){
 					<p>
 						<input type="text" autocomplete="off" value="${miembro._country}" disabled>
 						<label class="label">
-							<span class="content">pa&iacute;s de procedencia_</span>
+							<span class="content">pa&iacute;s_</span>
 						</label>
 					</p>
 					<p>
@@ -298,15 +317,9 @@ async function renderMembers(){
 						</label>
 					</p>
 					<p>
-						<input type="text" autocomplete="off" value="${miembro._institution}" disabled>
+						<input type="text" autocomplete="off" value="${institution}" disabled>
 						<label class="label">
-							<span class="content">instituci&oacute;n_</span>
-						</label>
-					</p>
-					<p>
-						<input type="text" autocomplete="off" value="${miembro._school}" disabled>
-						<label class="label">
-							<span class="content">escuela_</span>
+							<span class="content">instituci&oacute;n/escuela_</span>
 						</label>
 					</p>
 					<p>
@@ -315,12 +328,7 @@ async function renderMembers(){
 							<span class="content">genero_</span>
 						</label>
 					</p>
-					<p>
-						<input type="text" autocomplete="off" value="${miembro._status}" disabled>
-						<label class="label">
-							<span class="content">status_</span>
-						</label>
-					</p>
+					
 					</form>
 					${buttons}
 			</div>
@@ -349,14 +357,15 @@ async function updateMember(e, id){
 		document.getElementById('ocupacion-member').value = member._occupation
 		document.getElementById('escolaridad-member').value = member._scholarship
 		document.getElementById('institucion-member').value = member._institution
-		document.getElementById('escuela-member').value = member._school
+		// document.getElementById('escuela-member').value = member._school
+		document.getElementById('provisional-member').value = member._provisional
 		document.getElementById('id-member').value = member._id
 
-		if(member._country) document.getElementById('input-select-6').value = member._country
-		if(member._occupation) document.getElementById('input-select-7').value = member._occupation
-		if(member._scholarship) document.getElementById('input-select-8').value = member._scholarship
-		if(member._institution) document.getElementById('input-select-9').value = member._institution
-		if(member._school) document.getElementById('input-select-10').value = member._school
+		if(member._country) document.getElementById('input-select-5').value = member._country
+		if(member._occupation) document.getElementById('input-select-6').value = member._occupation
+		if(member._scholarship) document.getElementById('input-select-7').value = member._scholarship
+		if(member._institution) document.getElementById('input-select-8').value = member._institution
+		// if(member._school) document.getElementById('input-select-10').value = member._school
 
 		if(member._gender == 'Hombre') document.getElementById('man-member').checked = true
 		else if(member._gender == 'Mujer') document.getElementById('woman-member').checked = true
@@ -378,9 +387,7 @@ async function deleteMember(e, id){
 		addOptions(true)
 		renderMembers()
 		cancelMember()
-	} else{
-		alert('El integrante no pudo ser borrado')
-	}
+	} else alert('El integrante no pudo ser borrado')
 }
 
 // **Funciones de robots** 
@@ -393,13 +400,11 @@ document.getElementById('save-robot').onclick = async(e) =>{
 		if(!completed) alert('Aun no has completado tus datos personales')
 		else{
 			var categoria = true, capitan = true, yo = 0
-			var captain, member1, member2, member3, member4, member5
-			captain = document.getElementById('input-select-12')
-			member1 = document.getElementById('input-select-13')
-			member2 = document.getElementById('input-select-14')
-			member3 = document.getElementById('input-select-15')
-			member4 = document.getElementById('input-select-16')
-			member5 = document.getElementById('input-select-17')
+			var captain, member1, member2, member3
+			captain = document.getElementById('input-select-10')
+			member1 = document.getElementById('input-select-11')
+			member2 = document.getElementById('input-select-12')
+			member3 = document.getElementById('input-select-13')
 
 			if(!document.getElementById('categoria').value) categoria = false
 			if(captain.value == 'Selecciona una opción') capitan = false
@@ -422,37 +427,25 @@ document.getElementById('save-robot').onclick = async(e) =>{
 					array.push(member3.name)
 				} else if(member3.value == 'Yo') yo += 1
 
-				if(member4.value != 'Yo' && member4.value != 'Selecciona una opción'){
-					array.push(member4.name)
-				} else if(member4.value == 'Yo') yo += 1
-
-				if(member5.value != 'Yo' && member5.value != 'Selecciona una opción'){
-					array.push(member5.name)
-				} else if(member5.value == 'Yo') yo += 1
-
 				var set = new Set(array)
-				if(set.size === array.length && yo <= 1){
+
+				if(set.size == array.length && yo <= 1){
 					const data = new FormData()
+
 					data.append('name', document.getElementById('nombre-robot').value.toUpperCase())
 					data.append('category', document.getElementById('categoria').value)
 		
-					data.append('captain', document.getElementById('input-select-12').value)
-					data.append('idc', document.getElementById('input-select-12').name)
+					data.append('captain', captain.value)
+					data.append('idc', captain.name)
 		
-					data.append('m1', document.getElementById('input-select-13').value)
-					data.append('id1', document.getElementById('input-select-13').name)
+					data.append('m1', member1.value)
+					data.append('id1', member1.name)
 					
-					data.append('m2', document.getElementById('input-select-14').value)
-					data.append('id2', document.getElementById('input-select-14').name)
+					data.append('m2', member2.value)
+					data.append('id2', member2.name)
 		
-					data.append('m3', document.getElementById('input-select-15').value)
-					data.append('id3', document.getElementById('input-select-15').name)
-		
-					data.append('m4', document.getElementById('input-select-16').value)
-					data.append('id4', document.getElementById('input-select-16').name)
-		
-					data.append('m5', document.getElementById('input-select-17').value)
-					data.append('id5', document.getElementById('input-select-17').name)
+					data.append('m3', member3.value)
+					data.append('id3', member3.name)
 		
 					if(document.getElementById('save-robot').value === "C r e a r _"){
 						const res = await fetch(url+'/robots/create', {
@@ -468,13 +461,16 @@ document.getElementById('save-robot').onclick = async(e) =>{
 							renderRobots()
 							renderMembers()
 						} else if(JSON.status === 400) alert('El nombre del robot ya esta en uso')
+
 						else alert('No se pudo crear un nuevo robot')
+
 					} else{
 						const id = document.getElementById('id-robot').value
 						const res = await fetch(url+'/robots/update/'+id, {
 							method: 'PUT',
 							body: data
 						})
+
 						const JSON = await res.json()
 						if(JSON.status === 200){
 							alert('Datos actualizados con exito')
@@ -516,7 +512,7 @@ async function addOptions(aux){
 	var selector = document.getElementsByClassName("select-opt")
 
 	if(aux){
-		for(var i = 11; i < 17; i++){
+		for(var i = 9; i < 13; i++){
 			var opciones = selector[i].getElementsByTagName("li")
 			const top = opciones.length - 1
 			for(var j = top; j > 1; j--)
@@ -526,7 +522,7 @@ async function addOptions(aux){
 
 	const miembros = await Members()  
 	miembros.forEach(miembro => {
-		for(var i = 11; i < 17; i++){
+		for(var i = 9; i < 13; i++){
 			var opcion = miembro._name + ' ' + miembro._surname
 			var li = document.createElement('li')
 			li.innerHTML = `<span onclick="putValue(${i+1}, '${opcion}', '${miembro._id}')"> ${opcion} </span>`
@@ -545,27 +541,27 @@ async function cancelRobot(){
 	document.getElementById('save-robot').value = 'C r e a r _'
 	document.getElementById('categoria').value = ""
 
+	document.getElementById('input-select-9').value = "Selecciona una opción"
+	document.getElementById('input-select-10').value = "Selecciona una opción"
 	document.getElementById('input-select-11').value = "Selecciona una opción"
 	document.getElementById('input-select-12').value = "Selecciona una opción"
 	document.getElementById('input-select-13').value = "Selecciona una opción"
-	document.getElementById('input-select-14').value = "Selecciona una opción"
-	document.getElementById('input-select-15').value = "Selecciona una opción"
-	document.getElementById('input-select-16').value = "Selecciona una opción"
-	document.getElementById('input-select-17').value = "Selecciona una opción"
+	// document.getElementById('input-select-16').value = "Selecciona una opción"
+	// document.getElementById('input-select-17').value = "Selecciona una opción"
 
+	document.getElementById('input-select-10').name = ""
+	document.getElementById('input-select-11').name = ""
 	document.getElementById('input-select-12').name = ""
 	document.getElementById('input-select-13').name = ""
-	document.getElementById('input-select-14').name = ""
-	document.getElementById('input-select-15').name = ""
-	document.getElementById('input-select-16').name = ""
-	document.getElementById('input-select-17').name = ""
+	// document.getElementById('input-select-16').name = ""
+	// document.getElementById('input-select-17').name = ""
 
 	document.getElementById('captain').value = ""
 	document.getElementById('member1').value = ""
 	document.getElementById('member2').value = ""
 	document.getElementById('member3').value = ""
-	document.getElementById('member4').value = ""
-	document.getElementById('member5').value = ""
+	// document.getElementById('member4').value = ""
+	// document.getElementById('member5').value = ""
 }
 
 async function renderRobots(){
@@ -580,12 +576,15 @@ async function renderRobots(){
 				boton1 = `<input type="submit" onclick="updateRobot('${robot._id}')" value="E d i t a r _">`
 				boton2 = `<input type="submit" onclick="deleteRobot('${robot._id}')" value="E l i m i n a r _">`
 				boton3 = `<input type="submit" onclick="registRobot('${robot._id}')" value="R e g i s t r a r _">`
-			} else{
+			} else
 				boton3 = `<input type="button" value="P r o c e d e r  a l  p a g o _" onclick="location.href='https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.mercadopago.com.mx%2Fcheckout%2Fv1%2Fredirect%3Fpref_id%3D249524119-7ff4d878-f607-41ef-8201-be6634c9d25f%26fbclid%3DIwAR109_K4yWn-aHhlXTv73HXp-oXH2_JMs6HYUehD-TQgufG6zuS1Tfwg9qk&h=AT2nPT58dlAqgGjM47fmr81LmsM7siGExsg4fDIiZZSnetX9IShqinH90DMc-65LHnC6-R_DbW-HDDFD-rMEZCSFBYJLA5CJhmeh4ilxEQbrkU6ew_Q12D2MRU33AnVUqRptdnK8G8rNe50GTa2y3w'">`
-			}
-			robot._members.forEach(miembro => {
-				members += `<input type="text" autocomplete="off" value="${miembro}" disabled>`
-			})
+
+			if(robot._members.length != 0){
+				robot._members.forEach(miembro => {
+					members += `<input type="text" autocomplete="off" value="${miembro}" disabled>`
+				})
+			} else members = '<input type="text" autocomplete="off" value="Sin integrantes" disabled>'
+
 			li.className = 'robot-li'
 			li.innerHTML = `
 			<div class="collapsible-header"><i class="icon icon-pac-man-"></i>${robot._name}</div>
@@ -662,13 +661,16 @@ async function deleteRobot(id){
 			headers: { 'Content-Type': 'application/json' },
 			method: 'DELETE'
 		})	
+
 		const JSON = await res.json()
+
 		if(JSON.status == 200){
 			alert('Tu robot ha sido eliminado')
 			cancelRobot()
 			renderRobots()
 			renderMembers()
 		} else alert('El robot no pudo ser eliminado')
+
 	} else alert('Los miembros no fueron actualizados')
 }
 
@@ -687,12 +689,12 @@ async function updateRobot(id){
 		document.getElementById('save-robot').value = 'A c t u a l i z a r _'
 
 		if(robot._category){
-			document.getElementById('input-select-11').value = robot._category
+			document.getElementById('input-select-9').value = robot._category
 			document.getElementById('categoria').value = robot._category
 		}
 		if(robot._captain){
-			document.getElementById('input-select-12').value = robot._captain
-			if(robot._captain != 'Yo') document.getElementById('input-select-12').name = robot._idMember[0]
+			document.getElementById('input-select-10').value = robot._captain
+			if(robot._captain != 'Yo') document.getElementById('input-select-10').name = robot._idMember[0]
 			else flag = true
 		}
 
@@ -700,7 +702,7 @@ async function updateRobot(id){
 			var aux
 			if(flag){ 
 				for(var i = 0; i < robot._members.length; i++){
-					aux = 13 + i
+					aux = 11 + i
 					document.getElementById('input-select-' + aux).value = robot._members[i]
 					document.getElementById('input-select-' + aux).name = robot._idMember[i]
 				}
@@ -711,14 +713,14 @@ async function updateRobot(id){
 						if(member != 'Yo') array.push(member)
 					})
 					for(var i = 1; i < array.length+ 1; i++){
-						aux = 12 + i
+						aux = 10 + i
 						document.getElementById('input-select-' + aux).value = array[i-1]
 						document.getElementById('input-select-' + aux).name = robot._idMember[i]
 					}
-					document.getElementById('input-select-17').value = 'Yo'
+					document.getElementById('input-select-13').value = 'Yo'
 				} else{ 
 					for(var i = 1; i < robot._idMember.length; i++){
-						aux = 12 + i
+						aux = 10 + i
 						document.getElementById('input-select-' + aux).value = robot._members[i-1]
 						document.getElementById('input-select-' + aux).name = robot._idMember[i]
 					}

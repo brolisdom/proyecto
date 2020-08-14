@@ -25,7 +25,7 @@ router.get('/data/:id', isAuth, async(req, res) =>{
 })
 
 router.post('/create', isAuth, async(req, res) =>{
-    const { name, surname, occupation, tel, gender, date, country, scholarship, institution, school } = req.body
+    const { name, surname, occupation, tel, gender, date, country, scholarship, institution, provisional } = req.body
     const newMember = new Member({
         _leader: req.user._id,
         _name: name,
@@ -37,7 +37,8 @@ router.post('/create', isAuth, async(req, res) =>{
         _country: country, 
         _scholarship: scholarship,
         _institution: institution,
-        _school: school,
+        _provisional: provisional,
+        // _school: school,
         _status: 'Espectador',
         _robots: 0
     })
@@ -46,7 +47,7 @@ router.post('/create', isAuth, async(req, res) =>{
 })
 
 router.put('/update/:id', isAuth, async(req, res) => {
-    const { name, surname, occupation, tel, date, gender, country, scholarship, institution, school } = req.body
+    const { name, surname, occupation, tel, date, gender, country, scholarship, institution, provisional } = req.body
     const member = await Member.findOne({ _id: req.params.id })
     if(member){
         if(member._leader == req.user._id){
@@ -60,15 +61,14 @@ router.put('/update/:id', isAuth, async(req, res) => {
                 _country: country,
                 _scholarship: scholarship,
                 _institution: institution,
-                _school: school
+                _provisional: provisional,
+                // _school: school
             })
             res.json({ status: 200 })
-        } else{
-            res.json({ status: 401 })
-        }
-    } else{
-        res.json({ status: 404 })
-    }
+
+        } else res.json({ status: 401 })
+
+    } else res.json({ status: 404 })
 })
 
 router.delete('/delete/:id', isAuth, async(req, res) => {
@@ -77,12 +77,9 @@ router.delete('/delete/:id', isAuth, async(req, res) => {
         if(member._leader == req.user._id){
             await Member.findByIdAndDelete(req.params.id)
             res.json({ status: 200 })
-        } else{
-            res.json({ status: 401 })
-        }
-    } else{
-        res.json({ status: 404 })
-    }
+        } else res.json({ status: 401 })
+
+    } else res.json({ status: 404 })
 })
 
 module.exports = router

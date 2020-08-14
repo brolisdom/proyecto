@@ -26,7 +26,7 @@ router.get('/data/:id', isAuth, async(req, res) =>{
 })
 
 router.post('/create', isAuth, async(req, res) => {
-    const { name, category, captain, m1, m2, m3, m4, m5, idc, id1, id2, id3, id4, id5 } = req.body
+    const { name, category, captain, m1, m2, m3, idc, id1, id2, id3 } = req.body
 
     const robot = await Robot.findOne({ _name: name })
     if(robot) res.json({ status: 400 })
@@ -37,37 +37,43 @@ router.post('/create', isAuth, async(req, res) => {
 
         if(m1 != 'Selecciona una opción'){
             members.push(m1)
-            if(id1 != 'Yo') id.push(id1)
+            if(m1 != 'Yo') id.push(id1)
         }
 
         if(m2 != 'Selecciona una opción'){
             members.push(m2)
-            if(id2 != 'Yo') id.push(id2)
+            if(m2 != 'Yo') id.push(id2)
         }
 
         if(m3 != 'Selecciona una opción'){
             members.push(m3)
-            if(id3 != 'Yo') id.push(id3)
+            if(m3 != 'Yo') id.push(id3)
         }
-
-        if(m4 != 'Selecciona una opción'){
-            members.push(m4)
-            if(id4 != 'Yo') id.push(id4)
-        }
-
-        if(m5 != 'Selecciona una opción'){
-            members.push(m5)
-            if(id5 != 'Yo') id.push(id5)
-        }
-
-        // id = new Set(id)
 
         for(var i = 0; i < id.length; i++){
             member = await Member.findOne({ _id: id[i] })
             if(member) await Member.findByIdAndUpdate( { _id: id[i] }, 
                 { _robots: member._robots + 1 })
         }
-        const price = 100.01 // provicional
+
+        var price = 0.00 // provicional
+
+        if(category == "220 Libras") price = 1155.00
+        if(category == "120 Libras") price = 1045.00
+        if(category == "60 Libras") price = 935.00
+        if(category == "30 Libras") price = 825.00
+        if(category == "12 Libras") price = 715.00
+        if(category == "3 Libras") price = 605.00
+        if(category == "1 Libra") price = 539.00
+        if(category == "Sumo R.C.") price = 990.00
+        if(category == "Minisumo") price = 638.00
+        if(category == "Microsumo") price = 638.00
+        if(category == "Sumo autonomo") price = 990.00
+        if(category == "Seguidor de linea") price = 638.00
+        if(category == "Lego sumo") price = 540.00
+        if(category == "Lego seguidor de linea") price = 540.00
+        if(category == "Carrera de drones") price = 1000.00
+
         const newRobot = new Robot({ 
             _leader: req.user._id,
             _captain: captain,
@@ -86,7 +92,7 @@ router.post('/create', isAuth, async(req, res) => {
 })
 
 router.put('/update/:id', isAuth, async(req, res) => {
-    const { name, category, captain, m1, m2, m3, m4, m5, idc, id1, id2, id3, id4, id5 } = req.body
+    const { name, category, captain, m1, m2, m3, idc, id1, id2, id3 } = req.body
     const robot = await Robot.findOne({ _id: req.params.id })
 
     if(!robot) res.json({ status: 404 })
@@ -98,27 +104,17 @@ router.put('/update/:id', isAuth, async(req, res) => {
 
             if(m1 != 'Selecciona una opción'){
                 members.push(m1)
-                if(id1 != 'Yo') id.push(id1)
+                if(m1 != 'Yo') id.push(id1)
             }
 
             if(m2 != 'Selecciona una opción'){
                 members.push(m2)
-                if(id2 != 'Yo') id.push(id2)
+                if(m2 != 'Yo') id.push(id2)
             }
 
             if(m3 != 'Selecciona una opción'){
                 members.push(m3)
-                if(id3 != 'Yo') id.push(id3)
-            }
-
-            if(m4 != 'Selecciona una opción'){
-                members.push(m4)
-                if(id4 != 'Yo') id.push(id4)
-            }
-
-            if(m5 != 'Selecciona una opción'){
-                members.push(m5)
-                if(id5 != 'Yo') id.push(id5)
+                if(m3 != 'Yo') id.push(id3)
             }
 
             for(var i = 0; i < robot._idMember.length; i++){
@@ -134,6 +130,23 @@ router.put('/update/:id', isAuth, async(req, res) => {
             }
 
             const repeat = await Robot.findOne({ _name: name })
+            var price = 0.00 // provicional
+
+            if(category == "220 Libras") price = 1155.00
+            if(category == "120 Libras") price = 1045.00
+            if(category == "60 Libras") price = 935.00
+            if(category == "30 Libras") price = 825.00
+            if(category == "12 Libras") price = 715.00
+            if(category == "3 Libras") price = 605.00
+            if(category == "1 Libra") price = 539.00
+            if(category == "Sumo R.C.") price = 990.00
+            if(category == "Minisumo") price = 638.00
+            if(category == "Microsumo") price = 638.00
+            if(category == "Sumo autonomo") price = 990.00
+            if(category == "Seguidor de linea") price = 638.00
+            if(category == "Lego sumo") price = 540.00
+            if(category == "Lego seguidor de linea") price = 540.00
+            if(category == "Carrera de drones") price = 1000.00
 
             if(repeat && robot._name != name) {
                 res.json({ status: 400 })
@@ -146,7 +159,8 @@ router.put('/update/:id', isAuth, async(req, res) => {
                     _discount: 'Opcional',
                     _prototype: 'Opcional',
                     _members: members,
-                    _idMember: id
+                    _idMember: id,
+                    _price: price
                 })
                 res.json({ status: 200 })
             }
