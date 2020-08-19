@@ -49,8 +49,8 @@ app.use(cors())
 app.use('/api/users', require('./routes/users'))
 app.use('/api/robots', require('./routes/robots'))
 app.use('/api/members', require('./routes/members'))
-// app.use('/api/members', require('./routes/news'))
-// app.use('/api/members', require('./routes/schools'))
+app.use('/api/admin', require('./routes/admin'))
+// app.use('/api/news', require('./routes/news'))
 
 // static files
 app.use(express.static(path.join(__dirname, '../public')))

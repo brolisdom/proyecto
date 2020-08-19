@@ -92,7 +92,7 @@ router.post('/create', isAuth, async(req, res) => {
 })
 
 router.put('/update/:id', isAuth, async(req, res) => {
-    const { name, category, captain, m1, m2, m3, idc, id1, id2, id3 } = req.body
+    const { name, price, category, captain, m1, m2, m3, idc, id1, id2, id3 } = req.body
     const robot = await Robot.findOne({ _id: req.params.id })
 
     if(!robot) res.json({ status: 404 })
@@ -130,24 +130,6 @@ router.put('/update/:id', isAuth, async(req, res) => {
             }
 
             const repeat = await Robot.findOne({ _name: name })
-            var price = 0.00 // provicional
-
-            if(category == "220 Libras") price = 1155.00
-            if(category == "120 Libras") price = 1045.00
-            if(category == "60 Libras") price = 935.00
-            if(category == "30 Libras") price = 825.00
-            if(category == "12 Libras") price = 715.00
-            if(category == "3 Libras") price = 605.00
-            if(category == "1 Libra") price = 539.00
-            if(category == "Sumo R.C.") price = 990.00
-            if(category == "Minisumo") price = 638.00
-            if(category == "Microsumo") price = 638.00
-            if(category == "Sumo autonomo") price = 990.00
-            if(category == "Seguidor de linea") price = 638.00
-            if(category == "Lego sumo") price = 540.00
-            if(category == "Lego seguidor de linea") price = 540.00
-            if(category == "Carrera de drones") price = 1000.00
-
             if(repeat && robot._name != name) {
                 res.json({ status: 400 })
             } else{

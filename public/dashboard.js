@@ -14,10 +14,6 @@ function setAttributes(){
 	document.getElementById('input-select').setAttribute('id', 'input-select-11')
 	document.getElementById('input-select').setAttribute('id', 'input-select-12')
 	document.getElementById('input-select').setAttribute('id', 'input-select-13')
-	// document.getElementById('input-select').setAttribute('id', 'input-select-14')
-	// document.getElementById('input-select').setAttribute('id', 'input-select-15')
-	// document.getElementById('input-select').setAttribute('id', 'input-select-16')
-	// document.getElementById('input-select').setAttribute('id', 'input-select-17')
 }
 
 async function checkCompleted(){ 
@@ -307,7 +303,7 @@ async function renderMembers(){
 					<p>
 						<input type="text" autocomplete="off" value="${miembro._occupation}" disabled>
 						<label class="label">
-							<span class="content">ocupacion__</span>
+							<span class="content">ocupacion_</span>
 						</label>
 					</p>
 					<p>
@@ -396,11 +392,12 @@ document.getElementById('save-robot').onclick = async(e) =>{
 	if(aux){
 		e.preventDefault()
 		completed = await checkCompleted()
-
 		if(!completed) alert('Aun no has completado tus datos personales')
 		else{
-			var categoria = true, capitan = true, yo = 0
-			var captain, member1, member2, member3
+			var categoria = true, capitan = true, yo = 0, price = 0
+			var captain, member1, member2, member3, category, name
+			name = document.getElementById('nombre-robot').value.toUpperCase()
+			category = document.getElementById('input-select-9').value
 			captain = document.getElementById('input-select-10')
 			member1 = document.getElementById('input-select-11')
 			member2 = document.getElementById('input-select-12')
@@ -430,22 +427,34 @@ document.getElementById('save-robot').onclick = async(e) =>{
 				var set = new Set(array)
 
 				if(set.size == array.length && yo <= 1){
+					if(category == "220 Libras") price = 1155.00
+					if(category == "120 Libras") price = 1045.00
+					if(category == "60 Libras") price = 935.00
+					if(category == "30 Libras") price = 825.00
+					if(category == "12 Libras") price = 715.00
+					if(category == "3 Libras") price = 605.00
+					if(category == "1 Libra") price = 539.00
+					if(category == "Sumo R.C.") price = 990.00
+					if(category == "Minisumo") price = 638.00
+					if(category == "Microsumo") price = 638.00
+					if(category == "Sumo autonomo") price = 990.00
+					if(category == "Seguidor de linea") price = 638.00
+					if(category == "Lego sumo") price = 540.00
+					if(category == "Lego seguidor de linea") price = 540.00
+					if(category == "Carrera de drones") price = 1000.00
+				
 					const data = new FormData()
-
 					data.append('name', document.getElementById('nombre-robot').value.toUpperCase())
 					data.append('category', document.getElementById('categoria').value)
-		
 					data.append('captain', captain.value)
 					data.append('idc', captain.name)
-		
 					data.append('m1', member1.value)
 					data.append('id1', member1.name)
-					
 					data.append('m2', member2.value)
 					data.append('id2', member2.name)
-		
 					data.append('m3', member3.value)
 					data.append('id3', member3.name)
+					data.append('price', price)
 		
 					if(document.getElementById('save-robot').value === "C r e a r _"){
 						const res = await fetch(url+'/robots/create', {
@@ -569,20 +578,18 @@ async function renderRobots(){
     const robots = await Robots()
 	const robotsContainer = document.getElementById('robots-container')
 	if(robots){
-		var boton1 = '', boton2 = '', boton3 = '', members = ''
+		var boton1 = '', boton2 = '', boton3 = ''
 		robots.forEach(robot => {
+			var members = ''
 			const li = document.createElement('li')
 			if(robot._status == 'Sin registrar'){
 				boton1 = `<input type="submit" onclick="updateRobot('${robot._id}')" value="E d i t a r _">`
 				boton2 = `<input type="submit" onclick="deleteRobot('${robot._id}')" value="E l i m i n a r _">`
 				boton3 = `<input type="submit" onclick="registRobot('${robot._id}')" value="R e g i s t r a r _">`
-			} else
-				boton3 = `<input type="button" value="P r o c e d e r  a l  p a g o _" onclick="location.href='https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.mercadopago.com.mx%2Fcheckout%2Fv1%2Fredirect%3Fpref_id%3D249524119-7ff4d878-f607-41ef-8201-be6634c9d25f%26fbclid%3DIwAR109_K4yWn-aHhlXTv73HXp-oXH2_JMs6HYUehD-TQgufG6zuS1Tfwg9qk&h=AT2nPT58dlAqgGjM47fmr81LmsM7siGExsg4fDIiZZSnetX9IShqinH90DMc-65LHnC6-R_DbW-HDDFD-rMEZCSFBYJLA5CJhmeh4ilxEQbrkU6ew_Q12D2MRU33AnVUqRptdnK8G8rNe50GTa2y3w'">`
+			} else boton3 = `<input type="button" value="P r o c e d e r  a l  p a g o _" onclick="location.href='https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.mercadopago.com.mx%2Fcheckout%2Fv1%2Fredirect%3Fpref_id%3D249524119-7ff4d878-f607-41ef-8201-be6634c9d25f%26fbclid%3DIwAR109_K4yWn-aHhlXTv73HXp-oXH2_JMs6HYUehD-TQgufG6zuS1Tfwg9qk&h=AT2nPT58dlAqgGjM47fmr81LmsM7siGExsg4fDIiZZSnetX9IShqinH90DMc-65LHnC6-R_DbW-HDDFD-rMEZCSFBYJLA5CJhmeh4ilxEQbrkU6ew_Q12D2MRU33AnVUqRptdnK8G8rNe50GTa2y3w'">`
 
 			if(robot._members.length != 0){
-				robot._members.forEach(miembro => {
-					members += `<input type="text" autocomplete="off" value="${miembro}" disabled>`
-				})
+				robot._members.forEach(miembro => { members += `<input type="text" autocomplete="off" value="${miembro}" disabled>` })
 			} else members = '<input type="text" autocomplete="off" value="Sin integrantes" disabled>'
 
 			li.className = 'robot-li'
