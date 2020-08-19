@@ -50,7 +50,9 @@
                     <h1 class="title">Perfil</h1>
                     <hr>
                     <div class="user">
-                        <p class="name">MI EQUIPO</p>
+                        <p class="name">
+                            <input class="name_team" type="text" id="nombre_equipo" autocomplete="off" required placeholder="Dale un nombre a tu Team">
+                        </p>
                         <p class="position">n o m b r e &nbsp; d e l &nbsp; e q u i p o</p>
                     </div>
                     <!-- FORM DATA -->
@@ -333,9 +335,9 @@
                         </p>
                         <p>
                             <input type="radio" name="genero" id="man" value="Hombre">
-                            <label for="man" class="label_radio">Hombre</label>
+                            <label for="man" class="label_radio">H o m b r e</label>
                             <input type="radio" name="genero" id="woman" value="Mujer">
-                            <label for="woman" class="label_radio">Mujer</label>
+                            <label for="woman" class="label_radio">M u j e r</label>
                             <input type="radio" name="genero" id="other" value="Otro">
                             <label for="other" class="label_radio">Otro</label>
                             <label for="genero" class="label_select">genero_</label>
@@ -738,13 +740,17 @@
                                                 <label for="member5" class="label_select">Integrante_ </label>
                                             </p>  -->
                                             <p>
-                                                <input type="text" id="imagen-robot" autocomplete="off" disabled>
+                                                <input type="file" id="imagen-robot" autocomplete="off" hidden="hidden" accept="image/*">
+                                                <button type="button" id="file_button" class="file_button">Subir Archivos</button>
+                                                <span id="file_span" class="file_span">No has elegido archivos.</span>
                                                 <label for="imagen-robot" class="label">
                                                     <span class="content">Imagen de prototipo_ (opcional)</span>
                                                 </label>
                                             </p>
                                             <p>
-                                                <input type="text" id="archivo-robot" autocomplete="off" disabled>
+                                                <input type="file" id="descuento-robot" autocomplete="off" hidden="hidden">
+                                                <button type="button" id="file_button_2" class="file_button">Subir Archivos</button>
+                                                <span id="file_span_2" class="file_span">No has elegido archivos.</span>
                                                 <label for="archivo-robo" class="label">
                                                     <span class="content">Archivo para descuento_ (opcional)</span>
                                                 </label>
@@ -791,6 +797,39 @@
             modal: true,
             maxYear: 2020,
             minYear: 1990
+        });
+    </script>
+    <script type="text/javascript">
+        const realFile = document.getElementById("imagen-robot");
+        const finalBtn = document.getElementById("file_button");
+        const finalTxt = document.getElementById("file_span");
+
+        const realFile_1 = document.getElementById("descuento-robot");
+        const finalBtn_1 = document.getElementById("file_button_2");
+        const finalTxt_1 = document.getElementById("file_span_2");
+
+        finalBtn.addEventListener("click", function(){
+            realFile.click();
+        });
+        finalBtn_1.addEventListener("click", function(){
+            realFile_1.click();
+        });
+
+        realFile.addEventListener("change", function(){
+            if(realFile.value) {
+                finalTxt.innerHTML = realFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+            }
+            else {
+                finalTxt.innerHTML = "No has elegido archivos";
+            }
+        });
+        realFile_1.addEventListener("change", function(){
+            if(realFile_1.value) {
+                finalTxt_1.innerHTML = realFile_1.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+            }
+            else {
+                finalTxt_1.innerHTML = "No has elegido archivos";
+            }
         });
     </script>
 </body>
