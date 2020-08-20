@@ -715,7 +715,46 @@ main #tab2 .container section#two .container .references {
         color: var(--c_light);
         font-family: Prime-Regular;
         font-size: 0.84vw;
-    }    
+    }
+main #tab2 .section.three .content,
+main #tab2 .section.four .content {
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
+main #tab2 .section.three .content h5,
+main #tab2 .section.four .content h5 {
+    font-size: 1.3vw;
+    color: var(--c_medium);
+    font-family: Prime-Regular;
+    text-transform: uppercase;
+}
+main #tab2 .section.three .content h1,
+main #tab2 .section.four .content h1 {
+    font-family: Prime-Light;
+    color: var(--c_light);
+    font-size: 3vw;
+    text-transform: uppercase;
+}
+main #tab2 .section.three .content p,
+main #tab2 .section.four .content p {
+    font-family: Prime-Light;
+    color: var(--c_ultra);
+    font-size: 1vw;
+}
+main #tab2 .section.three .content p::after,
+main #tab2 .section.four .content p::after {
+    content: '';
+    position: relative;
+    display: block;
+    height: 0.1vh;
+    width: 10vw;
+    margin: auto;
+    background: var(--c_thin);
+    margin-top: 2vh;
+}
+
 /* 2020 */
 #anio {
     width: 15vw;
