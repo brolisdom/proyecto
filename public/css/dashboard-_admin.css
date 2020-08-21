@@ -19,6 +19,7 @@ main #tabUser .container .fluid-btn {
     height: auto;
     padding: 0;
     margin: 0;
+    margin-top: 1vh;
 }
 main #tabUser .container .fluid-btn p {
     width: 100%;
@@ -30,6 +31,7 @@ main #tabUser .container .fluid-btn p {
 main #tabUser .container .fluid-btn input[type=text] {
     display: block;
     width: 100%;
+    outline: none;
 }
 main #tabUser .container .fluid-btn input[type=text]::placeholder {
     color: var(--c_bold);
@@ -41,7 +43,7 @@ main #tabUser .container .fluid-btn input[type=button] {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 1.75vh 0;
+    padding: 2vh 0;
     font-family: Prime-Regular;
     font-size: 0.8vw;
     color: var(--c_bold);
@@ -50,6 +52,7 @@ main #tabUser .container .fluid-btn input[type=button] {
     border: 0.1vh solid transparent;
     position: relative;
     top: -2vh;
+    outline: none;
     transition: all 0.2s linear;
 }
 main #tabUser .container .fluid-btn input[type=button]:hover {
@@ -58,16 +61,65 @@ main #tabUser .container .fluid-btn input[type=button]:hover {
     border-style: inset;
     border: 0.1vh solid var(--c_bold);
 }
-
-main #tabUser .container .viewer {
+main #tabUser .viewer {
     display: block;
     width: 100%;
+}
+main #tabUser .captain_view {
+    display: block;
+    width: 100%;
+}
+main #tabUser .captain_view input[type=text] {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-left: 1.5vw;
+    font-size: 1.15vw;
+    transition: all 0.4s ease-in;
+}
+main #tabUser .captain_view p.tag {
+    display: block;
+    font-family: Prime-Regular;
+    color: var(--c_bold);
+    margin-bottom: 1vh;
+    text-transform: uppercase;
+    padding: 0;
+    font-size: 0.6vw;
+    letter-spacing: 0.4vw;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+main #tabUser .captain_view .captain_view_btn {
+    margin-bottom: 0vh !important;
+    margin-top: 3vh !important;
+    padding: 0;
 }
 main #tabUser .container .viewer .nametag,
 main #tabUser .container .nametag {
     background: var(--c_dark);
     padding: 2vh 1vw;
     display: flex;
+}
+main #tabUser .file_button {
+    display: inline-block;
+    padding: 1vh 1vw 0.5vh 1vw;
+    margin-top: 2vh;
+    background: transparent;
+    border: none;
+    border-bottom: 0.1vh solid var(--c_bold);
+    font-size: 1.3vw;
+    outline: none;
+    cursor: pointer;
+    color: var(--c_medium);
+    font-family: Prime-Light;
+    letter-spacing: 0.1vw;
+}
+main #tabUser .file_span {
+    color: var(--c_bold);
+    font-family: Prime-Light;
+    font-size: 0.8vw;
+    letter-spacing: 0.1vw;
 }
 main #tabUser .container .viewer .nametag h4 {
     font-size: 1vw;
@@ -136,14 +188,24 @@ main #tabUser .container .btn-block-tab input[type=button] {
     border-left: 0.1vh solid var(--c_bold);
     border-right: 0.1vh solid var(--c_bold);
 }
-
 main #tabUser .container .results {
     color: var(--c_light);
     font-family: Prime-Regular;
     letter-spacing: 0.5vw;
     font-size: 0.7vw;
     text-transform: uppercase;
-    margin-bottom: 2vh;
+    margin-top: 2vh;
+    padding-top: 2.5vh;
+}
+main #tabUser .container .results-1 {
+    color: var(--c_light);
+    font-family: Prime-Regular;
+    letter-spacing: 0.5vw;
+    font-size: 0.7vw;
+    text-transform: uppercase;
+    margin-top: 0vh;
+    padding-top: 0vh;
+    padding-bottom: 1.5vh;
 }
 main #tabUser .container .tag_search .nametag {
     margin-bottom: 1vh;
@@ -164,4 +226,9 @@ main #tabUser .container .tag_search .nametag .tag-icons i {
     opacity: 0.5;
     font-size: 0.8vw;
     margin-right: 1vw;
+}
+main #tabUser p.btn-block {
+    display: flex !important;
+    justify-content: space-between;
+    margin-bottom: 2vh !important;
 }

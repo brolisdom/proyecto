@@ -96,7 +96,9 @@ body {
         border-bottom-left-radius: 1.5vw;
         overflow: hidden;
     }
-
+    input {
+        outline: none;
+    }
     /* USUARIO */
     main #tabUser {
         position: relative;
@@ -145,6 +147,7 @@ body {
         color: var(--c_light);
         text-transform: uppercase;
         letter-spacing: 0.5vw;
+        outline: none;
     }
     main #tabUser .container .user .name input::placeholder{
         color: var(--c_bold);
@@ -195,6 +198,7 @@ body {
         border: none;
         border-bottom: 0.1vh solid var(--c_bold);
         background: transparent;
+        outline: none;
         z-index: 5;
     }
     main #tabUser input[type=text]::placeholder {

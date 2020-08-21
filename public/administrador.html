@@ -81,7 +81,7 @@
                                 </p>
                             </form>
                             <div class="viewer">
-                                <h4 class="results">Resultados_</h4>
+                                <h4 class="results-1">Resultados_</h4>
                                 <div class="tag_search" id="result-container">
                                     <!-- <div class="nametag">
                                         <h4> robot created</h4>
@@ -208,18 +208,24 @@
                                                 <label for="member3" class="label_select">Integrante_ </label>
                                             </p>
                                             <p>
-                                                <input type="text" id="imagen-robot" autocomplete="off" disabled>
+                                                <input type="file" id="imagen-robot" autocomplete="off" hidden="hidden" accept="image/*">
+                                                <button type="button" id="file_button" class="file_button">Subir Archivos</button>
+                                                <span id="file_span" class="file_span">No has elegido archivos.</span>
                                                 <label for="imagen-robot" class="label">
                                                     <span class="content">Imagen de prototipo_ (opcional)</span>
                                                 </label>
                                             </p>
                                             <p>
-                                                <input type="text" id="archivo-robot" autocomplete="off" disabled>
+                                                <input type="file" id="descuento-robot" autocomplete="off" hidden="hidden">
+                                                <button type="button" id="file_button_2" class="file_button">Subir Archivos</button>
+                                                <span id="file_span_2" class="file_span">No has elegido archivos.</span>
                                                 <label for="archivo-robo" class="label">
                                                     <span class="content">Archivo para descuento_ (opcional)</span>
                                                 </label>
                                             </p>
-                                            <input type="hidden" id="id-robot" value="">
+                                            <p>
+                                                <input type="hidden" id="id-robot" value="">
+                                            </p>
                                             <p class="btn-block">
                                                 <input type="submit" id="save-robot" value="C r e a r _">
                                                 <input type="submit" value="C a n c e l a r _" id="cancel-robot">
@@ -517,26 +523,46 @@
 
                             <h4 class="results" id="user-container">Lider del equipo_</h4>
                             <!-- <div class="nametag"> -->
-                                    
-                                <form><br>
-                                    <input id="email" type="text" value="No se ha seleccionado ningun resultado" disabled><br><br>
-                                    <input id="name" type="text" value="" disabled><br><br>
-                                    <input id="team" type="text" value="" disabled><br><br>
-                                    <input id="status" type="text" value="" disabled><br><br>
-                                    <input id="tel" type="text" value="" disabled><br><br>
-                                    <input id="date" type="text" value="" disabled><br><br>
-                                    <input id="country" type="text" value="" disabled><br><br>
-                                    <input id="occupation" type="text" value="" disabled><br><br>
-                                    <input id="scholarship" type="text" value="" disabled><br><br>
-                                    <input id="institution" type="text" value="" disabled><br><br>
-                                    <input id="gender" type="text" value="" disabled><br><br>
+                                <form class="captain_view"><br>
+                                    <input id="email" type="text" value="No se ha seleccionado ningun resultado" disabled>
+                                    <p class="tag" id="tag_form">Correo</p>
+
+                                    <input id="name" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_1">Nombre</p>
+
+                                    <input id="team" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_2">Equipo</p>
+
+                                    <input id="status" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_3">Estatus</p>
+
+                                    <input id="tel" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_4">Tel&eacute;fono</p>
+
+                                    <input id="date" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_5">Fecha de nacimiento</p>
+
+                                    <input id="country" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_6">Pa&iacute;s</p>
+
+                                    <input id="occupation" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_7">Ocupaci&oacute;n</p>
+
+                                    <input id="scholarship" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_8">Escolaridad</p>
+
+                                    <input id="institution" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_9">instituci&oacute;n</p>
+
+                                    <input id="gender" type="text" value="" disabled>
+                                    <p class="tag" id="tag_form_10">G&eacute;nero</p>
+
                                     <input type="hidden" id="id-user" value="">
-                                    <p class="btn-block">
+                                    <p class="btn-block captain_view_btn">
                                         <input type="submit" value="Listar intengrantes_" id="list-members">
                                         <input type="submit" value="Listar robots_" id="list-robots">
                                     </p>
                                 </form>
-
                             <!-- </div> -->
                             <!-- SPACE -->
                         </div>
@@ -583,6 +609,39 @@
             modal: true,
             maxYear: 2020,
             minYear: 1990
+        });
+    </script>
+    <script type="text/javascript">
+        const realFile = document.getElementById("imagen-robot");
+        const finalBtn = document.getElementById("file_button");
+        const finalTxt = document.getElementById("file_span");
+
+        const realFile_1 = document.getElementById("descuento-robot");
+        const finalBtn_1 = document.getElementById("file_button_2");
+        const finalTxt_1 = document.getElementById("file_span_2");
+
+        finalBtn.addEventListener("click", function(){
+            realFile.click();
+        });
+        finalBtn_1.addEventListener("click", function(){
+            realFile_1.click();
+        });
+
+        realFile.addEventListener("change", function(){
+            if(realFile.value) {
+                finalTxt.innerHTML = realFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+            }
+            else {
+                finalTxt.innerHTML = "No has elegido archivos";
+            }
+        });
+        realFile_1.addEventListener("change", function(){
+            if(realFile_1.value) {
+                finalTxt_1.innerHTML = realFile_1.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+            }
+            else {
+                finalTxt_1.innerHTML = "No has elegido archivos";
+            }
         });
     </script>
 </body>

@@ -147,29 +147,41 @@ async function renderUsers(users){
 async function setLeader(id){
     const res = await fetch(url + '/admin/user/' + id)
     const user = await res.json()
+    
+    document.getElementById("tag_form").style.opacity = "1"
+    document.getElementById("tag_form_1").style.opacity = "1"
+    document.getElementById("tag_form_2").style.opacity = "1"
+    document.getElementById("tag_form_3").style.opacity = "1"
+    document.getElementById("tag_form_4").style.opacity = "1"
+    document.getElementById("tag_form_5").style.opacity = "1"
+    document.getElementById("tag_form_6").style.opacity = "1"
+    document.getElementById("tag_form_7").style.opacity = "1"
+    document.getElementById("tag_form_8").style.opacity = "1"
+    document.getElementById("tag_form_9").style.opacity = "1"
+    document.getElementById("tag_form_10").style.opacity = "1"
 
-    if(user._email) document.getElementById('email').value = 'Correo: ' + user._email
-    else document.getElementById('email').value = "Corre: Sin definir"
-    if(user._name && user._surname) document.getElementById('name').value = 'Nombre: ' + user._name + ' ' + user._surname
-    else document.getElementById('name').value = "Nombre: Sin definir"
-    if(user._team) document.getElementById('team').value = 'Equipo: ' + user._team
-    else document.getElementById('team').value = "Equipo: Sin definir"
-    if(user._status) document.getElementById('status').value = 'Estatus: ' + user._status
-    else document.getElementById('status').value = "Estatus: Sin definir"
-    if(user._tel) document.getElementById('tel').value = 'Telefono: ' + user._tel
-    else document.getElementById('tel').value = "Telefono: Sin definir"
-    if(user._date) document.getElementById('date').value = 'Edad: ' + user._date
-    else document.getElementById('date').value = "Edad: Sin definir"
-    if(user._country) document.getElementById('country').value = 'Pais: ' + user._country
-    else document.getElementById('country').value = "Pais: Sin definir"
-    if(user._occupation) document.getElementById('occupation').value = 'Ocupacion: ' + user._occupation
-    else document.getElementById('occupation').value = "Ocupacion: Sin definir"
-    if(user._scholarship) document.getElementById('scholarship').value = 'Escolaridad: ' + user._scholarship
-    else document.getElementById('scholarship').value = "Escolaridad: Sin definir"
-    if(user._institution) document.getElementById('institution').value = 'Institucion: ' + user._institution
-    else document.getElementById('institution').value = "Institucion: Sin definir"
-    if(user._gender) document.getElementById('gender').value = 'Genero: ' + user._gender
-    else document.getElementById('gender').value = "Genero: Sin definir"
+    if(user._email) document.getElementById('email').value = user._email
+    else document.getElementById('email').value = "Sin definir"
+    if(user._name && user._surname) document.getElementById('name').value = user._name + ' ' + user._surname
+    else document.getElementById('name').value = "Sin definir"
+    if(user._team) document.getElementById('team').value = user._team
+    else document.getElementById('team').value = "Sin definir"
+    if(user._status) document.getElementById('status').value = user._status
+    else document.getElementById('status').value = "Sin definir"
+    if(user._tel) document.getElementById('tel').value = user._tel
+    else document.getElementById('tel').value = "Sin definir"
+    if(user._date) document.getElementById('date').value = user._date
+    else document.getElementById('date').value = "Sin definir"
+    if(user._country) document.getElementById('country').value = user._country
+    else document.getElementById('country').value = "Sin definir"
+    if(user._occupation) document.getElementById('occupation').value = user._occupation
+    else document.getElementById('occupation').value = "Sin definir"
+    if(user._scholarship) document.getElementById('scholarship').value = user._scholarship
+    else document.getElementById('scholarship').value = "Sin definir"
+    if(user._institution) document.getElementById('institution').value = user._institution
+    else document.getElementById('institution').value = "Sin definir"
+    if(user._gender) document.getElementById('gender').value = user._gender
+    else document.getElementById('gender').value = "Sin definir"
     document.getElementById('id-user').value = user._id
 }
 
