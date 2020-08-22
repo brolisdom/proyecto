@@ -38,7 +38,7 @@ document.getElementById('save').onclick = async(e) =>{
 	const res = document.getElementById('form-user').checkValidity()
 	if(res){
 		e.preventDefault()
-		var gender, occupation, country, scholarship, institution, provisional, error = false
+		var team, gender, occupation, country, scholarship, institution, provisional, error = false
 		const genders = document.getElementsByName('genero')
 
 		genders.forEach(i => { if(i.checked) gender = i.value })
@@ -59,8 +59,8 @@ document.getElementById('save').onclick = async(e) =>{
 		if(!document.getElementById('provisional').value) provisional = ''
 		else provisional = document.getElementById('provisional').value
 
-		// if(!document.getElementById('escuela').value) error = true
-		// else school = document.getElementById('escuela').value
+		if(!document.getElementById('equipo').value) error = true
+		else team = document.getElementById('equipo').value.toUpperCase()
 
 		if(error) alert('Porfavor verifica que todas las opciones esten seleccionadas')
 		else{
@@ -73,9 +73,9 @@ document.getElementById('save').onclick = async(e) =>{
 			data.append('country', country)
 			data.append('scholarship', scholarship)
 			data.append('institution', institution)
-			// data.append('school', school)
 			data.append('provisional', provisional)
 			data.append('gender', gender)
+			data.append('team', team)
 
 			const res = await fetch(url+'/users/update', {
 				method: 'PUT',
@@ -84,6 +84,7 @@ document.getElementById('save').onclick = async(e) =>{
 
 			const JSON = await res.json()
 			if(JSON.status === 200) alert('Datos actualizados con exito')
+			else if(JSON.status === 400) alert('El nombre de elegiste ya esta ocupado')
 			else alert('Los datos no fueron actualizados')
 		}
 	}
@@ -107,6 +108,7 @@ async function renderUser(){
 	setAttributes()
 
 	if(usuario){
+		document.getElementById('equipo').value = usuario._team
 		document.getElementById('nombre').value = usuario._name
 		document.getElementById('apellido').value = usuario._surname
 		document.getElementById('telefono').value = usuario._tel
@@ -115,14 +117,12 @@ async function renderUser(){
 		document.getElementById('pais').value = usuario._country
 		document.getElementById('escolaridad').value = usuario._scholarship
 		document.getElementById('institucion').value = usuario._institution
-		// document.getElementById('escuela').value = usuario._school
 		if(usuario._provisional) document.getElementById('provisional').value = usuario._provisional
-		
+
 		if(usuario._country) document.getElementById('input-select-1').value = usuario._country
 		if(usuario._occupation) document.getElementById('input-select-2').value = usuario._occupation
 		if(usuario._scholarship) document.getElementById('input-select-3').value = usuario._scholarship
 		if(usuario._institution) document.getElementById('input-select-4').value = usuario._institution
-		// if(usuario._school) document.getElementById('input-select-5').value = usuario._school
 
 		if(usuario._gender == 'Hombre') document.getElementById('man').checked = true
 		else if(usuario._gender == 'Mujer') document.getElementById('woman').checked = true
@@ -155,9 +155,6 @@ document.getElementById('save-member').onclick = async(e) =>{
 	
 			if(!document.getElementById('institucion-member').value) error = true
 			else institution = document.getElementById('institucion-member').value
-	
-			// if(!document.getElementById('escuela-member').value) error = true
-			// else school = document.getElementById('escuela-member').value
 
 			if(document.getElementById('provisional-member').value)
 			provisional = document.getElementById('provisional-member').value
@@ -173,7 +170,6 @@ document.getElementById('save-member').onclick = async(e) =>{
 				data.append('occupation', occupation)
 				data.append('scholarship', scholarship)
 				data.append('institution', institution)
-				// data.append('school', school)
 				data.append('provisional', provisional)
 				data.append('gender', gender)
 	
@@ -235,7 +231,6 @@ async function cancelMember(){
 	document.getElementById('ocupacion-member').value = ""
 	document.getElementById('escolaridad-member').value = ""
 	document.getElementById('institucion-member').value = ""
-	// document.getElementById('escuela-member').value = ""
 	document.getElementById('provisional-member').value = ""
 	document.getElementById('id-member').value = ""
 
@@ -243,7 +238,6 @@ async function cancelMember(){
 	document.getElementById('input-select-6').value = "Selecciona una opción"
 	document.getElementById('input-select-7').value = "Selecciona una opción"
 	document.getElementById('input-select-8').value = "Selecciona una opción"
-	// document.getElementById('input-select-10').value = "Selecciona una opción"
 
 	document.getElementById('man-member').checked = false
 	document.getElementById('woman-member').checked = false
@@ -353,7 +347,6 @@ async function updateMember(e, id){
 		document.getElementById('ocupacion-member').value = member._occupation
 		document.getElementById('escolaridad-member').value = member._scholarship
 		document.getElementById('institucion-member').value = member._institution
-		// document.getElementById('escuela-member').value = member._school
 		document.getElementById('provisional-member').value = member._provisional
 		document.getElementById('id-member').value = member._id
 
@@ -361,7 +354,6 @@ async function updateMember(e, id){
 		if(member._occupation) document.getElementById('input-select-6').value = member._occupation
 		if(member._scholarship) document.getElementById('input-select-7').value = member._scholarship
 		if(member._institution) document.getElementById('input-select-8').value = member._institution
-		// if(member._school) document.getElementById('input-select-10').value = member._school
 
 		if(member._gender == 'Hombre') document.getElementById('man-member').checked = true
 		else if(member._gender == 'Mujer') document.getElementById('woman-member').checked = true
@@ -373,17 +365,20 @@ async function updateMember(e, id){
 
 async function deleteMember(e, id){
 	e.preventDefault()
-	const res = await fetch(url+'/members/delete/'+id, {
-		headers: { 'Content-Type': 'application/json' },
-		method: 'DELETE'
-	})	
-	const JSON = await res.json()
-	if(JSON.status == 200){
-		alert('Tu integrante ha sido borrado')
-		addOptions(true)
-		renderMembers()
-		cancelMember()
-	} else alert('El integrante no pudo ser borrado')
+	var opc = confirm('Estas seguro de querer borrar a tu integrante?')
+	if(opc == true){
+		const res = await fetch(url+'/members/delete/'+id, {
+			headers: { 'Content-Type': 'application/json' },
+			method: 'DELETE'
+		})	
+		const JSON = await res.json()
+		if(JSON.status == 200){
+			alert('Tu integrante ha sido borrado')
+			addOptions(true)
+			renderMembers()
+			cancelMember()
+		} else alert('El integrante no pudo ser borrado')
+	}
 }
 
 // **Funciones de robots** 
@@ -396,6 +391,7 @@ document.getElementById('save-robot').onclick = async(e) =>{
 		else{
 			var categoria = true, capitan = true, yo = 0, price = 0
 			var captain, member1, member2, member3, category, name
+			const image = document.getElementById('imagen-robot').files
 			name = document.getElementById('nombre-robot').value.toUpperCase()
 			category = document.getElementById('input-select-9').value
 			captain = document.getElementById('input-select-10')
@@ -444,8 +440,9 @@ document.getElementById('save-robot').onclick = async(e) =>{
 					if(category == "Carrera de drones") price = 1000.00
 				
 					const data = new FormData()
-					data.append('name', document.getElementById('nombre-robot').value.toUpperCase())
-					data.append('category', document.getElementById('categoria').value)
+					data.append('name', name)
+					data.append('prototype', image[0])
+					data.append('category', category)
 					data.append('captain', captain.value)
 					data.append('idc', captain.name)
 					data.append('m1', member1.value)
@@ -493,12 +490,9 @@ document.getElementById('save-robot').onclick = async(e) =>{
 							alert('No se pudo actualizar la informacion')
 						}
 					}
-				} else alert('No se pueden repetir integrantes en el equipo')
-
+				} else alert('No puede haber intengrantes repetidos')
 			} else if(categoria && !capitan) alert('Es necesario escoger a un capitan')
-
 			else if(!categoria &&capitan) alert('Es necesario escoger a una categoria')
-
 			else alert('Es necesario escoger una categoria y un capitan')
 		}
 	}
@@ -555,22 +549,19 @@ async function cancelRobot(){
 	document.getElementById('input-select-11').value = "Selecciona una opción"
 	document.getElementById('input-select-12').value = "Selecciona una opción"
 	document.getElementById('input-select-13').value = "Selecciona una opción"
-	// document.getElementById('input-select-16').value = "Selecciona una opción"
-	// document.getElementById('input-select-17').value = "Selecciona una opción"
+	document.getElementById('file_span').innerHTML = "No has elegido archivos."
+
 
 	document.getElementById('input-select-10').name = ""
 	document.getElementById('input-select-11').name = ""
 	document.getElementById('input-select-12').name = ""
 	document.getElementById('input-select-13').name = ""
-	// document.getElementById('input-select-16').name = ""
-	// document.getElementById('input-select-17').name = ""
 
 	document.getElementById('captain').value = ""
 	document.getElementById('member1').value = ""
 	document.getElementById('member2').value = ""
 	document.getElementById('member3').value = ""
-	// document.getElementById('member4').value = ""
-	// document.getElementById('member5').value = ""
+	document.getElementById('imagen-robot').value = ""
 }
 
 async function renderRobots(){
@@ -580,7 +571,7 @@ async function renderRobots(){
 	if(robots){
 		var boton1 = '', boton2 = '', boton3 = ''
 		robots.forEach(robot => {
-			var members = ''
+			var members = '', prototypo = ''
 			const li = document.createElement('li')
 			if(robot._status == 'Sin registrar'){
 				boton1 = `<input type="submit" onclick="updateRobot('${robot._id}')" value="E d i t a r _">`
@@ -591,6 +582,26 @@ async function renderRobots(){
 			if(robot._members.length != 0){
 				robot._members.forEach(miembro => { members += `<input type="text" autocomplete="off" value="${miembro}" disabled>` })
 			} else members = '<input type="text" autocomplete="off" value="Sin integrantes" disabled>'
+
+			if(robot._prototype != ''){
+				prototypo = `
+					<p>
+						<a href="${robot._prototype}"><input type="text" name="prototype" autocomplete="off" value="Haz click aqui" disabled>
+						<label for="prototype" class="label">
+							<span class="content">imagen de prototypo_</span>
+						</label></a>
+					</p>
+				`
+			} else{
+				prototypo = `
+					<p>
+						<input type="text" name="prototype" autocomplete="off" value="Sin asignar" disabled>
+						<label for="prototype" class="label">
+							<span class="content">imagen de prototypo_</span>
+						</label>
+					</p>
+				`
+			}
 
 			li.className = 'robot-li'
 			li.innerHTML = `
@@ -615,6 +626,7 @@ async function renderRobots(){
 							<span class="content">costo de inscripci&oacute;n_</span>
 						</label>
 					</p>
+					${prototypo}
 					<p>
 						<input type="text" name="captain" autocomplete="off" value="${robot._captain}" disabled>
 						<label for="captain" class="label">
@@ -658,27 +670,29 @@ async function registRobot(id){
 }
 
 async function deleteRobot(id){
-	var res = await fetch(url+'/robots/substract/'+id, {
-		headers: { 'Content-Type': 'application/json' },
-		method: 'PUT'
-	})	
-	const JSON = await res.json()
-	if(JSON.status == 200){
-		res = await fetch(url+'/robots/delete/'+id, {
+	var opc = confirm('Estas seguro de querer eliminar a tu robot?')
+	if(opc == true){
+		const res = await fetch(url+'/robots/substract/'+id, {
 			headers: { 'Content-Type': 'application/json' },
-			method: 'DELETE'
+			method: 'PUT'
 		})	
 
 		const JSON = await res.json()
-
 		if(JSON.status == 200){
-			alert('Tu robot ha sido eliminado')
-			cancelRobot()
-			renderRobots()
-			renderMembers()
-		} else alert('El robot no pudo ser eliminado')
-
-	} else alert('Los miembros no fueron actualizados')
+			const ans = await fetch(url+'/robots/delete/'+id, {
+				headers: { 'Content-Type': 'application/json' },
+				method: 'DELETE'
+			})	
+	
+			const JSON = await ans.json()
+			if(JSON.status == 200){
+				alert('Tu robot ha sido eliminado')
+				cancelRobot()
+				renderRobots()
+				renderMembers()
+			} else alert('El robot no pudo ser eliminado')
+		} else alert('Hubo un error en el servidor')
+	}
 }
 
 async function updateRobot(id){
@@ -694,6 +708,8 @@ async function updateRobot(id){
 		document.getElementById('id-robot').value = robot._id
 		document.getElementById('nombre-robot').value = robot._name
 		document.getElementById('save-robot').value = 'A c t u a l i z a r _'
+		if(robot._prototype != '')
+		document.getElementById('file_span').innerHTML = "Sobreescribir archivo existente."
 
 		if(robot._category){
 			document.getElementById('input-select-9').value = robot._category
@@ -734,6 +750,5 @@ async function updateRobot(id){
 				}
 			}
 		}
-		//  
 	}
 }

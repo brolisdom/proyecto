@@ -6,11 +6,10 @@ const GoogleStrategy = require('passport-google-oauth20')
 const LocalStrategy = require('passport-local').Strategy
 
 passport.use(new GoogleStrategy({
-    callbackURL: '/api/users/auth/google/callback', //cambiar
+    callbackURL: '/api/users/auth/google/callback',
     clientID: '1056600364523-hcg53enb9d6barup1jdvak8dgeqog5hq.apps.googleusercontent.com',
     clientSecret: 'PIS4uez-oapEMu9reFK5ogKd',
 }, (accessToken, refreshToken, profile, done) => {
-    // console.log(profile._json)
     User.findOne({ _googleID: profile._json.sub }).then((currentUser) => {
         if(currentUser){
             return done(null, currentUser)
@@ -20,16 +19,20 @@ passport.use(new GoogleStrategy({
                     return done(null, false)
                 } else{ new User({
                         _email: profile._json.email,
-                        _status: 'Espectador',
                         _password: '', 
+                        _status: 'Normal',
                         _name: '',
+                        _surname: '',
+                        _occupation: '',
                         _tel: '',
                         _date: '',
                         _gender: '',
                         _country: '',
                         _scholarship: '',
                         _institution: '',
-                        _school: '',
+                        _provisional: '',
+                        _verified: true,
+                        _completed: false,
                         _team: '',
                         _googleID: profile._json.sub
                     }).save().then((newUser) => { return done(null, newUser) })
@@ -40,12 +43,11 @@ passport.use(new GoogleStrategy({
 }))
 
 passport.use(new FacebookStrategy({
-    callbackURL: '/api/users/auth/facebook/callback', //cambiar
+    callbackURL: '/api/users/auth/facebook/callback',
     clientID: '204742010947879',
     clientSecret: '334a47e0ba3dfea4f47c749ae8932031',
     profileFields: ['id', 'emails']
 }, (accessToken, refreshToken, profile, done) => {
-    // console.log(profile._json)
     User.findOne({ _facebookID: profile._json.id }).then((currentUser) => {
         if(currentUser){
             return done(null, currentUser)
@@ -56,16 +58,20 @@ passport.use(new FacebookStrategy({
                 } else{
                     new User({
                         _email: profile._json.email,
-                        _status: 'Espectador',
                         _password: '', 
+                        _status: 'Normal',
                         _name: '',
+                        _surname: '',
+                        _occupation: '',
                         _tel: '',
                         _date: '',
                         _gender: '',
                         _country: '',
                         _scholarship: '',
                         _institution: '',
-                        _school: '',
+                        _provisional: '',
+                        _verified: true,
+                        _completed: false,
                         _team: '',
                         _facebookID: profile._json.id,
                     }).save().then((newUser) => { return done(null, newUser) })
@@ -80,15 +86,11 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
 }, async(email, password, done) =>{
     const user = await User.findOne({ _email: email })
-    if(!user){
-        return done(null, false)
-    } else{
+    if(!user) return done(null, false)
+    else{
         const match = await bcrypt.compare(password, user._password)
-        if(match){
-            return done(null, user)
-        } else{
-            return done(null, false)
-        }
+        if(match) return done(null, user)
+        else return done(null, false)
     }
 }))
 

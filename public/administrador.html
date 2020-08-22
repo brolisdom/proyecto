@@ -36,8 +36,8 @@
     <header>
         <nav>
             <ul class="tabs" id="tabs">
-                <li class="tabs_item"><a href="#tabUser"><span>usuarios_</span><i class="icon icon-profile-"></i></a></li>
-                <li class="tabs_item"><a href="#tabTeam"><span>registro_</span><i class="icon icon-reddit-"></i></a></li>
+                <li class="tabs_item"><a href="#tabUser"><span>inicio_</span><i class="icon icon-profile-"></i></a></li>
+                <li class="tabs_item"><a href="#tabTeam"><span>torneo_</span><i class="icon icon-reddit-"></i></a></li>
                 <li class="tabs_item"><a href="#tabNews"><span>noticias_</span><i class="icon icon-question-"></i></a></li>
                 <li class="tabs_item"><a href="#" rel="modal:open" id="logout"><span>salir_</span><i class="icon icon-arrow_right_in-"></i></a></li>
             </ul>
@@ -145,6 +145,30 @@
                                     <div class="collapsible-body">
                                         <form id="form-robot">
                                             <p>
+                                                <input type="text" id="status-robot" autocomplete="off" disabled value="Sin asignar">
+                                                <label for="status-robot" class="label">
+                                                    <span class="content">Estatus_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type="text" id="price-robot" autocomplete="off" disabled value="Sin asignar">
+                                                <label for="price-robot" class="label">
+                                                    <span class="content">Costo de inscripcion_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type="text" id="imagen-robot" autocomplete="off" disabled value="Sin asignar">
+                                                <label for="imagen-robot" class="label">
+                                                    <span class="content">Imagen de prototypo_</span>
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type="text" id="payment-robot" autocomplete="off" disabled value="Sin asignar">
+                                                <label for="payment-robot" class="label">
+                                                    <span class="content">Comprobande de pago_</span>
+                                                </label>
+                                            </p>
+                                            <p>
                                                 <input type="text" id="nombre-robot" autocomplete="off" required>
                                                 <label for="nombre-robot" class="label">
                                                     <span class="content">nombre del robot_</span>
@@ -207,30 +231,34 @@
                                                 </select>
                                                 <label for="member3" class="label_select">Integrante_ </label>
                                             </p>
-                                            <p>
+                                            <!-- <p>
                                                 <input type="file" id="imagen-robot" autocomplete="off" hidden="hidden" accept="image/*">
                                                 <button type="button" id="file_button" class="file_button">Subir Archivos</button>
                                                 <span id="file_span" class="file_span">No has elegido archivos.</span>
                                                 <label for="imagen-robot" class="label">
                                                     <span class="content">Imagen de prototipo_ (opcional)</span>
                                                 </label>
-                                            </p>
-                                            <p>
+                                            </p> -->
+                                            <!-- <p>
                                                 <input type="file" id="descuento-robot" autocomplete="off" hidden="hidden">
                                                 <button type="button" id="file_button_2" class="file_button">Subir Archivos</button>
                                                 <span id="file_span_2" class="file_span">No has elegido archivos.</span>
                                                 <label for="archivo-robo" class="label">
                                                     <span class="content">Archivo para descuento_ (opcional)</span>
                                                 </label>
-                                            </p>
+                                            </p> -->
                                             <p>
                                                 <input type="hidden" id="id-robot" value="">
                                             </p>
-                                            <p class="btn-block">
-                                                <input type="submit" id="save-robot" value="C r e a r _">
-                                                <input type="submit" value="C a n c e l a r _" id="cancel-robot">
-                                            </p>
                                         </form>
+                                        <p class="btn-block">
+                                            <input type="submit" value="R e g i s t r a r _" id="delete-robot">
+                                            <input type="submit" value="D e s c a l i f i c a r _" id="delete-robot">
+                                        </p>
+                                        <p class="btn-block">
+                                            <input type="submit" id="save-robot" value="G u a r d a r_">
+                                            <input type="submit" value="C a n c e l a r _" id="cancel-robot">
+                                        </p>
                                     </div>
                                 </li>
                             </ul>
@@ -240,6 +268,12 @@
                                     <div class="collapsible-header" id="add-member"><i class="icon icon-plus-"></i>Editar integrante</div>
                                     <div class="collapsible-body">
                                         <form id="form-member">
+                                            <p>
+                                                <input type="text" id="status-member" autocomplete="off" value="Sin asignar" disabled>
+                                                <label for="status-member" class="label">
+                                                    <span class="content">estatus_</span>
+                                                </label>
+                                            </p>
                                             <p>
                                                 <input type="text" id="nombre-member" autocomplete="off" required>
                                                 <label for="nombre-member" class="label">
@@ -470,7 +504,7 @@
                                                     <option value="">Selecciona una opci&oacute;n</option>
                                                     <option value="Estudiante">Estudiante</option>
                                                     <option value="Egresado">Egresado</option>
-                                                    <option value="Trabajador">Trabajador</option>
+                                                    <option value="Laborante">Laborante</option>
                                                     <option value="Becario">Becario</option>
                                                     <option value="Ninguno">Ninguno</option>
                                                 </select>
@@ -517,6 +551,9 @@
                                             <input type="submit" value="G u a r d a r _" id="save-member">
                                             <input type="submit" value="C a n c e l a r _" id="cancel-member">
                                         </p>
+                                        <p class="btn-block">
+                                            <input type="submit" value="D e s c a l i f i c a r _" id="delete-member">
+                                        </p>
                                     </div>
                                 </li>
                             </ul>
@@ -524,12 +561,12 @@
                             <h4 class="results" id="user-container">Lider del equipo_</h4>
                             <!-- <div class="nametag"> -->
                                 <form class="captain_view"><br>
-                                    <input id="email" type="text" value="No se ha seleccionado ningun resultado" disabled>
-                                    <p class="tag" id="tag_form">Correo</p>
-
                                     <input id="name" type="text" value="" disabled>
                                     <p class="tag" id="tag_form_1">Nombre</p>
-
+                                    
+                                    <input id="email" type="text" value="No se ha seleccionado ningun resultado" disabled>
+                                    <p class="tag" id="tag_form">Correo</p>
+                                    
                                     <input id="team" type="text" value="" disabled>
                                     <p class="tag" id="tag_form_2">Equipo</p>
 
@@ -543,7 +580,7 @@
                                     <p class="tag" id="tag_form_5">Fecha de nacimiento</p>
 
                                     <input id="country" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_6">Pa&iacute;s</p>
+                                    <p class="tag" id="tag_form_6">Pa&iacute;s de precedencia</p>
 
                                     <input id="occupation" type="text" value="" disabled>
                                     <p class="tag" id="tag_form_7">Ocupaci&oacute;n</p>
@@ -561,6 +598,14 @@
                                     <p class="btn-block captain_view_btn">
                                         <input type="submit" value="Listar intengrantes_" id="list-members">
                                         <input type="submit" value="Listar robots_" id="list-robots">
+                                    </p>
+                                    <p class="btn-block captain_view_btn">
+                                        <input type="submit" value="Verificar usuario_" id="list-members">
+                                        <input type="submit" value="Descalificar usuaro_" id="list-robots">
+                                    </p>
+                                    <p class="btn-block captain_view_btn">
+                                        <input type="submit" value="Descender usuario_" id="list-members">
+                                        <input type="submit" value="Ascender usuaro_" id="list-robots">
                                     </p>
                                 </form>
                             <!-- </div> -->
@@ -612,37 +657,37 @@
         });
     </script>
     <script type="text/javascript">
-        const realFile = document.getElementById("imagen-robot");
-        const finalBtn = document.getElementById("file_button");
-        const finalTxt = document.getElementById("file_span");
+        // const realFile = document.getElementById("imagen-robot");
+        // const finalBtn = document.getElementById("file_button");
+        // const finalTxt = document.getElementById("file_span");
 
-        const realFile_1 = document.getElementById("descuento-robot");
-        const finalBtn_1 = document.getElementById("file_button_2");
-        const finalTxt_1 = document.getElementById("file_span_2");
+        // const realFile_1 = document.getElementById("descuento-robot");
+        // const finalBtn_1 = document.getElementById("file_button_2");
+        // const finalTxt_1 = document.getElementById("file_span_2");
 
-        finalBtn.addEventListener("click", function(){
-            realFile.click();
-        });
-        finalBtn_1.addEventListener("click", function(){
-            realFile_1.click();
-        });
+        // finalBtn.addEventListener("click", function(){
+        //     realFile.click();
+        // });
+        // finalBtn_1.addEventListener("click", function(){
+        //     realFile_1.click();
+        // });
 
-        realFile.addEventListener("change", function(){
-            if(realFile.value) {
-                finalTxt.innerHTML = realFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-            }
-            else {
-                finalTxt.innerHTML = "No has elegido archivos";
-            }
-        });
-        realFile_1.addEventListener("change", function(){
-            if(realFile_1.value) {
-                finalTxt_1.innerHTML = realFile_1.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-            }
-            else {
-                finalTxt_1.innerHTML = "No has elegido archivos";
-            }
-        });
+        // realFile.addEventListener("change", function(){
+        //     if(realFile.value) {
+        //         finalTxt.innerHTML = realFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+        //     }
+        //     else {
+        //         finalTxt.innerHTML = "No has elegido archivos";
+        //     }
+        // });
+        // realFile_1.addEventListener("change", function(){
+        //     if(realFile_1.value) {
+        //         finalTxt_1.innerHTML = realFile_1.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+        //     }
+        //     else {
+        //         finalTxt_1.innerHTML = "No has elegido archivos";
+        //     }
+        // });
     </script>
 </body>
 

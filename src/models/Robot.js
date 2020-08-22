@@ -17,13 +17,11 @@ const RobotSchema = new Schema({
     _status: {
         type: String,
     },
-    _discount: {
+    _payment: {
         type: String,
-        // pdf
     },
     _prototype: {
         type: String,
-        // image
     },
     _captain: {
         type: String,

@@ -64,14 +64,13 @@ router.post('/signup', async(req, res) => {
             _country: '',
             _scholarship: '',
             _institution: '',
-            // _school: '',
             _provisional: '',
             _verified: false,
             _completed: false,
             _team: ''
         })
 
-        var url = process.env.URL + newUSer._id
+        var url = 'http://localhost:3000/api/users/verified/' + newUSer._id
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -176,24 +175,26 @@ router.get('/success', (req, res) => {
 })
 
 router.put('/update', isAuth, async(req, res) => {
-    const { name, surname, occupation, tel, date, gender, country, scholarship, institution, provisional } = req.body
-    const user = await User.findOneAndUpdate({ _id: req.user._id }, {
-        _name: name,
-        _surname: surname,
-        _occupation: occupation,
-        _tel: tel,
-        _date: date,
-        _gender: gender,
-        _country: country,
-        _scholarship: scholarship,
-        _institution: institution,
-        _provisional: provisional,
-        _completed: true,
-        // _school: school,
-        // _team: team
-    })
-    if(user) res.json({ status: 200 })
-    else res.json({ status: 400 })
+    const { name, surname, occupation, tel, date, gender, country, scholarship, institution, provisional, team } = req.body
+    const repeat = await User.findOne({ _team: team })
+    const user = await User.findOne({ _id: req.user._id })
+    if(!repeat || team == user._team){
+        await User.findOneAndUpdate({ _id: req.user._id }, {
+            _name: name,
+            _surname: surname,
+            _occupation: occupation,
+            _tel: tel,
+            _date: date,
+            _gender: gender,
+            _country: country,
+            _scholarship: scholarship,
+            _institution: institution,
+            _provisional: provisional,
+            _completed: true,
+            _team: team
+        })
+        res.json({ status: 200 })
+    } else res.json({ status: 400 })
 })
 
 router.get('/logout', (req, res) => {

@@ -18,7 +18,7 @@ mongoose.connect(process.env.URI, {
     useUnifiedTopology: true,
     useFindAndModify: false
 })
-.then(() => console.log('Base de datos conectada.'))
+.then(() => console.log('Base de datos en funcionamiento'))
 .catch(e => console.error(e))
 
 // settings
@@ -28,20 +28,28 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+// upload files
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, '../public/uploads'),
+    destination: path.join(__dirname, '../public/prototypes'),
     filename(req, file, res){
         res(null, new Date().getTime() + path.extname(file.originalname))
-    }
+    } 
 })
+// const documents = multer.diskStorage({
+//     destination: path.join(__dirname, '../public/documents'),
+//     filename(req, file, res){
+//         res(null, new Date().getTime() + '')
+//     }
+// })
 
 // middlewares
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(express.urlencoded({extended: false}))
-app.use(express.json())
-app.use(multer({storage}).single('image'))
 app.use(morgan('dev'))
+app.use(multer({ storage }).single('prototype'))
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 app.use(flash())
 app.use(cors())
 
@@ -57,7 +65,7 @@ app.use(express.static(path.join(__dirname, '../public')))
 
 // start server
 app.listen(app.get('port'), () =>{
-    console.log('Servidor activo en port: ', app.get('port'))
+    console.log('Servidor activo en el puerto: ', app.get('port'))
 }) 
 
 

@@ -66,7 +66,7 @@ function cleanSearch(){
     document.querySelectorAll('.nametag').forEach(function(a){ a.remove() })
 }
 
-function setAttributes(){
+function setAttributes(){ // esta tiene un bug cuando no se identifica antes
     document.getElementById('input-select').setAttribute('id', 'input-select-1')
     document.getElementById('input-select').setAttribute('id', 'input-select-2')
     document.getElementById('input-select').setAttribute('id', 'input-select-3')
@@ -201,6 +201,7 @@ async function setMember(id){
             document.getElementById('add-member').click()
             edit_member = true
         }
+		document.getElementById('status-member').value = member._status
 		document.getElementById('nombre-member').value = member._name
 		document.getElementById('apellido-member').value = member._surname
 		document.getElementById('tel-member').value = member._tel
@@ -436,6 +437,7 @@ function clearRobot(){
 
 function cancelRobot(){    
     clearRobot()
+	document.getElementById('status-member').value = "Sin asignar"
 	document.getElementById('input-select-2').value = "Selecciona una opción"
 	document.getElementById('input-select-3').value = "Selecciona una opción"
 	document.getElementById('input-select-4').value = "Selecciona una opción"

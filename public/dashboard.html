@@ -51,9 +51,9 @@
                     <hr>
                     <div class="user">
                         <p class="name">
-                            <input class="name_team" type="text" id="nombre_equipo" autocomplete="off" required placeholder="Dale un nombre a tu Team">
+                            <input class="name_team" type="text" id="equipo" autocomplete="off" required placeholder="Escribe aqui" onclick="placeholder=''">
                         </p>
-                        <p class="position">n o m b r e &nbsp; d e l &nbsp; e q u i p o</p>
+                        <p class="position">&nbsp; n o m b r e &nbsp; d e l &nbsp; e q u i p o</p>
                     </div>
                     <!-- FORM DATA -->
                     <form id="form-user">
@@ -276,7 +276,7 @@
                                 <option value="">Selecciona una opci&oacute;n</option>
                                 <option value="Estudiante">Estudiante</option>
                                 <option value="Egresado">Egresado</option>
-                                <option value="Trabajador">Trabajador</option>
+                                <option value="Laborante">Laborante</option>
                                 <option value="Becario">Becario</option>
                                 <option value="Ninguno">Ninguno</option>
                             </select>
@@ -316,17 +316,6 @@
                             </select>
                             <label for="institucion" class="label_select">instituci&oacute;n/escuela_</label>
                         </p>
-                        <!-- <p>
-                            <select id="escuela">
-                                <option value="">Selecciona una opci&oacute;n</option>
-                                <option value="ESCOM">ESCOM</option>
-                                <option value="UPIITA">UPIITA</option>
-                                <option value="ESCA">ESCA</option>
-                                <option value="ESCA">ESFM</option>
-                                <option value="ESCA">ESIME</option>
-                            </select>
-                            <label for="escuela" class="label_select">escuela_</label>
-                        </p> -->
                         <p>
                             <input type="text" id="provisional" autocomplete="off" placeholder="Si no encuentra su institucion escribala aqui">
                             <label for="provisional" class="label">
@@ -591,7 +580,7 @@
                                                     <option value="">Selecciona una opci&oacute;n</option>
                                                     <option value="Estudiante">Estudiante</option>
                                                     <option value="Egresado">Egresado</option>
-                                                    <option value="Trabajador">Trabajador</option>
+                                                    <option value="Laborante">Laborante</option>
                                                     <option value="Becario">Becario</option>
                                                     <option value="Ninguno">Ninguno</option>
                                                 </select>
@@ -623,17 +612,6 @@
                                                     <span class="content">provisional (opcional)_</span>
                                                 </label>
                                             </p>
-                                            <!-- <p>
-                                                <select id="escuela-member">
-                                                    <option value="" selected>Selecciona una opci&oacute;n</option>
-                                                    <option value="ESCOM">ESCOM</option>
-                                                    <option value="UPIITA">UPIITA</option>
-                                                    <option value="ESCA">ESCA</option>
-                                                    <option value="ESCA">ESFM</option>
-                                                    <option value="ESCA">ESIME</option>
-                                                </select>
-                                                <label for="escuela-member" class="label_select">escuela_  </label>
-                                            </p> -->
                                             <p>
                                                 <input type="radio" name="genero-member" id="man-member" value="Hombre">
                                                 <label for="man-member" class="label_radio">H</label>
@@ -725,20 +703,6 @@
                                                 </select>
                                                 <label for="member3" class="label_select">Integrante_ </label>
                                             </p>
-                                            <!-- <p>
-                                                <select id="member4">
-                                                    <option value="">Selecciona una opci&oacute;n</option>
-                                                    <option value="Yo">Yo</option>
-                                                </select>
-                                                <label for="member4" class="label_select">Integrante_ </label>
-                                            </p>
-                                            <p>
-                                                <select id="member5">
-                                                    <option value="">Selecciona una opci&oacute;n</option>
-                                                    <option value="Yo">Yo</option>
-                                                </select>
-                                                <label for="member5" class="label_select">Integrante_ </label>
-                                            </p>  -->
                                             <p>
                                                 <input type="file" id="imagen-robot" autocomplete="off" hidden="hidden" accept="image/*">
                                                 <button type="button" id="file_button" class="file_button">Subir Archivos</button>
@@ -747,14 +711,14 @@
                                                     <span class="content">Imagen de prototipo_ (opcional)</span>
                                                 </label>
                                             </p>
-                                            <p>
+                                            <!-- <p>
                                                 <input type="file" id="descuento-robot" autocomplete="off" hidden="hidden">
                                                 <button type="button" id="file_button_2" class="file_button">Subir Archivos</button>
                                                 <span id="file_span_2" class="file_span">No has elegido archivos.</span>
                                                 <label for="archivo-robo" class="label">
                                                     <span class="content">Archivo para descuento_ (opcional)</span>
                                                 </label>
-                                            </p>
+                                            </p> -->
                                             <input type="hidden" id="id-robot" value="">
                                             <p class="btn-block">
                                                 <input type="submit" id="save-robot" value="C r e a r _">
@@ -808,16 +772,16 @@
         const finalBtn = document.getElementById("file_button");
         const finalTxt = document.getElementById("file_span");
 
-        const realFile_1 = document.getElementById("descuento-robot");
-        const finalBtn_1 = document.getElementById("file_button_2");
-        const finalTxt_1 = document.getElementById("file_span_2");
+        // const realFile_1 = document.getElementById("descuento-robot");
+        // const finalBtn_1 = document.getElementById("file_button_2");
+        // const finalTxt_1 = document.getElementById("file_span_2");
 
         finalBtn.addEventListener("click", function(){
             realFile.click();
         });
-        finalBtn_1.addEventListener("click", function(){
-            realFile_1.click();
-        });
+        // finalBtn_1.addEventListener("click", function(){
+        //     realFile_1.click();
+        // });
 
         realFile.addEventListener("change", function(){
             if(realFile.value) {
@@ -827,14 +791,14 @@
                 finalTxt.innerHTML = "No has elegido archivos";
             }
         });
-        realFile_1.addEventListener("change", function(){
-            if(realFile_1.value) {
-                finalTxt_1.innerHTML = realFile_1.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-            }
-            else {
-                finalTxt_1.innerHTML = "No has elegido archivos";
-            }
-        });
+        // realFile_1.addEventListener("change", function(){
+        //     if(realFile_1.value) {
+        //         finalTxt_1.innerHTML = realFile_1.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+        //     }
+        //     else {
+        //         finalTxt_1.innerHTML = "No has elegido archivos";
+        //     }
+        // });
     </script>
 </body>
 
