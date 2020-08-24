@@ -35,15 +35,11 @@ const UserSchema = new Schema({
     _institution: {
         type: String,
     },
-    // _school: {
-    //     type: String,
-    // },
     _provisional: {
         type: String,
     },
     _team: {
         type: String,
-        // unique
     },
     _status: {
         type: String,

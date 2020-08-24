@@ -1,12 +1,10 @@
-<!--
-<script>
+<!-- <script>
     async function acceso(){
         const res = await fetch('http://localhost:3000/api/users/')  
         const JSON = await res.json()
         if(JSON.status === 401) window.location.replace('/index.html')
     } acceso()
-</script>
--->
+</script> -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -73,7 +71,7 @@
                                         <!-- <option value="1">Todos los usuarios</option>
                                         <option value="2">Todos los integrantes</option>
                                         <option value="3">Todos los robots</option>
-                                        <option value="4">Por nombre de lider</option>
+                                        <option value="4">Por nombre de Líder</option>
                                         <option value="5">Por nombre de integrante</option>
                                         <option value="6">Por nombre de robot</option> -->
                                     </select>
@@ -82,6 +80,7 @@
                             </form>
                             <div class="viewer">
                                 <h4 class="results-1">Resultados_</h4>
+                                <input id="result" type="text" value="No se encontraron coincidencias" disabled>
                                 <div class="tag_search" id="result-container">
                                     <!-- <div class="nametag">
                                         <h4> robot created</h4>
@@ -145,25 +144,26 @@
                                     <div class="collapsible-body">
                                         <form id="form-robot">
                                             <p>
-                                                <input type="text" id="status-robot" autocomplete="off" disabled value="Sin asignar">
+                                                <input type="text" id="status-robot" autocomplete="off" disabled value="">
                                                 <label for="status-robot" class="label">
                                                     <span class="content">Estatus_</span>
                                                 </label>
                                             </p>
                                             <p>
-                                                <input type="text" id="price-robot" autocomplete="off" disabled value="Sin asignar">
+                                                <input type="text" id="price-robot" autocomplete="off" disabled value="">
                                                 <label for="price-robot" class="label">
                                                     <span class="content">Costo de inscripcion_</span>
                                                 </label>
                                             </p>
-                                            <p>
-                                                <input type="text" id="imagen-robot" autocomplete="off" disabled value="Sin asignar">
+                                            <input type="hidden" id="path-robot" value="">
+                                            <p onclick="showImage()">
+                                                <input type="text" id="imagen-robot" autocomplete="off" disabled value="">
                                                 <label for="imagen-robot" class="label">
                                                     <span class="content">Imagen de prototypo_</span>
                                                 </label>
                                             </p>
                                             <p>
-                                                <input type="text" id="payment-robot" autocomplete="off" disabled value="Sin asignar">
+                                                <input type="text" id="payment-robot" autocomplete="off" disabled value="">
                                                 <label for="payment-robot" class="label">
                                                     <span class="content">Comprobande de pago_</span>
                                                 </label>
@@ -206,28 +206,28 @@
                                             <p>
                                                 <select id="captain" name="member-select">
                                                     <option value="">Selecciona una opci&oacute;n</option>
-                                                    <option value="Lider">Lider</option>
+                                                    <option value="Líder">Líder</option>
                                                 </select>
                                                 <label for="captain" class="label_select">Capitan_ </label>
                                             </p>
                                             <p>
                                                 <select id="member1">
                                                     <option value="">Selecciona una opci&oacute;n</option>
-                                                    <option value="Lider">Lider</option>
+                                                    <option value="Líder">Líder</option>
                                                 </select>
                                                 <label for="member1" class="label_select">Integrante_ </label>
                                             </p>
                                             <p>
                                                 <select id="member2">
                                                     <option value="">Selecciona una opci&oacute;n</option>
-                                                    <option value="Lider">Lider</option>
+                                                    <option value="Líder">Líder</option>
                                                 </select>
                                                 <label for="member2" class="label_select">Integrante_ </label>
                                             </p>
                                             <p>
                                                 <select id="member3">
                                                     <option value="">Selecciona una opci&oacute;n</option>
-                                                    <option value="Lider">Lider</option>
+                                                    <option value="Líder">Líder</option>
                                                 </select>
                                                 <label for="member3" class="label_select">Integrante_ </label>
                                             </p>
@@ -250,14 +250,14 @@
                                             <p>
                                                 <input type="hidden" id="id-robot" value="">
                                             </p>
+                                            <p class="btn-block">
+                                                <input type="submit" value="G u a r d a r_" id="save-robot">
+                                                <input type="submit" value="C a n c e l a r _" id="cancel-robot">
+                                            </p>
                                         </form>
                                         <p class="btn-block">
-                                            <input type="submit" value="R e g i s t r a r _" id="delete-robot">
-                                            <input type="submit" value="D e s c a l i f i c a r _" id="delete-robot">
-                                        </p>
-                                        <p class="btn-block">
-                                            <input type="submit" id="save-robot" value="G u a r d a r_">
-                                            <input type="submit" value="C a n c e l a r _" id="cancel-robot">
+                                            <input type="submit" value="R e g i s t r a r _" id="regist-robot">
+                                            <input type="submit" value="D e s c a l i f i c a r _" id="disqualify-robot">
                                         </p>
                                     </div>
                                 </li>
@@ -269,7 +269,7 @@
                                     <div class="collapsible-body">
                                         <form id="form-member">
                                             <p>
-                                                <input type="text" id="status-member" autocomplete="off" value="Sin asignar" disabled>
+                                                <input type="text" id="status-member" autocomplete="off" value="" disabled>
                                                 <label for="status-member" class="label">
                                                     <span class="content">estatus_</span>
                                                 </label>
@@ -551,64 +551,67 @@
                                             <input type="submit" value="G u a r d a r _" id="save-member">
                                             <input type="submit" value="C a n c e l a r _" id="cancel-member">
                                         </p>
-                                        <p class="btn-block">
+                                        <!-- <p class="btn-block">
                                             <input type="submit" value="D e s c a l i f i c a r _" id="delete-member">
-                                        </p>
+                                        </p> -->
                                     </div>
                                 </li>
                             </ul>
 
-                            <h4 class="results" id="user-container">Lider del equipo_</h4>
-                            <!-- <div class="nametag"> -->
-                                <form class="captain_view"><br>
-                                    <input id="name" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_1">Nombre</p>
+                            <p class="btn-block captain_view_btn">
+                                <input type="submit" value="R o b o t s  d e  l i d e r _" id="list-robots">
+                                <input type="submit" value="L i s t a r  i n t e n g r a n t e s _" id="list-members">
+                            </p>
+                            <h4 class="results" id="user-container">Líder del equipo_</h4>
+                            <form class="captain_view"><br>
+                                <input id="leader" type="text" value="No ha seleccionado ning&uacute;n resultado" disabled>
+
+                                <input id="name" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_1">Nombre</p>
+                                
+                                <input id="email" type="text" value="" disabled>
+                                <p class="tag" id="tag_form">Correo</p>
                                     
-                                    <input id="email" type="text" value="No se ha seleccionado ningun resultado" disabled>
-                                    <p class="tag" id="tag_form">Correo</p>
-                                    
-                                    <input id="team" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_2">Equipo</p>
+                                <input id="team" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_2">Equipo</p>
 
-                                    <input id="status" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_3">Estatus</p>
+                                <input id="tel" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_4">Tel&eacute;fono</p>
 
-                                    <input id="tel" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_4">Tel&eacute;fono</p>
+                                <input id="date" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_5">Fecha de nacimiento</p>
 
-                                    <input id="date" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_5">Fecha de nacimiento</p>
+                                <input id="country" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_6">Pa&iacute;s de precedencia</p>
 
-                                    <input id="country" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_6">Pa&iacute;s de precedencia</p>
+                                <input id="occupation" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_7">Ocupaci&oacute;n</p>
 
-                                    <input id="occupation" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_7">Ocupaci&oacute;n</p>
+                                <input id="scholarship" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_8">Escolaridad</p>
 
-                                    <input id="scholarship" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_8">Escolaridad</p>
+                                <input id="institution" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_9">instituci&oacute;n</p>
 
-                                    <input id="institution" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_9">instituci&oacute;n</p>
+                                <input id="gender" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_10">G&eacute;nero</p>
 
-                                    <input id="gender" type="text" value="" disabled>
-                                    <p class="tag" id="tag_form_10">G&eacute;nero</p>
+                                <input id="status" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_3">Estatus</p>
 
-                                    <input type="hidden" id="id-user" value="">
-                                    <p class="btn-block captain_view_btn">
-                                        <input type="submit" value="Listar intengrantes_" id="list-members">
-                                        <input type="submit" value="Listar robots_" id="list-robots">
-                                    </p>
-                                    <p class="btn-block captain_view_btn">
-                                        <input type="submit" value="Verificar usuario_" id="list-members">
-                                        <input type="submit" value="Descalificar usuaro_" id="list-robots">
-                                    </p>
-                                    <p class="btn-block captain_view_btn">
-                                        <input type="submit" value="Descender usuario_" id="list-members">
-                                        <input type="submit" value="Ascender usuaro_" id="list-robots">
-                                    </p>
+                                <input id="verified" type="text" value="" disabled>
+                                <p class="tag" id="tag_form_11">Verificado</p>
+
                                 </form>
-                            <!-- </div> -->
+                                <input type="hidden" id="id-user" value="">
+                                <p class="btn-block captain_view_btn">
+                                    <input type="hidden" value="D e s c a l i f i c a r _" id="denied">
+                                    <input type="hidden" value="   V e r i f i c a r _   " id="check" >
+                                </p>
+                                <p class="btn-block captain_view_btn">
+                                    <input type="hidden" value="   D e s c e n d e r _   " id="descend">
+                                    <input type="hidden" value="    A s c e n d e r _    " id="ascend">
+                                </p>
                             <!-- SPACE -->
                         </div>
                     </div>

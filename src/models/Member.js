@@ -32,9 +32,6 @@ const MemberSchema = new Schema({
     _institution: {
         type: String,
     },
-    // _school: {
-    //     type: String,
-    // },
     _provisional: {
         type: String,
     },
@@ -42,7 +39,7 @@ const MemberSchema = new Schema({
         type: String,
     },
     _robots: {
-      type: Number  
+        type: Number,  
     },
 })
 

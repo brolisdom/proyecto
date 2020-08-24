@@ -131,6 +131,7 @@ async function renderUser(){
 }
 
 // **Funciones de miembros** //
+
 document.getElementById('save-member').onclick = async(e) =>{
 	const aux = document.getElementById('form-member').checkValidity()
 	if(aux){
@@ -198,6 +199,7 @@ document.getElementById('save-member').onclick = async(e) =>{
 						document.getElementById('add-member').click()
 						addOptions(true)
 						renderMembers()
+						renderRobots()
 						cancelMember()
 					} else{
 						console.log(JSON.status);
@@ -260,7 +262,8 @@ async function renderMembers(){
 					<input type="submit" onclick="updateMember(event, '${miembro._id}')" value="E D I T A R _">
 					<input type="submit" onclick="deleteMember(event, '${miembro._id}')" value="E L I M I N A R _">
 				</p>`
-			} else buttons = ''
+			} else buttons = `<input type="submit" onclick="updateMember(event, '${miembro._id}')" value="E D I T A R _">`
+			if(miembro._status != 'Espectador') buttons = ''
 
 			if(miembro._provisional != '') institution = miembro._provisional
 			else institution = miembro._institution
@@ -382,6 +385,7 @@ async function deleteMember(e, id){
 }
 
 // **Funciones de robots** 
+
 document.getElementById('save-robot').onclick = async(e) =>{
 	const aux = document.getElementById('form-robot').checkValidity()
 	if(aux){
@@ -390,38 +394,33 @@ document.getElementById('save-robot').onclick = async(e) =>{
 		if(!completed) alert('Aun no has completado tus datos personales')
 		else{
 			var categoria = true, capitan = true, yo = 0, price = 0
-			var captain, member1, member2, member3, category, name
 			const image = document.getElementById('imagen-robot').files
-			name = document.getElementById('nombre-robot').value.toUpperCase()
-			category = document.getElementById('input-select-9').value
-			captain = document.getElementById('input-select-10')
-			member1 = document.getElementById('input-select-11')
-			member2 = document.getElementById('input-select-12')
-			member3 = document.getElementById('input-select-13')
+			const name = document.getElementById('nombre-robot').value.toUpperCase()
+			const category = document.getElementById('input-select-9').value
+			const captain = document.getElementById('input-select-10')
+			const member1 = document.getElementById('input-select-11')
+			const member2 = document.getElementById('input-select-12')
+			const member3 = document.getElementById('input-select-13')
 
 			if(!document.getElementById('categoria').value) categoria = false
 			if(captain.value == 'Selecciona una opción') capitan = false
 
 			if(categoria && capitan){
-				var array = []
-				if(captain.value != 'Yo' && captain.value != 'Selecciona una opción'){
+				const array = []
+				if(captain.value != 'Líder' && captain.value != 'Selecciona una opción'){
 					array.push(captain.name)
-				} else if(captain.value == 'Yo') yo += 1
-
-				if(member1.value != 'Yo' && member1.value != 'Selecciona una opción'){
+				} else if(captain.value == 'Líder') yo += 1
+				if(member1.value != 'Líder' && member1.value != 'Selecciona una opción'){
 					array.push(member1.name)
-				} else if(member1.value == 'Yo') yo += 1
-
-				if(member2.value != 'Yo' && member2.value != 'Selecciona una opción'){
+				} else if(member1.value == 'Líder') yo += 1
+				if(member2.value != 'Líder' && member2.value != 'Selecciona una opción'){
 					array.push(member2.name)
-				} else if(member2.value == 'Yo') yo += 1
-
-				if(member3.value != 'Yo' && member3.value != 'Selecciona una opción'){
+				} else if(member2.value == 'Líder') yo += 1
+				if(member3.value != 'Líder' && member3.value != 'Selecciona una opción'){
 					array.push(member3.name)
-				} else if(member3.value == 'Yo') yo += 1
+				} else if(member3.value == 'Líder') yo += 1
 
-				var set = new Set(array)
-
+				const set = new Set(array)
 				if(set.size == array.length && yo <= 1){
 					if(category == "220 Libras") price = 1155.00
 					if(category == "120 Libras") price = 1045.00
@@ -438,20 +437,35 @@ document.getElementById('save-robot').onclick = async(e) =>{
 					if(category == "Lego sumo") price = 540.00
 					if(category == "Lego seguidor de linea") price = 540.00
 					if(category == "Carrera de drones") price = 1000.00
+
+					var m1 = '', m2 = '', m3 = '', id1 = '', id2 = '', id3 = ''
+					if(captain.value == 'Líder') captain.name = ''
+					if(member1.value != 'Selecciona una opción' && member1.value != 'Líder'){
+						m1 = member1.value
+						id1 = member1.name
+					} else if(member1.value == 'Líder') m1 = member1.value
+					if(member2.value != 'Selecciona una opción' && member2.value != 'Líder'){
+						m2 = member2.value
+						id2 = member2.name
+					} else if(member2.value == 'Líder') m2 = member2.value
+					if(member3.value != 'Selecciona una opción' && member3.value != 'Líder'){
+						m3 = member3.value
+						id3 = member3.name
+					} else if(member3.value == 'Líder') m3 = member3.value
 				
 					const data = new FormData()
 					data.append('name', name)
-					data.append('prototype', image[0])
+					data.append('price', price)
 					data.append('category', category)
+					data.append('prototype', image[0])
 					data.append('captain', captain.value)
 					data.append('idc', captain.name)
-					data.append('m1', member1.value)
-					data.append('id1', member1.name)
-					data.append('m2', member2.value)
-					data.append('id2', member2.name)
-					data.append('m3', member3.value)
-					data.append('id3', member3.name)
-					data.append('price', price)
+					data.append('id1', id1)
+					data.append('id2', id2)
+					data.append('id3', id3)
+					data.append('m1', m1)
+					data.append('m2', m2)
+					data.append('m3', m3)
 		
 					if(document.getElementById('save-robot').value === "C r e a r _"){
 						const res = await fetch(url+'/robots/create', {
@@ -466,8 +480,7 @@ document.getElementById('save-robot').onclick = async(e) =>{
 							cancelRobot()
 							renderRobots()
 							renderMembers()
-						} else if(JSON.status === 400) alert('El nombre del robot ya esta en uso')
-
+						} else if(JSON.status === 403) alert('El nombre del robot ya esta en uso')
 						else alert('No se pudo crear un nuevo robot')
 
 					} else{
@@ -484,7 +497,7 @@ document.getElementById('save-robot').onclick = async(e) =>{
 							renderRobots()
 							renderMembers()
 							document.getElementById('add-robot').click()
-						} else if(JSON.status === 400) alert('El nombre del robot ya esta en uso')
+						} else if(JSON.status === 403) alert('El nombre del robot ya esta en uso')
 						else{
 							console.log(JSON.status);
 							alert('No se pudo actualizar la informacion')
@@ -551,7 +564,6 @@ async function cancelRobot(){
 	document.getElementById('input-select-13').value = "Selecciona una opción"
 	document.getElementById('file_span').innerHTML = "No has elegido archivos."
 
-
 	document.getElementById('input-select-10').name = ""
 	document.getElementById('input-select-11').name = ""
 	document.getElementById('input-select-12').name = ""
@@ -574,19 +586,24 @@ async function renderRobots(){
 			var members = '', prototypo = ''
 			const li = document.createElement('li')
 			if(robot._status == 'Sin registrar'){
-				boton1 = `<input type="submit" onclick="updateRobot('${robot._id}')" value="E d i t a r _">`
+				boton1 = `<p class="btn-block"><input type="submit" onclick="updateRobot('${robot._id}')" value="E d i t a r _">`
 				boton2 = `<input type="submit" onclick="deleteRobot('${robot._id}')" value="E l i m i n a r _">`
-				boton3 = `<input type="submit" onclick="registRobot('${robot._id}')" value="R e g i s t r a r _">`
-			} else boton3 = `<input type="button" value="P r o c e d e r  a l  p a g o _" onclick="location.href='https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.mercadopago.com.mx%2Fcheckout%2Fv1%2Fredirect%3Fpref_id%3D249524119-7ff4d878-f607-41ef-8201-be6634c9d25f%26fbclid%3DIwAR109_K4yWn-aHhlXTv73HXp-oXH2_JMs6HYUehD-TQgufG6zuS1Tfwg9qk&h=AT2nPT58dlAqgGjM47fmr81LmsM7siGExsg4fDIiZZSnetX9IShqinH90DMc-65LHnC6-R_DbW-HDDFD-rMEZCSFBYJLA5CJhmeh4ilxEQbrkU6ew_Q12D2MRU33AnVUqRptdnK8G8rNe50GTa2y3w'">`
+				boton3 = `<input type="submit" onclick="registRobot('${robot._id}')" value="R e g i s t r a r _"></p>`
+			} else{
+				boton1 = `<p class="btn-block"><input type="button" onclick="alert('Opcion deshabilitada temporalmente')" value="Proceder al pago_" >`
+				boton2 = `<input type="submit" onclick="alert('Opcion deshabilitada temporalmente')" value="Subir evidencia _"></p>`
+				boton3 = `<input type="submit" onclick="alert('Opcion deshabilitada temporalmente')" value="Descargar comprobante_"><br><br>`
+			}
 
-			if(robot._members.length != 0){
-				robot._members.forEach(miembro => { members += `<input type="text" autocomplete="off" value="${miembro}" disabled>` })
-			} else members = '<input type="text" autocomplete="off" value="Sin integrantes" disabled>'
+			if(robot._member1.value) members += `<input type="text" autocomplete="off" value="${robot._member1.value}" disabled>`
+			if(robot._member2.value) members += `<input type="text" autocomplete="off" value="${robot._member2.value}" disabled>`
+			if(robot._member3.value) members += `<input type="text" autocomplete="off" value="${robot._member3.value}" disabled>`
+			if(members == '') members = `<input type="text" autocomplete="off" value="Sin integrantes" disabled>`
 
 			if(robot._prototype != ''){
 				prototypo = `
 					<p>
-						<a href="${robot._prototype}"><input type="text" name="prototype" autocomplete="off" value="Haz click aqui" disabled>
+						<a href="${robot._prototype}" target="_blank"><input type="text" name="prototype" autocomplete="off" value="Haz click aqui" disabled>
 						<label for="prototype" class="label">
 							<span class="content">imagen de prototypo_</span>
 						</label></a>
@@ -628,7 +645,7 @@ async function renderRobots(){
 					</p>
 					${prototypo}
 					<p>
-						<input type="text" name="captain" autocomplete="off" value="${robot._captain}" disabled>
+						<input type="text" name="captain" autocomplete="off" value="${robot._captain.value}" disabled>
 						<label for="captain" class="label">
 							<span class="content">capitan_</span>
 						</label>
@@ -640,11 +657,9 @@ async function renderRobots(){
 						</label>
 					</p>
 				</form>
-				<p class="btn-block">
 				${boton1}
 				${boton2}
 				${boton3}
-				</p>
 			</div>
 			`
 			robotsContainer.appendChild(li)
@@ -653,7 +668,7 @@ async function renderRobots(){
 }
 
 async function registRobot(id){
-	var opc = confirm('Un vez pre registrado ya no podras modificar los datos de los integrante participantes ni de tu robot. ¿Estas seguro de continuar?')
+	var opc = confirm('Un vez pre registrado ya no podras modificar los datos de los integrantes participantes ni de tu robot. ¿Estas seguro de continuar?')
 	if(opc == true){
 		const res = await fetch(url+'/robots/regist/'+id, {
 			headers: { 'Content-Type': 'application/json' },
@@ -672,83 +687,49 @@ async function registRobot(id){
 async function deleteRobot(id){
 	var opc = confirm('Estas seguro de querer eliminar a tu robot?')
 	if(opc == true){
-		const res = await fetch(url+'/robots/substract/'+id, {
+		const ans = await fetch(url+'/robots/delete/'+id, {
 			headers: { 'Content-Type': 'application/json' },
-			method: 'PUT'
+			method: 'DELETE'
 		})	
 
-		const JSON = await res.json()
+		const JSON = await ans.json()
 		if(JSON.status == 200){
-			const ans = await fetch(url+'/robots/delete/'+id, {
-				headers: { 'Content-Type': 'application/json' },
-				method: 'DELETE'
-			})	
-	
-			const JSON = await ans.json()
-			if(JSON.status == 200){
-				alert('Tu robot ha sido eliminado')
-				cancelRobot()
-				renderRobots()
-				renderMembers()
-			} else alert('El robot no pudo ser eliminado')
-		} else alert('Hubo un error en el servidor')
-	}
+			alert('Tu robot ha sido eliminado')
+			cancelRobot()
+			renderRobots()
+			renderMembers()
+		} else alert('El robot no pudo ser eliminado')
+	} else alert('Hubo un error en el servidor')
 }
 
 async function updateRobot(id){
+	cancelRobot()
 	const res = await fetch(url+'/robots/data/'+id)
-	const JSON = await res.json()
-	var flag = false
+	const robot = await res.json()
 
-	if(JSON.status === 404) alert('No se pudo conectar con el servidor')
-    else if(JSON.status === 401) console.log('No tiene autorizacion necesaria')
+	if(robot.status === 404) alert('No se pudo conectar con el servidor')
+    else if(robot.status === 401) console.log('No tiene autorizacion necesaria')
     else{
-		var robot = JSON
 		document.getElementById('add-robot').click()
 		document.getElementById('id-robot').value = robot._id
 		document.getElementById('nombre-robot').value = robot._name
 		document.getElementById('save-robot').value = 'A c t u a l i z a r _'
-		if(robot._prototype != '')
-		document.getElementById('file_span').innerHTML = "Sobreescribir archivo existente."
+		if(robot._prototype != '') document.getElementById('file_span').innerHTML = "Sobreescribir archivo existente."
 
-		if(robot._category){
-			document.getElementById('input-select-9').value = robot._category
-			document.getElementById('categoria').value = robot._category
-		}
-		if(robot._captain){
-			document.getElementById('input-select-10').value = robot._captain
-			if(robot._captain != 'Yo') document.getElementById('input-select-10').name = robot._idMember[0]
-			else flag = true
-		}
+		document.getElementById('categoria').value = robot._category
+		document.getElementById('input-select-9').value = robot._category
 
-		if(robot._members){
-			var aux
-			if(flag){ 
-				for(var i = 0; i < robot._members.length; i++){
-					aux = 11 + i
-					document.getElementById('input-select-' + aux).value = robot._members[i]
-					document.getElementById('input-select-' + aux).name = robot._idMember[i]
-				}
-			} else{
-				if(robot._idMember.length == robot._members.length){ 
-					var array = []
-					robot._members.forEach(member => {
-						if(member != 'Yo') array.push(member)
-					})
-					for(var i = 1; i < array.length+ 1; i++){
-						aux = 10 + i
-						document.getElementById('input-select-' + aux).value = array[i-1]
-						document.getElementById('input-select-' + aux).name = robot._idMember[i]
-					}
-					document.getElementById('input-select-13').value = 'Yo'
-				} else{ 
-					for(var i = 1; i < robot._idMember.length; i++){
-						aux = 10 + i
-						document.getElementById('input-select-' + aux).value = robot._members[i-1]
-						document.getElementById('input-select-' + aux).name = robot._idMember[i]
-					}
-				}
-			}
-		}
+		document.getElementById('input-select-10').value = robot._captain.value
+		document.getElementById('input-select-10').name = robot._captain.key
+
+		if(robot._member1.value != '')
+		document.getElementById('input-select-11').value = robot._member1.value
+		document.getElementById('input-select-11').name = robot._member1.key
+		if(robot._member2.value != '')
+		document.getElementById('input-select-12').value = robot._member2.value
+		document.getElementById('input-select-12').name = robot._member2.key
+		if(robot._member3.value != '')
+		document.getElementById('input-select-13').value = robot._member3.value
+		document.getElementById('input-select-13').name = robot._member3.key
 	}
 }

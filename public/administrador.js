@@ -3,65 +3,6 @@ var edit_robot = false, edit_member = false
 
 document.addEventListener('DOMContentLoaded', () =>{ checkAdmin() })
 
-document.getElementById('add-member').onclick = function(){
-    if(edit_member == true) edit_member = false
-    else edit_member = true
-}
-
-document.getElementById('add-robot').onclick = function(){
-    if(edit_robot == true) edit_robot = false
-    else edit_robot = true
-}
-
-document.getElementById('all-users').onclick = async() =>{
-    const res = await fetch(url + '/admin/all/1')
-    const JSON = await res.json()
-    if(JSON.length == 0) alert('No se encontro ninguna coincidencia')
-    renderUsers(JSON)
-}
-
-document.getElementById('all-members').onclick = async() =>{
-    const res = await fetch(url + '/admin/all/2')
-    const JSON = await res.json()
-    if(JSON.length == 0) alert('No se encontro ninguna coincidencia')
-    renderMembers(JSON)
-}
-
-document.getElementById('all-robots').onclick = async() =>{
-    const res = await fetch(url + '/admin/all/3')
-    const JSON = await res.json()
-    if(JSON.length == 0) alert('No se encontro ninguna coincidencia')
-    renderRobots(JSON)
-}
-
-document.getElementById('list-members').onclick = async(e) =>{
-    e.preventDefault()
-    const leader = document.getElementById('id-user').value
-
-    if(leader == ''){
-        alert('Aun no has seleccionado algun resultado')
-    } else{
-        const res = await fetch(url + '/admin/user-member/' + leader)
-        const JSON = await res.json()
-        if(JSON.length == 0) alert('No se encontro ninguna coincidencia')
-        renderMembers(JSON)
-    }
-}
-
-document.getElementById('list-robots').onclick = async(e) =>{
-    e.preventDefault()
-    const leader = document.getElementById('id-user').value
-
-    if(leader == ''){
-        alert('Aun no has seleccionado algun resultado')
-    } else{
-        const res = await fetch(url + '/admin/user-robot/' + leader)
-        const JSON = await res.json()
-        if(JSON.length == 0) alert('No se encontro ninguna coincidencia')
-        renderRobots(JSON)
-    }
-}
-
 function cleanSearch(){
     document.querySelectorAll('.nametag').forEach(function(a){ a.remove() })
 }
@@ -79,33 +20,7 @@ function setAttributes(){ // esta tiene un bug cuando no se identifica antes
     document.getElementById('input-select').setAttribute('id', 'input-select-10')
 }
 
-async function addOptions(leader){
-    var selector = document.getElementsByClassName("select-opt")
-    const res = await fetch(url + '/admin/user-member/' + leader)
-    const miembros = await res.json()
-
-    for(var i = 2; i < 6; i++){
-        var opciones = selector[i].getElementsByTagName("li")
-        const top = opciones.length - 1
-        for(var j = top; j > 1; j--) opciones[j].remove()
-    }
-
-	miembros.forEach(miembro => {
-		for(var i = 2; i < 6; i++){
-			var opcion = miembro._name + ' ' + miembro._surname
-			var li = document.createElement('li')
-			li.innerHTML = `<span onclick="putValue(${i+1}, '${opcion}', '${miembro._id}')"> ${opcion} </span>`
-			selector[i].append(li)
-		} 
-	})
-}
-
-async function putValue(index, opt, id){
-	document.getElementById('input-select-'+ index).value = opt
-	document.getElementById('input-select-'+ index).name = id
-}
-
-async function checkAdmin(){
+async function checkAdmin(){ // provisional para arreglar bug
     const res = await fetch(url+'/admin/check')
     const JSON = res.json()
     if(JSON.status == 200)
@@ -114,6 +29,90 @@ async function checkAdmin(){
 }
 
 // procedimientos de usuario
+
+document.getElementById('all-users').onclick = async() =>{
+    const res = await fetch(url + '/admin/all/1')
+    const JSON = await res.json()
+    if(JSON.length == 0){
+        cleanSearch()
+        document.getElementById("result").type = "text"
+    } else{
+        document.getElementById("result").type = "hidden"
+        renderUsers(JSON)
+    }
+}
+
+document.getElementById('all-members').onclick = async() =>{
+    const res = await fetch(url + '/admin/all/2')
+    const JSON = await res.json()
+    if(JSON.length == 0){
+        cleanSearch()
+        document.getElementById("result").type = "text"
+    } else{
+        document.getElementById("result").type = "hidden"
+        renderMembers(JSON)
+    }
+}
+
+document.getElementById('all-robots').onclick = async() =>{
+    const res = await fetch(url + '/admin/all/3')
+    const JSON = await res.json()
+    if(JSON.length == 0){
+        cleanSearch()
+        document.getElementById("result").type = "text"
+    } else{
+        document.getElementById("result").type = "hidden"
+        renderRobots(JSON)
+    }
+}
+
+document.getElementById('check').onclick = async() =>{
+    const leader = document.getElementById('id-user').value
+    if(leader != ''){
+        const res = await fetch(url + '/admin/check/' + leader)
+        const JSON = await res.json()
+        if(JSON.status == 200){
+            setLeader(leader)
+            alert('Se ha verificado al usuario')
+        } else alert('Error al intentar verificar')
+    } else alert('Aun no has seleccionado algun resultado')
+}
+
+document.getElementById('denied').onclick = async() =>{
+    const leader = document.getElementById('id-user').value
+    if(leader != ''){
+        const res = await fetch(url + '/admin/denied/' + leader)
+        const JSON = await res.json()
+        if(JSON.status == 200){
+            setLeader(leader)
+            alert('El usuario esta descalificado')
+        } else alert('Error al intentar verificar')
+    } else alert('Aun no has seleccionado algun resultado')
+}
+
+document.getElementById('descend').onclick = async() =>{
+    const leader = document.getElementById('id-user').value
+    if(leader != ''){
+        const res = await fetch(url + '/admin/descend/' + leader)
+        const JSON = await res.json()
+        if(JSON.status == 200){
+            setLeader(leader)
+            alert('El usuario es de tipo normal')
+        } else alert('Error al intentar verificar')
+    } else alert('Aun no has seleccionado algun resultado')
+}
+
+document.getElementById('ascend').onclick = async() =>{
+    const leader = document.getElementById('id-user').value
+    if(leader != ''){
+        const res = await fetch(url + '/admin/ascend/' + leader)
+        const JSON = await res.json()
+        if(JSON.status == 200){
+            setLeader(leader)
+            alert('El usuario es administrador')
+        } else alert('Error al intentar verificar')
+    } else alert('Aun no has seleccionado algun resultado')
+}
 
 async function renderUsers(users){
     cleanSearch()
@@ -148,6 +147,12 @@ async function setLeader(id){
     const res = await fetch(url + '/admin/user/' + id)
     const user = await res.json()
     
+    document.getElementById("leader").type = "hidden"
+    document.getElementById("denied").type = "submit"
+    document.getElementById("check").type = "submit"
+    document.getElementById("descend").type = "submit"
+    document.getElementById("ascend").type = "submit"
+
     document.getElementById("tag_form").style.opacity = "1"
     document.getElementById("tag_form_1").style.opacity = "1"
     document.getElementById("tag_form_2").style.opacity = "1"
@@ -159,6 +164,7 @@ async function setLeader(id){
     document.getElementById("tag_form_8").style.opacity = "1"
     document.getElementById("tag_form_9").style.opacity = "1"
     document.getElementById("tag_form_10").style.opacity = "1"
+    document.getElementById("tag_form_11").style.opacity = "1"
 
     if(user._email) document.getElementById('email').value = user._email
     else document.getElementById('email').value = "Sin definir"
@@ -166,8 +172,6 @@ async function setLeader(id){
     else document.getElementById('name').value = "Sin definir"
     if(user._team) document.getElementById('team').value = user._team
     else document.getElementById('team').value = "Sin definir"
-    if(user._status) document.getElementById('status').value = user._status
-    else document.getElementById('status').value = "Sin definir"
     if(user._tel) document.getElementById('tel').value = user._tel
     else document.getElementById('tel').value = "Sin definir"
     if(user._date) document.getElementById('date').value = user._date
@@ -182,10 +186,34 @@ async function setLeader(id){
     else document.getElementById('institution').value = "Sin definir"
     if(user._gender) document.getElementById('gender').value = user._gender
     else document.getElementById('gender').value = "Sin definir"
+    if(user._status) document.getElementById('status').value = user._status
+    else document.getElementById('status').value = "Sin definir"
+    if(user._verified) document.getElementById('verified').value = "True"
+    else document.getElementById('verified').value = "False"
     document.getElementById('id-user').value = user._id
 }
 
 // procedimientos de miembro
+
+document.getElementById('add-member').onclick = function(){
+    if(edit_member == true) edit_member = false
+    else edit_member = true
+}
+
+document.getElementById('list-members').onclick = async() =>{
+    const leader = document.getElementById('id-user').value
+    if(leader != ''){
+        const res = await fetch(url + '/admin/user-member/' + leader)
+        const JSON = await res.json()
+        if(JSON.length == 0){
+            cleanSearch()
+            document.getElementById("result").type = "text"
+        } else{
+            document.getElementById("result").type = "hidden"
+            renderMembers(JSON)
+        }
+    } else alert('Aun no has seleccionado algun resultado')
+}
 
 async function setMember(id){
     cancelRobot()
@@ -244,7 +272,8 @@ async function renderMembers(members){
     })
 }
 
-function clearMember(){
+function cancelMember(){
+	document.getElementById('status-member').value = ""
     document.getElementById('nombre-member').value = ""
 	document.getElementById('apellido-member').value = ""
 	document.getElementById('tel-member').value = ""
@@ -259,10 +288,7 @@ function clearMember(){
 	document.getElementById('man-member').checked = false
 	document.getElementById('woman-member').checked = false
     document.getElementById('other-member').checked = false
-}
 
-function cancelMember(){
-    clearMember()
 	document.getElementById('input-select-7').value = "Selecciona una opción"
 	document.getElementById('input-select-8').value = "Selecciona una opción"
 	document.getElementById('input-select-9').value = "Selecciona una opción"
@@ -319,6 +345,7 @@ document.getElementById('save-member').onclick = async(e) =>{
                 method: 'PUT',
                 body: data
             })
+
             const JSON = await res.json()
             if(JSON.status === 200){
                 alert('Datos actualizados con exito')
@@ -326,15 +353,70 @@ document.getElementById('save-member').onclick = async(e) =>{
                 edit_member = false
                 cancelMember()
                 cleanSearch()
-            } else{
-                // console.log(JSON.status);
-                alert('No se pudo actualizar la informacion')
-            }
+            } else alert('No se pudo actualizar la informacion')
         }
     }
 }
 
 // procedimientos de robot
+
+document.getElementById('regist-robot').onclick = async() => {
+    const robot = document.getElementById('id-robot').value
+    const status = document.getElementById('status-robot').value
+    if(robot != ''){
+        if(status == 'Pre registrado'){
+            const res = await fetch(url + '/admin/regist/' + robot)
+            const JSON = await res.json()
+            if(JSON.status == 200){
+                document.getElementById("status-robot").value = "Registrado"
+                alert('Robot registrado con exito')
+            } else alert('Error al intentar registrar')
+        } else if(status == 'Registrado') alert('El robot ya se encuentra registrado')
+        else if(status == 'Descalificado') alert('Un robot descalificado no puede ser registrado')
+        else if(status == 'Sin registrar') alert('El robot tiene que estar pre registrado')
+        else alert('No es posible registrar al robot')
+    } else alert('Aun no has seleccionado algun resultado')
+}
+
+document.getElementById('disqualify-robot').onclick = async() => {
+    const robot = document.getElementById('id-robot').value
+    if(robot != ''){
+        var opc = confirm('Estas seguro de querer descalificar al robot?')
+        if(opc == true){
+            const res = await fetch(url + '/admin/disqualify/' + robot)
+            const JSON = await res.json()
+            if(JSON.status == 200){
+                document.getElementById("status-robot").value = "Descalificado"
+                alert('Robot descalificado del torneo')
+            } else alert('Error al intentar descalificar')
+        }
+    } else alert('Aun no has seleccionado algun resultado')
+}
+
+document.getElementById('add-robot').onclick = function(){
+    if(edit_robot == true) edit_robot = false
+    else edit_robot = true
+}
+
+document.getElementById('list-robots').onclick = async() =>{
+    const leader = document.getElementById('id-user').value
+    if(leader != ''){
+        const res = await fetch(url + '/admin/user-robot/' + leader)
+        const JSON = await res.json()
+        if(JSON.length == 0){
+            cleanSearch()
+            document.getElementById("result").type = "text"
+        } else{
+            document.getElementById("result").type = "hidden"
+            renderRobots(JSON)
+        }
+    } else alert('Aun no has seleccionado algun resultado')
+}
+
+function showImage(){
+    if(document.getElementById('path-robot').value != '')
+        window.open(document.getElementById('path-robot').value)
+}
 
 async function setRobot(id){
     cancelMember()
@@ -344,58 +426,46 @@ async function setRobot(id){
     }
     const res = await fetch(url + '/admin/robot/' + id)
     const robot = await res.json()
+
     if(robot){
         setLeader(robot._leader)
-        var flag = false
         if(edit_robot == false){
             document.getElementById('add-robot').click()
             edit_robot = true
         }
 
+		document.getElementById('status-robot').value = robot._status
+        document.getElementById('price-robot').value = robot._price + ' MXN'
+        
+        if(robot._prototype == '') document.getElementById('imagen-robot').value = "No hay imagen de prototipo"
+        else{
+            document.getElementById('path-robot').value = robot._prototype
+            document.getElementById('imagen-robot').value = "Click aqui para visualizar"
+        }
+
+        if(robot._payment == '') document.getElementById('payment-robot').value = "No hay comprobante de pago"
+        else document.getElementById('payment-robot').value = "Click aqui para visualizar"
+
 		document.getElementById('id-robot').value = robot._id
-		document.getElementById('nombre-robot').value = robot._name
+        document.getElementById('nombre-robot').value = robot._name
+        
         document.getElementById('categoria').value = robot._category
         document.getElementById('input-select-2').value = robot._category
 
-        if(robot._captain){
-            if(robot._captain != 'Yo'){
-                document.getElementById('input-select-3').value = robot._captain
-                document.getElementById('input-select-3').name = robot._idMember[0]
-            } else{
-                flag = true
-                document.getElementById('input-select-3').value = 'Lider'
-            }
-        }
+		document.getElementById('input-select-3').value = robot._captain.value
+		document.getElementById('input-select-3').name = robot._captain.key
 
-        if(robot._members){
-			var aux
-			if(flag){ 
-				for(var i = 0; i < robot._members.length; i++){
-					aux = 4 + i
-					document.getElementById('input-select-' + aux).value = robot._members[i]
-					document.getElementById('input-select-' + aux).name = robot._idMember[i]
-				}
-			} else{
-				if(robot._idMember.length == robot._members.length){ 
-					var array = []
-					robot._members.forEach(member => {
-						if(member != 'Yo') array.push(member)
-					})
-					for(var i = 1; i < array.length+ 1; i++){
-						aux = 3 + i
-						document.getElementById('input-select-' + aux).value = array[i-1]
-						document.getElementById('input-select-' + aux).name = robot._idMember[i]
-					}
-					document.getElementById('input-select-6').value = 'Lider'
-				} else{
-					for(var i = 1; i < robot._idMember.length; i++){
-						aux = 3 + i
-						document.getElementById('input-select-' + aux).value = robot._members[i-1]
-						document.getElementById('input-select-' + aux).name = robot._idMember[i]
-					}
-				}
-			}
-		}
+		if(robot._member1.value != '')
+		document.getElementById('input-select-4').value = robot._member1.value
+        document.getElementById('input-select-4').name = robot._member1.key
+        
+		if(robot._member2.value != '')
+		document.getElementById('input-select-5').value = robot._member2.value
+        document.getElementById('input-select-5').name = robot._member2.key
+        
+		if(robot._member3.value != '')
+		document.getElementById('input-select-6').value = robot._member3.value
+        document.getElementById('input-select-6').name = robot._member3.key
     } else alert('No fue posible establecer conexion con el servidor')
 }
 
@@ -420,24 +490,26 @@ async function renderRobots(robots){
     })
 }
 
-function clearRobot(){
+function cancelRobot(){    
     document.getElementById('nombre-robot').value = ""
 	document.getElementById('categoria').value = ""
 
-	document.getElementById('input-select-3').name = ""
-	document.getElementById('input-select-4').name = ""
-	document.getElementById('input-select-5').name = ""
-	document.getElementById('input-select-6').name = ""
-    
 	document.getElementById('captain').value = ""
 	document.getElementById('member1').value = ""
 	document.getElementById('member2').value = ""
     document.getElementById('member3').value = ""
-}
 
-function cancelRobot(){    
-    clearRobot()
-	document.getElementById('status-member').value = "Sin asignar"
+	document.getElementById('input-select-3').name = ""
+	document.getElementById('input-select-4').name = ""
+	document.getElementById('input-select-5').name = ""
+    document.getElementById('input-select-6').name = ""
+    
+    document.getElementById('path-robot').value = ""
+    document.getElementById('price-robot').value = ""
+    document.getElementById('status-robot').value = ""
+    document.getElementById('imagen-robot').value = ""
+    document.getElementById('payment-robot').value = ""
+    
 	document.getElementById('input-select-2').value = "Selecciona una opción"
 	document.getElementById('input-select-3').value = "Selecciona una opción"
 	document.getElementById('input-select-4').value = "Selecciona una opción"
@@ -504,29 +576,36 @@ document.getElementById('save-robot').onclick = async(e) =>{
                 if(category == "Lego seguidor de linea") price = 540.00
                 if(category == "Carrera de drones") price = 1000.00
 
+                var m1 = '', m2 = '', m3 = '', id1 = '', id2 = '', id3 = ''
+                if(captain.value == 'Líder') captain.name = ''
+                if(member1.value != 'Selecciona una opción' && member1.value != 'Líder'){
+                    m1 = member1.value
+                    id1 = member1.name
+                } else if(member1.value == 'Líder') m1 = member1.value
+                if(member2.value != 'Selecciona una opción' && member2.value != 'Líder'){
+                    m2 = member2.value
+                    id2 = member2.name
+                } else if(member2.value == 'Líder') m2 = member2.value
+                if(member3.value != 'Selecciona una opción' && member3.value != 'Líder'){
+                    m3 = member3.value
+                    id3 = member3.name
+                } else if(member3.value == 'Líder') m3 = member3.value
+
                 const data = new FormData()
                 data.append('name', name)
-                data.append('category', category)
                 data.append('price', price)
-
-                if(captain.value == 'Lider') data.append('captain', 'Yo')
-                else data.append('captain', captain.value)
+                data.append('category', category)
+                data.append('captain', captain.value)
                 data.append('idc', captain.name)
+                data.append('id1', id1)
+                data.append('id2', id2)
+                data.append('id3', id3)
+                data.append('m1', m1)
+                data.append('m2', m2)
+                data.append('m3', m3)
 
-                if(member1.value == 'Lider') data.append('m1', 'Yo')
-                else data.append('m1', member1.value)
-                data.append('id1', member1.name)
-
-                if(member2.value == 'Lider') data.append('m2', 'Yo')
-                else data.append('m2', member2.value)
-                data.append('id2', member2.name)
-
-                if(member3.value == 'Lider') data.append('m3', 'Yo')
-                else data.append('m3', member3.value)
-                data.append('id3', member3.name)
-    
                 const id = document.getElementById('id-robot').value
-                const res = await fetch(url+'/admin/robot-update/'+id, {
+                const res = await fetch(url+'/robots/update/'+id, {
                     method: 'PUT',
                     body: data
                 })
@@ -538,14 +617,39 @@ document.getElementById('save-robot').onclick = async(e) =>{
                     edit_robot = false
                     cancelRobot()
                     cleanSearch()
-
-                } else if(JSON.status === 400) alert('El nombre del robot ya esta en uso')
+                } else if(JSON.status === 403) alert('El nombre del robot ya esta en uso')
                 else alert('No se pudo actualizar la informacion')
             } else alert('No se pueden repetir integrantes en el equipo')
         } else if(categoria && !capitan) alert('Es necesario escoger a un capitan')
         else if(!categoria &&capitan) alert('Es necesario escoger a una categoria')
         else alert('Es necesario escoger una categoria y un capitan')
     }
+}
+
+async function addOptions(leader){
+    var selector = document.getElementsByClassName("select-opt")
+    const res = await fetch(url + '/admin/user-member/' + leader)
+    const miembros = await res.json()
+
+    for(var i = 2; i < 6; i++){
+        var opciones = selector[i].getElementsByTagName("li")
+        const top = opciones.length - 1
+        for(var j = top; j > 1; j--) opciones[j].remove()
+    }
+
+	miembros.forEach(miembro => {
+		for(var i = 2; i < 6; i++){
+			var opcion = miembro._name + ' ' + miembro._surname
+			var li = document.createElement('li')
+			li.innerHTML = `<span onclick="putValue(${i+1}, '${opcion}', '${miembro._id}')"> ${opcion} </span>`
+			selector[i].append(li)
+		} 
+	})
+}
+
+async function putValue(index, opt, id){
+	document.getElementById('input-select-'+ index).value = opt
+	document.getElementById('input-select-'+ index).name = id
 }
 
 // document.getElementById('buscar').onclick = async(e) =>{

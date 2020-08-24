@@ -24,14 +24,18 @@ const RobotSchema = new Schema({
         type: String,
     },
     _captain: {
-        type: String,
+        type: Schema.Types.Mixed,
     },
-    _members: {
-        type: Array,
+    _member1: {
+        type: Schema.Types.Mixed,
     },
-    _idMember: {
-        type: Array
-    }
+    _member2: {
+        type: Schema.Types.Mixed,
+    },
+    _member3: {
+        type: Schema.Types.Mixed,
+    },
+
 })
 
 module.exports = model('Robot', RobotSchema)

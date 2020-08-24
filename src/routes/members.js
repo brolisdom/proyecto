@@ -3,6 +3,7 @@ const { isAuth } = require('../auth')
 
 const router = Router()
 
+const Robot = require('../models/Robot')
 const Member = require('../models/Member')
 
 // router.get('/all', async(req, res) =>{
@@ -38,7 +39,6 @@ router.post('/create', isAuth, async(req, res) =>{
         _scholarship: scholarship,
         _institution: institution,
         _provisional: provisional,
-        // _school: school,
         _status: 'Espectador',
         _robots: 0
     })
@@ -51,6 +51,16 @@ router.put('/update/:id', isAuth, async(req, res) => {
     const member = await Member.findOne({ _id: req.params.id })
     if(member){
         if(member._leader == req.user._id){
+            const query = { key: String(member._id), value: name + ' ' + surname }
+            if(member._robots > 0){
+                const robots = await Robot.find({ _leader: member._leader })
+                robots.forEach(async(robot) => {
+                    if(robot._captain.key == member._id) await Robot.findOneAndUpdate({ _id: robot._id }, { _captain: query })
+                    if(robot._member1.key == member._id) await Robot.findOneAndUpdate({ _id: robot._id }, { _member1: query })
+                    if(robot._member2.key == member._id) await Robot.findOneAndUpdate({ _id: robot._id }, { _member2: query })
+                    if(robot._member3.key == member._id) await Robot.findOneAndUpdate({ _id: robot._id }, { _member3: query })
+                })
+            }
             await Member.findOneAndUpdate({ _id: req.params.id }, {
                 _name: name,
                 _surname: surname,
@@ -62,12 +72,9 @@ router.put('/update/:id', isAuth, async(req, res) => {
                 _scholarship: scholarship,
                 _institution: institution,
                 _provisional: provisional,
-                // _school: school
             })
             res.json({ status: 200 })
-
         } else res.json({ status: 401 })
-
     } else res.json({ status: 404 })
 })
 
@@ -78,7 +85,6 @@ router.delete('/delete/:id', isAuth, async(req, res) => {
             await Member.findByIdAndDelete(req.params.id)
             res.json({ status: 200 })
         } else res.json({ status: 401 })
-
     } else res.json({ status: 404 })
 })
 
