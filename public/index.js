@@ -1,5 +1,15 @@
 const url = 'http://localhost:3000/api'
 
+async function checkUser(){ 
+    const res = await fetch(url+'/users')
+    const JSON = await res.json()
+    if(JSON.status !== 401) window.location.replace('/dashboard.html')
+}
+
+document.addEventListener('DOMContentLoaded', () =>{
+	checkUser()
+})
+
 document.getElementById('register').onclick = async(e) =>{
     const res = document.getElementById('form').checkValidity()
     if(res){

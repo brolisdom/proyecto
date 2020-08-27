@@ -3,8 +3,11 @@ var edit_robot = false, edit_member = false
 
 document.addEventListener('DOMContentLoaded', () =>{ checkAdmin() })
 
-function cleanSearch(){
-    document.querySelectorAll('.nametag').forEach(function(a){ a.remove() })
+async function checkAdmin(){ // provisional para arreglar bug
+    const res = await fetch(url+'/admin/check')
+    const JSON = await res.json()
+    if(JSON.status == 200) setAttributes()
+    else window.location.replace('/index.html')
 }
 
 function setAttributes(){ // esta tiene un bug cuando no se identifica antes
@@ -20,15 +23,16 @@ function setAttributes(){ // esta tiene un bug cuando no se identifica antes
     document.getElementById('input-select').setAttribute('id', 'input-select-10')
 }
 
-async function checkAdmin(){ // provisional para arreglar bug
-    const res = await fetch(url+'/admin/check')
-    const JSON = res.json()
-    if(JSON.status == 200)
-    setAttributes()
-    else setAttributes()
+function cleanSearch(){
+    document.querySelectorAll('.nametag').forEach(function(a){ a.remove() })
 }
 
-// procedimientos de usuario
+// procedimientos de usuario //
+
+document.getElementById('logout').onclick = async(e) =>{
+    await fetch(url+'/users/logout')    
+    window.location.replace('/index.html')
+}
 
 document.getElementById('all-users').onclick = async() =>{
     const res = await fetch(url + '/admin/all/1')

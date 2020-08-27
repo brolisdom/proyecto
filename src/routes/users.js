@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const { Router } = require('express')
 const { isAuth } = require('../auth')
 
@@ -16,13 +14,19 @@ const User = require('../models/User')
 // })
 
 router.get('/', async(req, res) => {
-    if(req.isAuthenticated()) res.json({ status: 200 })
+    if(req.isAuthenticated()){
+        if(req.user._status == 'Admin')
+            res.json({ status: 201 })
+        else if(req.user._status == 'Normal')
+            res.json({ status: 200 })
+        else res.json({ status: 401 })
+    }
     else res.json({ status: 401 })
 }) 
 
 router.get('/verified/:id', async(req, res) => {
     var error = false
-    await User.findByIdAndUpdate(req.params.id, { _verified: true }, function(err,res){
+    await User.findByIdAndUpdate(req.params.id, { _verified: true }, function(err, res){
         if(err) error = true
     })
     if(error){

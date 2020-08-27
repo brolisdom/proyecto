@@ -27,13 +27,22 @@ document.getElementById('registro').onclick = async(e) =>{
 }
 
 document.addEventListener('DOMContentLoaded', () =>{
+	checkUser()
 	renderUser()
 	renderMembers()
 	renderRobots()
 	addOptions(false)
 })
 
+async function checkUser(){ 
+    const res = await fetch(url+'/users')
+    const JSON = await res.json()
+	if(JSON.status === 401) window.location.replace('/index.html')
+	else if(JSON.status == 201) window.location.replace('/administrador.html')
+}
+
 // **Funciones de usuario** //
+
 document.getElementById('save').onclick = async(e) =>{ 
 	const res = document.getElementById('form-user').checkValidity()
 	if(res){
