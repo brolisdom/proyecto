@@ -37,8 +37,21 @@ document.addEventListener('DOMContentLoaded', () =>{
 async function checkUser(){ 
     const res = await fetch(url+'/users')
     const JSON = await res.json()
-	if(JSON.status === 401) window.location.replace('/index.html')
-	else if(JSON.status == 201) window.location.replace('/administrador.html')
+	if(JSON.status === 401){
+		alert('No esta permitido el acceso')
+		window.location.replace('/index.html')
+	} else if(JSON.status == 201){
+		document.getElementById('admin').hidden = false
+	}
+}
+
+document.getElementById('admin').onclick = function(){  
+    window.location.replace('/administrador.html')
+}
+
+document.getElementById('logout').onclick = async(e) =>{
+    await fetch(url+'/users/logout')    
+    window.location.replace('/index.html')
 }
 
 // **Funciones de usuario** //
@@ -69,7 +82,7 @@ document.getElementById('save').onclick = async(e) =>{
 		else provisional = document.getElementById('provisional').value
 
 		if(!document.getElementById('equipo').value) error = true
-		else team = document.getElementById('equipo').value.toUpperCase()
+		else team = document.getElementById('equipo').value.toLowerCase()
 
 		if(error) alert('Porfavor verifica que todas las opciones esten seleccionadas')
 		else{
@@ -97,11 +110,6 @@ document.getElementById('save').onclick = async(e) =>{
 			else alert('Los datos no fueron actualizados')
 		}
 	}
-}
-
-document.getElementById('logout').onclick = async(e) =>{
-    await fetch(url+'/users/logout')    
-    window.location.replace('/index.html')
 }
 
 async function User(){ 
@@ -404,7 +412,7 @@ document.getElementById('save-robot').onclick = async(e) =>{
 		else{
 			var categoria = true, capitan = true, yo = 0, price = 0
 			const image = document.getElementById('imagen-robot').files
-			const name = document.getElementById('nombre-robot').value.toUpperCase()
+			const name = document.getElementById('nombre-robot').value.toLowerCase()
 			const category = document.getElementById('input-select-9').value
 			const captain = document.getElementById('input-select-10')
 			const member1 = document.getElementById('input-select-11')
@@ -556,12 +564,12 @@ async function addOptions(aux){
 	})
 }
 
-async function putValue(val, opt, id){
+function putValue(val, opt, id){
 	document.getElementById('input-select-'+ val).value = opt
 	document.getElementById('input-select-'+ val).name = id
 }
 
-async function cancelRobot(){
+function cancelRobot(){
 	document.getElementById('nombre-robot').value = ""
 	document.getElementById('save-robot').value = 'C r e a r _'
 	document.getElementById('categoria').value = ""
@@ -585,6 +593,24 @@ async function cancelRobot(){
 	document.getElementById('imagen-robot').value = ""
 }
 
+async function generateVoucher(id, name, category, price){
+	const data = new FormData()
+	data.append('id', id)
+	data.append('name', name)
+	data.append('price', price)
+	data.append('category', category)
+
+	res = await fetch(url+'/robots/voucher', {
+		method: 'POST',
+		body: data
+	})
+	JSON = await res.json()
+	if(JSON.status == 200 ){
+		opc = confirm('Confirme que desea abrir el comprobante de inscripcion')
+		if(opc == true) window.open('/vouchers/' + id + '.pdf')
+	} else alert('No se pudo crear el comprobante')
+}
+
 async function renderRobots(){
     document.querySelectorAll('.robot-li').forEach(function(a){ a.remove() })
     const robots = await Robots()
@@ -601,7 +627,7 @@ async function renderRobots(){
 			} else{
 				boton1 = `<p class="btn-block"><input type="button" onclick="alert('Opcion deshabilitada temporalmente')" value="Proceder al pago_" >`
 				boton2 = `<input type="submit" onclick="alert('Opcion deshabilitada temporalmente')" value="Subir evidencia _"></p>`
-				boton3 = `<input type="submit" onclick="alert('Opcion deshabilitada temporalmente')" value="Descargar comprobante_"><br><br>`
+				boton3 = `<input type="submit" onclick="generateVoucher('${robot._id}', '${robot._name}', '${robot._category}', '${robot._price}')" value="Descargar comprobante_"><br><br><br>`
 			}
 
 			if(robot._member1.value) members += `<input type="text" autocomplete="off" value="${robot._member1.value}" disabled>`
@@ -666,9 +692,9 @@ async function renderRobots(){
 						</label>
 					</p>
 				</form>
+				${boton3}
 				${boton1}
 				${boton2}
-				${boton3}
 			</div>
 			`
 			robotsContainer.appendChild(li)

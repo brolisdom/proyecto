@@ -3,6 +3,10 @@ var edit_robot = false, edit_member = false
 
 document.addEventListener('DOMContentLoaded', () =>{ checkAdmin() })
 
+document.getElementById('normal').onclick = function(){  
+    window.location.replace('/dashboard.html')
+}
+
 async function checkAdmin(){ // provisional para arreglar bug
     const res = await fetch(url+'/admin/check')
     const JSON = await res.json()
@@ -79,31 +83,37 @@ document.getElementById('check').onclick = async() =>{
             setLeader(leader)
             alert('Se ha verificado al usuario')
         } else alert('Error al intentar verificar')
-    } else alert('Aun no has seleccionado algun resultado')
+    } else alert('Aun no has seleccionado algún resultado')
 }
 
 document.getElementById('denied').onclick = async() =>{
     const leader = document.getElementById('id-user').value
-    if(leader != ''){
-        const res = await fetch(url + '/admin/denied/' + leader)
-        const JSON = await res.json()
-        if(JSON.status == 200){
-            setLeader(leader)
-            alert('El usuario esta descalificado')
-        } else alert('Error al intentar verificar')
-    } else alert('Aun no has seleccionado algun resultado')
+    const status = document.getElementById('status').value
+    if(status != 'Admin'){
+        if(leader != ''){
+            const res = await fetch(url + '/admin/denied/' + leader)
+            const JSON = await res.json()
+            if(JSON.status == 200){
+                setLeader(leader)
+                alert('El usuario ahora esta inhabilitado')
+            } else alert('Error al intentar verificar')
+        } else alert('Aun no has seleccionado algún resultado')
+    } else alert('No tiene los permisos para inhabilitar a este usuario')
 }
 
 document.getElementById('descend').onclick = async() =>{
     const leader = document.getElementById('id-user').value
-    if(leader != ''){
-        const res = await fetch(url + '/admin/descend/' + leader)
-        const JSON = await res.json()
-        if(JSON.status == 200){
-            setLeader(leader)
-            alert('El usuario es de tipo normal')
-        } else alert('Error al intentar verificar')
-    } else alert('Aun no has seleccionado algun resultado')
+    const status = document.getElementById('status').value
+    if(status != 'Admin'){
+        if(leader != ''){
+            const res = await fetch(url + '/admin/descend/' + leader)
+            const JSON = await res.json()
+            if(JSON.status == 200){
+                setLeader(leader)
+                alert('El usuario ahora esta habilitado')
+            } else alert('Error al intentar verificar')
+        } else alert('Aun no has seleccionado algún resultado')
+    } else alert('No tiene los permisos para habilitar a este usuario')
 }
 
 document.getElementById('ascend').onclick = async() =>{
@@ -113,15 +123,18 @@ document.getElementById('ascend').onclick = async() =>{
         const JSON = await res.json()
         if(JSON.status == 200){
             setLeader(leader)
-            alert('El usuario es administrador')
+            alert('El usuario ahora es administrador')
         } else alert('Error al intentar verificar')
-    } else alert('Aun no has seleccionado algun resultado')
+    } else alert('Aun no has seleccionado algún resultado')
 }
 
 async function renderUsers(users){
     cleanSearch()
     const container = document.getElementById('result-container')
     users.forEach(user => {
+        var icon = ''
+        if(user._status == 'Normal') icon = 'icon icon-report_flag-1'
+        else if(user._status == 'Admin') icon = 'icon icon-report_flag-'
         const div = document.createElement('div')
         div.onclick = async() =>{ 
             setLeader(user._id) 
@@ -140,7 +153,7 @@ async function renderUsers(users){
         div.innerHTML = `
         <h4>${user._email}</h4>
         <p class="tag-icons">
-            <i class="icon icon-center_object_round-"></i>
+            <i class="${icon}"></i>
         </p>
         `
         container.appendChild(div)
@@ -216,7 +229,7 @@ document.getElementById('list-members').onclick = async() =>{
             document.getElementById("result").type = "hidden"
             renderMembers(JSON)
         }
-    } else alert('Aun no has seleccionado algun resultado')
+    } else alert('Aun no has seleccionado algún resultado')
 }
 
 async function setMember(id){
@@ -260,6 +273,9 @@ async function renderMembers(members){
     cleanSearch()
     const container = document.getElementById('result-container')
     members.forEach(member => {
+        var icon = ''
+        if(member._status == 'Espectador') icon = 'icon icon-tag-'
+        else if(member._status == 'Participante') icon = 'icon icon-tag_fill-'
         const div = document.createElement('div')
         div.onclick = async(e) =>{ 
             cancelMember()
@@ -269,7 +285,7 @@ async function renderMembers(members){
         div.innerHTML = `
         <h4>${member._name} ${member._surname}</h4>
         <p class="tag-icons">
-            <i class="icon icon-center_object_round-"></i>
+            <i class="${icon}"></i>
         </p>
         `
         container.appendChild(div)
@@ -379,13 +395,13 @@ document.getElementById('regist-robot').onclick = async() => {
         else if(status == 'Descalificado') alert('Un robot descalificado no puede ser registrado')
         else if(status == 'Sin registrar') alert('El robot tiene que estar pre registrado')
         else alert('No es posible registrar al robot')
-    } else alert('Aun no has seleccionado algun resultado')
+    } else alert('Aun no has seleccionado algún resultado')
 }
 
 document.getElementById('disqualify-robot').onclick = async() => {
     const robot = document.getElementById('id-robot').value
     if(robot != ''){
-        var opc = confirm('Estas seguro de querer descalificar al robot?')
+        var opc = confirm('Confirme que quiere descalificar a este robot')
         if(opc == true){
             const res = await fetch(url + '/admin/disqualify/' + robot)
             const JSON = await res.json()
@@ -394,7 +410,7 @@ document.getElementById('disqualify-robot').onclick = async() => {
                 alert('Robot descalificado del torneo')
             } else alert('Error al intentar descalificar')
         }
-    } else alert('Aun no has seleccionado algun resultado')
+    } else alert('Aun no has seleccionado algún resultado')
 }
 
 document.getElementById('add-robot').onclick = function(){
@@ -414,7 +430,7 @@ document.getElementById('list-robots').onclick = async() =>{
             document.getElementById("result").type = "hidden"
             renderRobots(JSON)
         }
-    } else alert('Aun no has seleccionado algun resultado')
+    } else alert('Aun no has seleccionado algún resultado')
 }
 
 function showImage(){
@@ -478,6 +494,10 @@ async function renderRobots(robots){
     const container = document.getElementById('result-container')
     robots.forEach(robot => {
         const div = document.createElement('div')
+        var icon = ''
+        if(robot._status == 'Sin registrar') icon = 'icon icon-center_object_round-'
+        else if(robot._status == 'Pre registrado') icon = 'icon icon-center_object_round-1'
+        else if(robot._status == 'Registrado') icon = 'icon icon-center_object_round-2'
         div.onclick = async(e) =>{ 
             cancelRobot()
             setRobot(robot._id)
@@ -487,7 +507,7 @@ async function renderRobots(robots){
         div.innerHTML = `
         <h4>${robot._name}</h4>
         <p class="tag-icons">
-            <i class="icon icon-center_object_round-"></i>
+            <i class="${icon}"></i>
         </p>
         `
         container.appendChild(div)
@@ -534,7 +554,7 @@ document.getElementById('save-robot').onclick = async(e) =>{
 		e.preventDefault()
         var categoria = true, capitan = true, yo = 0, price = 0
         var captain, member1, member2, member3, category, name
-        name = document.getElementById('nombre-robot').value.toUpperCase()
+        name = document.getElementById('nombre-robot').value.toLowerCase()
         category = document.getElementById('input-select-2').value
         captain = document.getElementById('input-select-3')
         member1 = document.getElementById('input-select-4')

@@ -1166,7 +1166,7 @@
                             </div>
                             <div class="input-box password">
                                 <label for="password" class="label">contrase&ntilde;a</label>
-                                <input type="password" class="input" id="password" autocomplete="off" placeholder="&times;&times;&times;&times;&times;&times;&times;&times;&times;&times;" required>
+                                <input type="password" class="input" id="password" autocomplete="off" placeholder="&times;&times;&times;&times;&times;&times;&times;&times;&times;&times;" required pattern="[!-~]{6,16}$" oninvalid="this.setCustomValidity('La contraseña debe tener al menos 6 caracteres validos')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="button-box">
                                 <button type="submit" class="login" id="login">entrar</button>

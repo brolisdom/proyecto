@@ -30,7 +30,7 @@
                 <li class="tabs_item"><a href="#tabUser"><span>inicio_</span><i class="icon icon-profile-"></i></a></li>
                 <li class="tabs_item"><a href="#tabTeam"><span>torneo_</span><i class="icon icon-reddit-"></i></a></li>
                 <li class="tabs_item"><a href="#tabNews"><span>noticias_</span><i class="icon icon-question-"></i></a></li>
-                <li class="tabs_item"><a href="dashboard.html"><span>participar_</span><i class="icon icon-question-"></i></a></li>
+                <li class="tabs_item" id="normal"><a href="#"><span>normal_</span><i class="icon icon-question-"></i></a></li>
                 <li class="tabs_item"><a href="#" id="logout"><span>salir_</span><i class="icon icon-arrow_right_in-"></i></a></li>
             </ul>
         </nav>
@@ -225,22 +225,6 @@
                                                 </select>
                                                 <label for="member3" class="label_select">Integrante_ </label>
                                             </p>
-                                            <!-- <p>
-                                                <input type="file" id="imagen-robot" autocomplete="off" hidden="hidden" accept="image/*">
-                                                <button type="button" id="file_button" class="file_button">Subir Archivos</button>
-                                                <span id="file_span" class="file_span">No has elegido archivos.</span>
-                                                <label for="imagen-robot" class="label">
-                                                    <span class="content">Imagen de prototipo_ (opcional)</span>
-                                                </label>
-                                            </p> -->
-                                            <!-- <p>
-                                                <input type="file" id="descuento-robot" autocomplete="off" hidden="hidden">
-                                                <button type="button" id="file_button_2" class="file_button">Subir Archivos</button>
-                                                <span id="file_span_2" class="file_span">No has elegido archivos.</span>
-                                                <label for="archivo-robo" class="label">
-                                                    <span class="content">Archivo para descuento_ (opcional)</span>
-                                                </label>
-                                            </p> -->
                                             <p>
                                                 <input type="hidden" id="id-robot" value="">
                                             </p>
@@ -599,11 +583,11 @@
                                 </form>
                                 <input type="hidden" id="id-user" value="">
                                 <p class="btn-block captain_view_btn">
-                                    <input type="hidden" value="D e s c a l i f i c a r _" id="denied">
+                                    <input type="hidden" value="   H a b i l i t a r _   " id="descend">
                                     <input type="hidden" value="   V e r i f i c a r _   " id="check" >
                                 </p>
                                 <p class="btn-block captain_view_btn">
-                                    <input type="hidden" value="   D e s c e n d e r _   " id="descend">
+                                    <input type="hidden" value="D e s h a b i l i t a r _" id="denied">
                                     <input type="hidden" value="    A s c e n d e r _    " id="ascend">
                                 </p>
                             <!-- SPACE -->
@@ -654,37 +638,6 @@
         });
     </script>
     <script type="text/javascript">
-        // const realFile = document.getElementById("imagen-robot");
-        // const finalBtn = document.getElementById("file_button");
-        // const finalTxt = document.getElementById("file_span");
-
-        // const realFile_1 = document.getElementById("descuento-robot");
-        // const finalBtn_1 = document.getElementById("file_button_2");
-        // const finalTxt_1 = document.getElementById("file_span_2");
-
-        // finalBtn.addEventListener("click", function(){
-        //     realFile.click();
-        // });
-        // finalBtn_1.addEventListener("click", function(){
-        //     realFile_1.click();
-        // });
-
-        // realFile.addEventListener("change", function(){
-        //     if(realFile.value) {
-        //         finalTxt.innerHTML = realFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-        //     }
-        //     else {
-        //         finalTxt.innerHTML = "No has elegido archivos";
-        //     }
-        // });
-        // realFile_1.addEventListener("change", function(){
-        //     if(realFile_1.value) {
-        //         finalTxt_1.innerHTML = realFile_1.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-        //     }
-        //     else {
-        //         finalTxt_1.innerHTML = "No has elegido archivos";
-        //     }
-        // });
     </script>
 </body>
 
