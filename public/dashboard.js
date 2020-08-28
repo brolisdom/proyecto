@@ -38,7 +38,6 @@ async function checkUser(){
     const res = await fetch(url+'/users')
     const JSON = await res.json()
 	if(JSON.status === 401){
-		alert('No esta permitido el acceso')
 		window.location.replace('/index.html')
 	} else if(JSON.status == 201){
 		document.getElementById('admin').hidden = false
@@ -594,20 +593,11 @@ function cancelRobot(){
 }
 
 async function generateVoucher(id, name, category, price){
-	const data = new FormData()
-	data.append('id', id)
-	data.append('name', name)
-	data.append('price', price)
-	data.append('category', category)
-
-	res = await fetch(url+'/robots/voucher', {
-		method: 'POST',
-		body: data
-	})
+	res = await fetch(url+'/robots/voucher/' + id)
 	JSON = await res.json()
-	if(JSON.status == 200 ){
+	if(JSON.status == 200){
 		opc = confirm('Confirme que desea abrir el comprobante de inscripcion')
-		if(opc == true) window.open('/vouchers/' + id + '.pdf')
+		if(opc == true) setTimeout(() => {  window.open('/vouchers/' + id + '.pdf') }, 1000);
 	} else alert('No se pudo crear el comprobante')
 }
 
@@ -622,12 +612,12 @@ async function renderRobots(){
 			const li = document.createElement('li')
 			if(robot._status == 'Sin registrar'){
 				boton1 = `<p class="btn-block"><input type="submit" onclick="updateRobot('${robot._id}')" value="E d i t a r _">`
-				boton2 = `<input type="submit" onclick="deleteRobot('${robot._id}')" value="E l i m i n a r _">`
-				boton3 = `<input type="submit" onclick="registRobot('${robot._id}')" value="R e g i s t r a r _"></p>`
+				boton2 = `<input type="submit" onclick="deleteRobot('${robot._id}')" value="E l i m i n a r _"></p>`
+				boton3 = `<input type="submit" onclick="registRobot('${robot._id}')" value="R e g i s t r a r _"><br><br><br>`
 			} else{
 				boton1 = `<p class="btn-block"><input type="button" onclick="alert('Opcion deshabilitada temporalmente')" value="Proceder al pago_" >`
 				boton2 = `<input type="submit" onclick="alert('Opcion deshabilitada temporalmente')" value="Subir evidencia _"></p>`
-				boton3 = `<input type="submit" onclick="generateVoucher('${robot._id}', '${robot._name}', '${robot._category}', '${robot._price}')" value="Descargar comprobante_"><br><br><br>`
+				boton3 = `<input type="submit" onclick="generateVoucher('${robot._id}')" value="Descargar comprobante_"><br><br><br>`
 			}
 
 			if(robot._member1.value) members += `<input type="text" autocomplete="off" value="${robot._member1.value}" disabled>`

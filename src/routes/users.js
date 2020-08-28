@@ -143,8 +143,9 @@ router.post('/login', async(req, res) => {
     const user = await User.findOne({ _email: email })
     if(user){
         if(user._verified){
-            res.json({ status: 200 })
-        } else res.json({ status: 401 })
+            if(user._status == 'Denied') res.json({ status: 401 })
+            else res.json({ status: 200 })
+        } else res.json({ status: 403 })
     } else res.json({ status: 404 })
 })
 

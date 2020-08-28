@@ -3,7 +3,7 @@ const url = 'http://localhost:3000/api'
 async function checkUser(){ 
     const res = await fetch(url+'/users')
     const JSON = await res.json()
-    if(JSON.status !== 401) window.location.replace('/dashboard.html')
+    if(JSON.status === 201 || JSON.status === 200) window.location.replace('/dashboard.html')
 }
 
 document.addEventListener('DOMContentLoaded', () =>{
@@ -64,9 +64,10 @@ document.getElementById('login').onclick = async(e) =>{
                 alert('La contraseña ingresado es incorrecta')
             } else{
                 alert('No se pudo conectar con el servidor')
-            } 
-
+            }
         } else if(PRE.status == 401){
+            alert('Tu usuario ha sido inhabilitado temporalmente') 
+        } else if(PRE.status == 403){
             alert('Tu usuario aun no ha sido verificado')
         } else if(PRE.status == 404){
             alert('El correo ingresado no esta registrado')

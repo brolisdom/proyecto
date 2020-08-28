@@ -6,47 +6,63 @@ const pdf = require('html-pdf');
 const path = require('path')
 const router = Router()
 
+const User = require('../models/User')
 const Robot = require('../models/Robot')
 const Member = require('../models/Member')
 
-router.post('/voucher', isAuth, async(req, res) => {
-    const { id, name, category, price } = req.body
-    const content = `<!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body style="font-family: Open Sans, Arial;">
-        <div class="container" style="background: #F6F6F6; width: 700px; display: block;">
-            <div class="header" style="background: #5D2ABC; display: block; width: 700px;">
-                <h3 style="display: block; width: 90%;  padding-bottom: 20px; padding-top: 20px; color: white; font-weight: 400; text-transform: uppercase; font-size: 16px;"> Rama Estidiantil IEEE UPIITA-IPN | Instituto Polit&eacute;cnico Nacional</h3>
-                <h3 style="display: block; width: 65%;  color: white; font-weight: 400; text-transform: uppercase; font-size: 40px;"> GUERRA DE ROBOTS</h3>
-                <h3 style="display: block; width: 70%;  padding-bottom: 20px; color: white; font-weight: 400; text-transform: uppercase; font-size: 16px;"> El torneo de r&oacute;botica internacional m&aacute;s importante de m&eacute;xico</h3>
+router.get('/voucher/:id', isAuth, async(req, res) => {
+    const robot = await Robot.findById(req.params.id)
+    if(robot){
+        const user = await User.findById(robot._leader)
+        if(robot._captain.value == 'Líder') robot._captain.value = user._name
+        if(robot._member1.value == 'Líder') robot._member1.value = user._name
+        if(robot._member2.value == 'Líder') robot._member2.value = user._name
+        if(robot._member3.value == 'Líder') robot._member3.value = user._name
+        const content = `<!doctype html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+        <body style="font-family: Open Sans, Arial;">
+            <div class="container" style="background: #F6F6F6; width: 700px; display: block;">
+                <div class="header" style="background: #5D2ABC; display: block; width: 700px;">
+                    <h3 style="display: block; width: 90%; padding-top: 20px; color: white; font-weight: 400; text-transform: uppercase; font-size: 16px;"> &nbsp;&nbsp;&nbsp; Comprobante de inscripci&oacute;n</h3>
+                    <h3 style="display: block; width: 65%; padding-bottom: 20px; color: white; font-weight: 400; text-transform: uppercase; font-size: 32px;"> &nbsp; GUERRA DE ROBOTS </h3>
+                </div>
+                <div class="content" style="width: 700px; display: block;">
+                    <h4 class="welcome" style="font-weight: 500; font-size: 11px; color: #2E155E; "> ¡Ahora este robot está registrado en el evento de robótica internacional más importante de México!
+                    </h4>
+                    <h3 style="font-weight: 600; color: #9E7FD7; font-size: 20px; "> Nombre de equipo: ${user._team}</h3>
+                    <h3 style="font-weight: 600; color: #9E7FD7; font-size: 20px; "> Nombre de robot: ${robot._name} </h3>
+                    <h3 style="font-weight: 600; color: #9E7FD7; font-size: 20px; "> Categoria: ${robot._category} </h3>
+                    <h3 style="font-weight: 600; color: #9E7FD7; font-size: 20px; "> Coste de inscripci&oacute;n: $ ${robot._price} MXN </h3>
+                    <h3 style="font-weight: 600; color: #9E7FD7; font-size: 20px; "> Capitan: ${robot._captain.value} </h3>
+                    <h3 style="font-weight: 600; color: #9E7FD7; font-size: 20px; "> Integrantes </h3>
+                    <h4 class="welcome" style="font-weight: 500; font-size: 12px; color: #2E155E; "> ${robot._member1.value} </h4>
+                    <h4 class="welcome" style="font-weight: 500; font-size: 12px; color: #2E155E; "> ${robot._member2.value} </h4>
+                    <h4 class="welcome" style="font-weight: 500; font-size: 12px; color: #2E155E; "> ${robot._member3.value} </h4>
+                    <hr>
+                    <h4 style="font-weight: 400; font-size: 11px; color: #000000;"> Imprime este comprobante o descárgalo en tu teléfono y llévalo el día del evento en horario de
+                    registro. </h4>
+                    <h4 style="font-weight: 400; font-size: 11px; color: #000000;"> Este comprobante sirve también para tu acceso al evento. </h4>
+                </div>
+                <div class="footer" style="background: #2E155E; color: #DFD4F2; ">
+                    <h5 style="padding-top: 20px;">  &nbsp;&nbsp;&nbsp; Guerra de Robots | &copy; 2020 Rama Estudiantil IEEE UPIITA-IPN</h5>
+                    <h5> &nbsp;&nbsp;&nbsp; Escr&iacutebenos: contacto@guerraderobots.mx</h5>
+                    <h5> &nbsp;&nbsp;&nbsp; Ll&aacute;manos: 57296000 Ext. 56913</h5>
+                    <h5 style="padding-bottom: 20px;"><a href="#" style="text-decoration: none; color: #DFD4F2;">  &nbsp;&nbsp;&nbsp; www.guerraderobots.mx</a></h5>
+                </div>
             </div>
-            <div class="content" style="width: 700px; display: block;">
-                <h3 style="font-weight: 600; color: #9E7FD7; font-size: 40px; ">correo</h3>
-                <h3 style="font-weight: 600; color: #9E7FD7; font-size: 40px; ">Password: </h3>
-                <h4 class="welcome" style="font-weight: 500; font-size: 26px; color: #2E155E; "> Gracias por registrarte y se bienvenid&#64; a este gran evento</h4>
-                <h4 style="font-weight: 400; font-size: 20px; color: #000000;"> Para continuar con esta aventura porfavor verifica tu correo electronico haciendo click en el siguiente botón</h4>
-                <a href="" class="button" style="display: block; width: 200px; height: 50px; background: #5D2ABC; line-height: 45px; text-decoration: none; color: #DFD4F2; font-size: 16px; border-bottom-left-radius: 20px;"> Verifica mi cuenta</a>
-                <h4 style="font-weight: 400; font-size: 20px; color: #000000;">O copia y pega el siguiente link en el navegador para confirmar tu cuenta</h4>
-                <a class="link" style="width: 70%; display: block; color: #5D2ABC;font-size: 25px;"></a><br>
-                <h4 style="font-weight: 400; font-size: 20px; color: #000000;">Tu contraseña ha sido encriptada y guardada en nuestra base de datos, conserva este correo en caso de que la llegues a olvidar</h4>
-            </div>
-            <div class="footer" style="background: #2E155E; color: #DFD4F2; ">
-                <h5 class="info" style="font-weight: 100; font-size: 16px;">Si no reconoces esta solicitud o tu no la has hecho, ignora este correo y porfavor ponte en contacto con nosotros: <b>correo@guerraderobots.mx</b></h5>
-                <h5>Guerra de Robots | &copy; 2020 Rama Estudiantil IEEE UPIITA-IPN</h5><h5><a href="#" style="text-decoration: none; color: #DFD4F2;">www.guerraderobots.mx</a></h5>
-            </div>
-        </div>
-    </body>
-    </html>
-    `
-    var flag = false
-    pdf.create(content).toFile('./public/vouchers/' + id +'.pdf', (err, res) =>{ if (err) flag = true })
-    if(flag == true) res.json({ status: 400 })
-    else res.json({ status: 200 })
+        </body>
+        </html>
+        `
+        var flag = false
+        pdf.create(content).toFile('./public/vouchers/' + robot._id +'.pdf', (err, res) =>{ if (err) flag = true })
+        if(flag == true) res.json({ status: 400 })
+        else res.json({ status: 200 })
+    } else res.json({ status: 404 })
 })
 
 router.get('/data', isAuth, async(req, res) => {
