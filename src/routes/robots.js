@@ -268,7 +268,9 @@ router.get('/voucher/:id', isAuth, async(req, res) => {
         </html>
         `
         var flag = false
-        pdf.create(content).toFile('./public/vouchers/' + robot._id +'.pdf', (err, res) =>{ if (err) flag = true })
+        pdf.create(content).toFile('./public/vouchers/' + robot._id +'.pdf', (err, res) =>{ 
+          if (err) flag = true
+        })
         if(flag == true) res.json({ status: 400 })
         else res.json({ status: 200 })
     } else res.json({ status: 404 })

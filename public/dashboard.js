@@ -597,7 +597,7 @@ async function generateVoucher(id, name, category, price){
 	JSON = await res.json()
 	if(JSON.status == 200){
 		opc = confirm('Confirme que desea abrir el comprobante de inscripcion')
-		if(opc == true) setTimeout(() => {  window.open('/vouchers/' + id + '.pdf') }, 1000);
+		if(opc == true) setTimeout(() => {  window.open('/vouchers/' + id + '.pdf') }, 2222);
 	} else alert('No se pudo crear el comprobante')
 }
 
