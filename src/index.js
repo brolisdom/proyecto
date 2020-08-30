@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 // solo en produccion
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -22,7 +22,7 @@ mongoose.connect(process.env.URI, {
 .catch(e => console.error(e))
 
 // settings
-app.set('port', process.env.PORT)
+app.set('port', 3000)
 app.use(session({
     secret: 'keyword',
     resave: true,
