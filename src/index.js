@@ -13,7 +13,7 @@ const app = express()
 require('./passport')
 
 // database
-mongoose.connect(process.env.URI, {
+mongoose.connect('mongodb+srv://administador:wSwkRRDZqEncSA7g@cluster0.p9kpf.mongodb.net/database?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
