@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api'
+const url = 'https://proyecto-ivory.vercel.app/api'
 var edit_robot = false, edit_member = false
 
 document.addEventListener('DOMContentLoaded', () =>{ checkAdmin() })

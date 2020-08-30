@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api'
+const url = 'https://proyecto-ivory.vercel.app/api'
 
 async function checkUser(){ 
     const res = await fetch(url+'/users')
