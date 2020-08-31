@@ -1,4 +1,4 @@
-const url = 'https://proyecto-sooty.vercel.app/api'
+const url = 'https://guerraderobots.herokuapp.com/api'
 var edit_robot = false, edit_member = false
 
 document.addEventListener('DOMContentLoaded', () =>{ checkAdmin() })

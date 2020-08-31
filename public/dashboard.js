@@ -1,4 +1,4 @@
-const url = 'https://proyecto-sooty.vercel.app/api'
+const url = 'https://guerraderobots.herokuapp.com/api'
 
 function setAttributes(){
 	document.getElementById('input-select').setAttribute('id', 'input-select-1')

@@ -1,4 +1,4 @@
-const url = 'https://proyecto-sooty.vercel.app/api'
+const url = 'https://guerraderobots.herokuapp.com/api'
 
 async function checkUser(){ 
     const res = await fetch(url+'/users')
