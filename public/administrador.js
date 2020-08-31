@@ -1,4 +1,4 @@
-const url = ''
+const url = '/api'
 var edit_robot = false, edit_member = false
 
 document.addEventListener('DOMContentLoaded', () =>{ checkAdmin() })

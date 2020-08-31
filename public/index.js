@@ -1,4 +1,4 @@
-const url = ''
+const url = '/api'
 
 async function checkUser(){ 
     const res = await fetch(url+'/users')

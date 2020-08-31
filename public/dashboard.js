@@ -1,4 +1,4 @@
-const url = ''
+const url = '/api'
 
 function setAttributes(){
 	document.getElementById('input-select').setAttribute('id', 'input-select-1')
