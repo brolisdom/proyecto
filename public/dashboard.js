@@ -1,4 +1,4 @@
-const url = 'https://proyecto-ivory.vercel.app/api'
+const url = ''
 
 function setAttributes(){
 	document.getElementById('input-select').setAttribute('id', 'input-select-1')
