@@ -1,4 +1,4 @@
-const url = '/api'
+const url = 'https://proyecto-sooty.vercel.app/api'
 var edit_robot = false, edit_member = false
 
 document.addEventListener('DOMContentLoaded', () =>{ checkAdmin() })

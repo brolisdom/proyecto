@@ -1,4 +1,4 @@
-const url = '/api'
+const url = 'https://proyecto-sooty.vercel.app/api'
 
 function setAttributes(){
 	document.getElementById('input-select').setAttribute('id', 'input-select-1')
